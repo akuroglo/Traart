@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Транскрибация: FAQ — ответы на вопросы о расшифровке аудио, диаризации и Traart</title>
+    <meta name="description" content="Частые вопросы о Traart: системные требования, расшифровка аудио в текст, диаризация спикеров, форматы файлов, оффлайн транскрибация, приватность данных.">
+    <meta name="keywords" content="Traart FAQ, транскрибация вопросы, GigaAM требования, Traart системные требования, бесплатный транскрибатор помощь">
+    <meta property="og:title" content="FAQ — Частые вопросы о транскрибации и Traart">
+    <meta property="og:description" content="Ответы на вопросы о расшифровке аудио в текст, диаризации спикеров, приватности данных.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://traart.ru/faq">
+    <meta property="og:image" content="https://traart.ru/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Traart">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Транскрибация: FAQ — ответы на вопросы о расшифровке аудио и Traart">
+    <meta name="twitter:description" content="Системные требования, расшифровка аудио, диаризация, форматы и приватность в Traart.">
+    <meta name="twitter:image" content="https://traart.ru/og-image.png">
+    <link rel="canonical" href="https://traart.ru/faq">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "name": "FAQ — Traart",
+        "description": "Частые вопросы о бесплатном транскрибаторе Traart для macOS.",
+        "url": "https://traart.ru/faq",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Traart действительно бесплатный?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, полностью. Нет подписок, пробных периодов, скрытых платежей или ограничений на объём."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Мои данные отправляются куда-то?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Нет. Traart работает полностью локально. Ни аудиофайлы, ни результаты транскрибации не отправляются куда-либо."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие системные требования?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "macOS 13 (Ventura) или новее, Apple Silicon (M1, M2, M3, M4), минимум 8 ГБ оперативной памяти, ~2 ГБ свободного места для моделей."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие форматы файлов поддерживаются?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Аудио: MP3, OGG, WAV, M4A, FLAC. Видео: MP4, MKV, WebM, MOV. Вывод: Markdown, Plain Text, JSON."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Что такое диаризация?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Диаризация — автоматическое определение, кто говорит в каждый момент времени. Traart использует pyannote.audio для разделения аудио на сегменты по спикерам."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Нужен ли интернет для работы?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Только для первоначальной загрузки моделей (~2 ГБ). После этого Traart работает полностью офлайн."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Насколько быстро происходит транскрибация?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "На Apple Silicon скорость от 8x до 18x от реального времени. Часовое аудио обрабатывается за 5-12 минут."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Работает ли на Intel Mac?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Работа возможна, но значительно медленнее, так как все вычисления будут выполняться на CPU без MPS-ускорения."
+                }
+            }
+        ]
+    }
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-header" id="nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                    </div>
+                    <span class="text-xl font-bold" style="color: var(--text)">Traart</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Главная</a>
+                    <a href="how-it-works.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Как работает</a>
+                    <div class="nav-dropdown"><a href="comparison.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Сравнение <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a><div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a></div></div></div>
+                    <a href="pricing.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Цены</a>
+                    <a href="faq.html" class="text-sm font-medium" style="color: var(--primary)">FAQ</a>
+                    <a href="download.html" class="btn-primary text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Скачать
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-[10px] transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: var(--text-muted)">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--card-border); background: var(--bg)">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-sm font-medium" style="color: var(--text-muted)">Главная</a>
+                <a href="how-it-works.html" class="block text-sm font-medium" style="color: var(--text-muted)">Как работает</a>
+                <a href="comparison.html" class="block text-sm font-medium" style="color: var(--text-muted)">Сравнение</a><a href="vs-macwhisper.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs MacWhisper</a><a href="vs-turboscribe.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs TurboScribe</a><a href="vs-otter.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs Otter.ai</a>
+                <a href="pricing.html" class="block text-sm font-medium" style="color: var(--text-muted)">Цены</a>
+                <a href="faq.html" class="block text-sm font-medium" style="color: var(--primary)">FAQ</a>
+                <a href="download.html" class="block text-sm font-medium" style="color: var(--primary)">Скачать</a>
+                <button id="theme-toggle-mobile" class="text-sm font-medium" style="color: var(--text-muted)">Сменить тему</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-20">
+        <div class="hero-gradient"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="grid-bg"></div>
+        <div class="noise-overlay"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl">
+                <nav class="flex items-center gap-2 text-sm mb-6 fade-in-up" style="color: var(--text-muted)">
+                    <a href="index.html" class="transition-colors hover:opacity-80" style="color: var(--text-muted); text-decoration: none">Главная</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <span>FAQ</span>
+                </nav>
+                <h1 class="text-reveal text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+                    <span class="word">Транскрибация:</span>
+                    <span class="word">частые</span>
+                    <span class="word gradient-text">вопросы</span>
+                </h1>
+                <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">Ответы на вопросы о транскрибации, расшифровке аудио в текст, диаризации спикеров и бесплатном транскрибаторе Traart.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- FAQ Sections -->
+    <section class="py-16 md:py-24" style="background: var(--bg)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- General -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--primary-light)">
+                        <svg style="color: var(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Общие вопросы</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item" open>
+                        <summary>Что такое Traart?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Traart — это бесплатное приложение для macOS, которое транскрибирует аудио- и видеофайлы на русском языке. Оно использует SOTA-модель GigaAM v3 от Сбера для распознавания речи и pyannote для диаризации спикеров. Вся обработка происходит локально на вашем Mac.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Traart действительно бесплатный?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Да, полностью. Нет подписок, пробных периодов, скрытых платежей или ограничений на объём. Traart использует open-source модели и не требует серверной инфраструктуры, поэтому нам нечего монетизировать.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Нужна ли регистрация или аккаунт?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Нет. Traart работает без регистрации, аккаунтов и API-ключей. Скачали, установили, используете.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Traart работает с open-source?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Traart построен на open-source моделях: GigaAM v3 (Сбер) для ASR и pyannote.audio для диаризации. Само приложение распространяется бесплатно.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- Privacy & Security -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--accent-green-bg)">
+                        <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Приватность и безопасность</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Мои данные отправляются куда-то?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Нет. Traart работает полностью локально. Ни аудиофайлы, ни результаты транскрибации, ни какие-либо метаданные не отправляются куда-либо. Приложение не делает сетевых запросов после загрузки моделей.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Нужен ли интернет для работы?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Только для первоначальной загрузки моделей (примерно 2 ГБ). После этого Traart работает полностью офлайн, без интернета.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Можно ли использовать для конфиденциальных записей?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Да. Именно для этого Traart и создан. Поскольку вся обработка локальная, ваши конфиденциальные записи (интервью, совещания, переговоры) никогда не покидают ваш компьютер. Это архитектурная гарантия приватности.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- System & Installation -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--accent-purple-bg)">
+                        <svg style="color: var(--accent-purple)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Системные требования и установка</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Какие системные требования?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>macOS 13 (Ventura) или новее</li>
+                                <li>Apple Silicon (M1, M2, M3, M4)</li>
+                                <li>Минимум 8 ГБ оперативной памяти (рекомендуется 16 ГБ)</li>
+                                <li>~2 ГБ свободного места для моделей</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Работает ли на Intel Mac?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            На данный момент Traart оптимизирован для Apple Silicon (M1+) с использованием MPS-ускорения. На Intel Mac работа возможна, но значительно медленнее, так как все вычисления будут выполняться на CPU.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Как установить Traart?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Скачайте .dmg файл со страницы загрузки</li>
+                                <li>Откройте .dmg и перетащите Traart в папку Applications</li>
+                                <li>Запустите приложение из Launchpad или Finder</li>
+                                <li>При первом запуске модели загрузятся автоматически (~2 ГБ)</li>
+                            </ol>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Есть ли версия для Windows или Linux?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            На данный момент Traart доступен только для macOS. Поддержка других платформ может быть добавлена в будущем.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- Features -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--accent-amber-bg)">
+                        <svg style="color: var(--accent-amber)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Возможности</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Какие форматы файлов поддерживаются?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <p class="mb-2"><strong>Аудио:</strong> MP3, OGG, WAV, M4A, FLAC</p>
+                            <p class="mb-2"><strong>Видео:</strong> MP4, MKV, WebM, MOV</p>
+                            <p><strong>Вывод:</strong> Markdown (.md), Plain Text (.txt), JSON (.json)</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Что такое диаризация?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Диаризация (Speaker Diarization) — это автоматическое определение, кто говорит в каждый момент времени. Traart использует модель pyannote.audio для разделения аудио на сегменты по спикерам. В результате каждая реплика в транскрипции подписана: «Спикер 1», «Спикер 2» и т.д.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Сколько спикеров может определить Traart?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Traart может определить до 10 и более спикеров в одной записи. Количество спикеров определяется автоматически — вам не нужно указывать его заранее. Точность диаризации выше при чёткой смене спикеров и хорошем качестве записи.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Как работает автоматический мониторинг папки?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            В настройках Traart вы указываете папку для мониторинга. Приложение следит за появлением новых аудио- и видеофайлов в этой папке. Как только обнаружен новый файл поддерживаемого формата, транскрибация запускается автоматически. Результат сохраняется рядом с исходным файлом.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Поддерживаются ли другие языки?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            На данный момент Traart оптимизирован для русской речи с использованием модели GigaAM v3. Модель обучена преимущественно на русском языке. Поддержка других языков может быть добавлена в будущих обновлениях.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Есть ли ограничение на длину файла?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Нет жёсткого ограничения. Traart обрабатывает файлы любой длительности, разбивая их на сегменты. Файлы длительностью в несколько часов обрабатываются без проблем. Единственное ограничение — объём доступной оперативной памяти.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- Performance -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--accent-teal-bg)">
+                        <svg style="color: var(--accent-teal)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Производительность</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Насколько быстро происходит транскрибация?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            На Apple Silicon скорость составляет от 8x до 18x от реального времени в зависимости от чипа. Это значит, что часовое аудио обрабатывается за 5-12 минут. С включённой диаризацией время увеличивается примерно на 30%.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Сколько памяти потребляет Traart?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            В режиме ожидания Traart потребляет минимум ресурсов (менее 100 МБ). При транскрибации потребление памяти может достигать 3-5 ГБ в зависимости от длины обрабатываемого файла и включённой диаризации.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Можно ли использовать компьютер во время транскрибации?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Да. Traart работает в фоновом режиме и не мешает другим приложениям. При высокой нагрузке на GPU может наблюдаться незначительное замедление графических приложений, но обычная работа (браузер, редактор, мессенджеры) не затрагивается.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- Quality -->
+            <div class="mb-14 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--accent-rose-bg)">
+                        <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Качество распознавания</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Что значит SOTA?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            SOTA (State of the Art) означает «лучший на данный момент». GigaAM v3 показывает лучшие результаты среди всех доступных моделей для распознавания русской речи по метрике WER (Word Error Rate). Это подтверждено бенчмарками на стандартных тестовых наборах данных.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Как качество зависит от условий записи?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            Качество распознавания наилучшее для чистых записей (WER 3-5%). Для записей с фоновым шумом, эхом или низким качеством микрофона WER может увеличиваться. Для достижения лучших результатов рекомендуется использовать хороший микрофон и минимизировать фоновый шум.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Распознаёт ли Traart профессиональную терминологию?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            GigaAM v3 обучена на огромном корпусе русскоязычных данных, включая профессиональную речь. Модель хорошо справляется с терминологией из медицины, юриспруденции, IT и других областей. Однако для очень узкоспециализированных терминов могут потребоваться незначительные ручные правки.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <hr class="section-divider mb-14">
+
+            <!-- Troubleshooting -->
+            <div class="mb-8 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="icon-wrap" style="background: var(--bg-secondary)">
+                        <svg style="color: var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--text)">Решение проблем</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="faq-item">
+                        <summary>Traart не запускается. Что делать?<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Убедитесь, что у вас macOS 13+ и Apple Silicon</li>
+                                <li>При первом запуске macOS может заблокировать приложение — откройте System Settings > Privacy & Security и разрешите запуск</li>
+                                <li>Проверьте, что достаточно свободного места для загрузки моделей (~2 ГБ)</li>
+                                <li>Попробуйте перезагрузить Mac и запустить снова</li>
+                            </ol>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Транскрибация зависла или идёт очень медленно<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Закройте ресурсоёмкие приложения (видеоредакторы, игры)</li>
+                                <li>Убедитесь, что Mac не находится в режиме энергосбережения</li>
+                                <li>Для очень длинных файлов (3+ часа) обработка может занять 20-30 минут — это нормально</li>
+                                <li>Если проблема сохраняется, попробуйте перезапустить Traart</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Качество распознавания низкое<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                        <div class="faq-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Убедитесь, что в записи именно русская речь</li>
+                                <li>Проверьте качество исходной записи — шум, эхо и наложение голосов снижают точность</li>
+                                <li>Убедитесь, что модели загрузились полностью (проверьте статус в menu bar)</li>
+                                <li>Попробуйте другой формат файла (WAV обычно даёт лучшие результаты)</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CTA -->
+    <section class="py-16 md:py-24 relative overflow-hidden" style="background: var(--bg-secondary)">
+        <div class="hero-gradient"></div>
+        <div class="noise-overlay"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+            <div class="fade-in-up">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 tracking-tight">Не нашли ответ?</h2>
+                <p class="text-lg mb-8" style="color: var(--text-secondary)">Скачайте Traart и попробуйте сами — это бесплатно и займёт несколько минут</p>
+                <a href="download.html" class="btn-glow btn-primary-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Скачать Traart
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+    <hr class="section-divider">
+
+    <!-- See Also -->
+    <section class="py-16 md:py-20" style="background: var(--bg)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-8 tracking-tight fade-in-up">Смотрите также</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+                <a href="how-it-works.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">Как работает транскрибация</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">GigaAM v3 и диаризация под капотом</p>
+                </a>
+                <a href="diarization.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">Диаризация спикеров</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">Разделение голосов в записи</p>
+                </a>
+                <a href="voice-messages.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">Расшифровка голосовых</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">Голосовое в текст за секунды</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                        </div>
+                        <span class="text-lg font-bold">Traart</span>
+                    </div>
+                    <p class="text-sm" style="color: var(--text-muted)">SOTA транскрибатор для русской речи. Бесплатно и приватно.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Продукт</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="download.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Скачать</a></li>
+                        <li><a href="how-it-works.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Как работает</a></li>
+                        <li><a href="pricing.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Цены</a></li>
+                        <li><a href="diarization.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Диаризация</a></li>
+                        <li><a href="zoom-transcription.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Транскрибация Zoom</a></li>
+                        <li><a href="voice-messages.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Голосовые</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Кейсы</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="use-case-product-managers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для продакт-менеджеров</a></li>
+                        <li><a href="use-case-marketers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для маркетологов</a></li>
+                        <li><a href="use-case-developers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для разработчиков</a></li>
+                        <li><a href="use-case-hr.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для HR</a></li>
+                        <li><a href="use-case-coaches.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для коучей</a></li>
+                        <li><a href="use-case-researchers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для исследователей</a></li>
+                        <li><a href="use-case-realtors.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для риелторов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Сравнения</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="vs-otter.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
+                        <li><a href="vs-macwhisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
+                        <li><a href="vs-turboscribe.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
+                        <li><a href="gigaam-vs-whisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
+                        <li><a href="cloud-vs-offline.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
+                        <li><a href="best-transcription-russian.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Ресурсы</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="blog.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Блог</a></li>
+                        <li><a href="faq.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
+                        <li><a href="privacy.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Приватность</a></li>
+                        <li><a href="comparison.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Сравнение</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 text-center" style="border-top: 1px solid var(--card-border)">
+                <p class="text-sm" style="color: var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared JS: Theme, Mobile Menu, Scroll Animations, Nav scroll effect -->
+    <script>
+        // Theme
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+        initTheme();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+        document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

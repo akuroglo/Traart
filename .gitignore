@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+*.swp
+*.swo
+
+# Swift build artifacts
+TraartApp/.build/
+TraartApp/.swiftpm/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.xcuserdata/
+
+# Environment
+.env
+.env.local
+
+# Build outputs
+build/
+
+# Promo (Remotion)
+promo/node_modules/
+promo/out/
+
+# Claude Code
+.claude/
+.mcp.json

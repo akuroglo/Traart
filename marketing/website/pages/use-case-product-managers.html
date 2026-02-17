@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расшифровка совещаний для продакт-менеджеров — автоматический протокол встреч бесплатно</title>
+    <meta name="description" content="Расшифровка совещаний и протоколирование встреч автоматически. Traart транскрибирует стендапы, ретро и планирования с диаризацией спикеров. Бесплатно и оффлайн.">
+    <meta name="keywords" content="транскрибация созвонов, протокол встречи автоматически, расшифровка ретроспективы, запись дейли в текст, Traart продакт-менеджер, транскрибация бесплатно">
+    <meta property="og:title" content="Расшифровка совещаний для продактов | Traart">
+    <meta property="og:description" content="Расшифровка совещаний и протоколирование встреч автоматически. Traart транскрибирует стендапы, ретро и планирования с диаризацией спикеров. Бесплатно и оффлайн.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://traart.ru/use-case-product-managers">
+    <meta property="og:image" content="https://traart.ru/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Traart">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Расшифровка совещаний для продактов | Traart">
+    <meta name="twitter:description" content="Расшифровка совещаний и протоколирование встреч автоматически. Traart транскрибирует стендапы, ретро и планирования с диаризацией спикеров. Бесплатно и оффлайн.">
+    <meta name="twitter:image" content="https://traart.ru/og-image.png">
+    <link rel="canonical" href="https://traart.ru/use-case-product-managers">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Traart",
+        "description": "Бесплатный оффлайн-транскрибатор для продакт-менеджеров. Автоматическая расшифровка встреч с диаризацией спикеров.",
+        "url": "https://traart.ru/use-case-product-managers",
+        "operatingSystem": "macOS",
+        "applicationCategory": "BusinessApplication",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@id": "https://traart.ru/#org" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://traart.ru/" },
+            { "@type": "ListItem", "position": 2, "name": "Для продакт-менеджеров", "item": "https://traart.ru/use-case-product-managers" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "Можно автоматически расшифровывать все записи из Zoom/Meet?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Настройте Traart на мониторинг папки, куда Zoom или Meet сохраняют записи. Каждый стендап, ретро и планирование будут расшифрованы автоматически." } },
+            { "@type": "Question", "name": "Безопасно ли расшифровывать обсуждения roadmap и OKR?", "acceptedAnswer": { "@type": "Answer", "text": "Полностью. Traart работает 100% оффлайн -- стратегические обсуждения, OKR и roadmap никогда не покидают ваш Mac." } },
+            { "@type": "Question", "name": "Как работает диаризация на стендапах?", "acceptedAnswer": { "@type": "Answer", "text": "Traart автоматически определяет спикеров по голосу. На стендапе с 5-7 участниками каждая реплика будет подписана с таймкодом." } },
+            { "@type": "Question", "name": "В какие форматы можно экспортировать?", "acceptedAnswer": { "@type": "Answer", "text": "Markdown, TXT и JSON с таймкодами и именами спикеров. Markdown удобно вставлять в Confluence и Notion, JSON -- для автоматизации через скрипты." } }
+        ]
+    }
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-header" id="nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                    </div>
+                    <span class="text-xl font-bold" style="color: var(--text)">Traart</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Главная</a>
+                    <a href="how-it-works.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Как работает</a>
+                    <div class="nav-dropdown"><a href="comparison.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Сравнение <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a><div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div></div>
+                    <a href="pricing.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Цены</a>
+                    <a href="faq.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">FAQ</a>
+                    <a href="download.html" class="btn-primary text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Скачать
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-[10px] transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: var(--text-muted)">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--card-border); background: var(--bg)">
+            <div class="px-4 py-4 space-y-3">
+                <a href="index.html" class="block text-sm font-medium" style="color: var(--text-muted)">Главная</a>
+                <a href="how-it-works.html" class="block text-sm font-medium" style="color: var(--text-muted)">Как работает</a>
+                <a href="comparison.html" class="block text-sm font-medium" style="color: var(--text-muted)">Сравнение</a><a href="vs-macwhisper.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs MacWhisper</a><a href="vs-turboscribe.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs TurboScribe</a><a href="vs-otter.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs Otter.ai</a>
+                <a href="pricing.html" class="block text-sm font-medium" style="color: var(--text-muted)">Цены</a>
+                <a href="faq.html" class="block text-sm font-medium" style="color: var(--text-muted)">FAQ</a>
+                <a href="download.html" class="block text-sm font-medium" style="color: var(--primary)">Скачать</a>
+                <button id="theme-toggle-mobile" class="text-sm font-medium" style="color: var(--text-muted)">Сменить тему</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
+        <div class="hero-gradient"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="grid-bg"></div>
+        <div class="noise-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl">
+                <nav class="flex items-center gap-2 text-sm mb-6 fade-in-up" style="color: var(--text-muted)">
+                    <a href="index.html" class="transition-colors hover:underline" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Главная</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <span style="color: var(--text-secondary)">Для продакт-менеджеров</span>
+                </nav>
+                <div class="badge fade-in-up mb-6" style="background: var(--accent-green-bg); color: var(--accent-green);">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    Product Management
+                </div>
+                <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
+                    <span class="word">Расшифровка</span> <span class="word">совещаний</span>
+                    <span class="word">для</span>
+                    <span class="word gradient-text">продакт-менеджеров</span>
+                </h1>
+                <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
+                    Автоматический протокол встреч и расшифровка совещаний бесплатно. Транскрибация стендапов, ретро и CustDev-интервью. Оффлайн, без подписки.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Pain Points -->
+    <section class="py-20 md:py-28" style="background: var(--bg)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Знакомые проблемы?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+                <div class="glass-card p-7 fade-in-up" style="border-color: var(--accent-rose)">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-rose-bg)">
+                        <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--accent-rose)">Action items теряются</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Невозможно одновременно вести встречу и записывать решения. Блокеры со стендапа и инсайты с ретро забываются к вечеру.</p>
+                </div>
+                <div class="glass-card p-7 fade-in-up" style="border-color: var(--accent-rose)">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-rose-bg)">
+                        <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--accent-rose)">Стратегия в облаке</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Otter.ai и Fireflies отправляют обсуждения roadmap, OKR и стратегии на чужие серверы. Конфиденциальность продуктовых решений под угрозой.</p>
+                </div>
+                <div class="glass-card p-7 fade-in-up" style="border-color: var(--accent-rose)">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-rose-bg)">
+                        <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--accent-rose)">$600-1800/год на подписки</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Подписки на meeting-ассистенты стоят $10-30/мес на человека. Для команды из 5 PM это серьезная статья расходов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Solutions -->
+    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Как Traart решает эти задачи</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
+                        <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Бесплатно навсегда</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Нет подписки, нет лимитов минут. Вся команда пользуется без согласования бюджета. $0 вместо $600-1800/год.</p>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
+                        <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Оффлайн-обработка</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Обсуждения roadmap, OKR и стратегии никогда не покидают Mac. Конфиденциальность на уровне архитектуры.</p>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-purple-bg)">
+                        <svg style="color: var(--accent-purple)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Диаризация спикеров</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Понятно, кто что сказал на стендапе или планировании. Каждая реплика подписана именем спикера с таймкодом.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Use Case Scenarios -->
+    <section class="py-20 md:py-28" style="background: var(--bg)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Сценарии использования</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3">Daily standup</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-secondary)">Записать 15-минутный стендап, получить текст с именами спикеров, быстро выделить блокеры и задачи на день.</p>
+                    <span class="tag">~2 мин на 15 мин аудио</span>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3">Ретроспектива</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-secondary)">Расшифровать обсуждение "что пошло хорошо / плохо", создать готовый документ для Confluence с атрибуцией по участникам.</p>
+                    <span class="tag">Диаризация команды</span>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3">Интервью с пользователем</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-secondary)">Записать CustDev-интервью, получить verbatim-транскрипт для анализа инсайтов. Данные респондентов не покидают Mac.</p>
+                    <span class="tag">Конфиденциальность NDA</span>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3">Стратегическая сессия</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-secondary)">Конфиденциальное обсуждение pivot, стратегии или M&A. Полная расшифровка без отправки в облако.</p>
+                    <span class="tag">0 сетевых запросов</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Comparison -->
+    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Traart vs облачные ассистенты</h2>
+            <div class="overflow-x-auto fade-in-up">
+                <div class="glass-card overflow-hidden" style="min-width: 600px">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th class="text-left"></th>
+                                <th class="text-center highlight">Traart</th>
+                                <th class="text-center">Otter.ai</th>
+                                <th class="text-center">Fireflies</th>
+                                <th class="text-center">Fellow</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-medium" style="color: var(--text)">Цена</td>
+                                <td class="text-center highlight"><span class="font-bold" style="color: var(--accent-green)">$0</span></td>
+                                <td class="text-center" style="color: var(--text-secondary)">$8-17/мес</td>
+                                <td class="text-center" style="color: var(--text-secondary)">$10-19/мес</td>
+                                <td class="text-center" style="color: var(--text-secondary)">$7-10/мес</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium" style="color: var(--text)">Приватность</td>
+                                <td class="text-center highlight"><span class="font-semibold" style="color: var(--accent-green)">100% локально</span></td>
+                                <td class="text-center" style="color: var(--accent-rose)">Облако</td>
+                                <td class="text-center" style="color: var(--accent-rose)">Облако</td>
+                                <td class="text-center" style="color: var(--accent-rose)">Облако</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium" style="color: var(--text)">Русский язык</td>
+                                <td class="text-center highlight"><span class="font-semibold" style="color: var(--accent-green)">WER 8.3%</span></td>
+                                <td class="text-center" style="color: var(--accent-rose)">Нет</td>
+                                <td class="text-center" style="color: var(--text-secondary)">Ограничено</td>
+                                <td class="text-center" style="color: var(--accent-rose)">Нет</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium" style="color: var(--text)">Лимиты минут</td>
+                                <td class="text-center highlight"><span class="badge badge-green text-xs">Без лимитов</span></td>
+                                <td class="text-center text-xs" style="color: var(--text-muted)">300 мин/мес (Free)</td>
+                                <td class="text-center text-xs" style="color: var(--text-muted)">800 мин хранения</td>
+                                <td class="text-center text-xs" style="color: var(--text-muted)">Ограничено</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium" style="color: var(--text)">Диаризация</td>
+                                <td class="text-center highlight"><span class="badge badge-green text-xs">Бесплатно</span></td>
+                                <td class="text-center"><svg class="w-5 h-5 check-icon mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></td>
+                                <td class="text-center"><svg class="w-5 h-5 check-icon mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></td>
+                                <td class="text-center"><svg class="w-5 h-5 check-icon mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Feature Highlights -->
+    <section class="py-20 md:py-28" style="background: var(--bg)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Ключевые возможности</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--primary-light)">
+                        <svg style="color: var(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">WER 8.3% на русском</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM v3 -- лучшая модель для русской речи. В 2x точнее Whisper large-v3 на русском (arXiv:2506.01192).</p>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-amber-bg)">
+                        <svg style="color: var(--accent-amber)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Авто-мониторинг</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Настройте папку с записями Zoom/Meet -- протоколы появляются автоматически. Никаких ручных действий.</p>
+                </div>
+                <div class="gradient-border-card p-7 fade-in-up">
+                    <div class="icon-wrap mb-5" style="background: var(--accent-rose-bg)">
+                        <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Markdown, TXT, JSON</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Экспорт в удобном формате с таймкодами и спикерами. Готово для вставки в Confluence, Notion или Jira.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- FAQ -->
+    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Частые вопросы</h2>
+            <div class="max-w-3xl mx-auto space-y-6 stagger-children">
+                <div class="glass-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3" style="color: var(--text)">Можно автоматически расшифровывать все записи из Zoom/Meet?</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Да. Настройте Traart на мониторинг папки, куда Zoom или Meet сохраняют записи. Каждый стендап, ретро и планирование будут расшифрованы автоматически -- без ручных действий.</p>
+                </div>
+                <div class="glass-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3" style="color: var(--text)">Безопасно ли расшифровывать обсуждения roadmap и OKR?</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Полностью. Traart работает 100% оффлайн -- стратегические обсуждения, OKR и roadmap никогда не покидают ваш Mac. Приложение не делает сетевых запросов при обработке.</p>
+                </div>
+                <div class="glass-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3" style="color: var(--text)">Как работает диаризация на стендапах?</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Traart автоматически определяет спикеров по голосу. На стендапе с 5-7 участниками каждая реплика будет подписана (Спикер 1, 2, 3...) с таймкодом. Блокеры каждого участника легко найти.</p>
+                </div>
+                <div class="glass-card p-7 fade-in-up">
+                    <h3 class="font-semibold mb-3" style="color: var(--text)">В какие форматы можно экспортировать?</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Markdown, TXT и JSON с таймкодами и именами спикеров. Markdown удобно вставлять в Confluence и Notion, JSON -- для автоматизации через скрипты.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- See Also -->
+    <section class="py-16 md:py-20" style="background: var(--bg)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-8 tracking-tight fade-in-up">Смотрите также</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+                <a href="use-case-marketers.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">Для маркетологов</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">UX-исследования и CustDev интервью</p>
+                </a>
+                <a href="use-case-hr.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">Для HR и рекрутеров</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">Расшифровка собеседований с кандидатами</p>
+                </a>
+                <a href="gigaam-vs-whisper.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
+                    <h3 class="font-semibold mb-2" style="color: var(--text)">GigaAM vs Whisper</h3>
+                    <p class="text-sm" style="color: var(--text-secondary)">Почему GigaAM в 2x точнее на русском</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CTA -->
+    <section class="py-20 md:py-28 relative overflow-hidden" style="background: var(--bg)">
+        <div class="hero-gradient"></div>
+        <div class="noise-overlay"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+            <div class="fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Ведите встречи, а не протоколы</h2>
+                <p class="text-lg mb-10" style="color: var(--text-secondary)">Скачайте Traart и получайте автоматические расшифровки всех созвонов команды</p>
+                <a href="download.html" class="btn-glow btn-primary-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Скачать бесплатно
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                        </div>
+                        <span class="text-lg font-bold">Traart</span>
+                    </div>
+                    <p class="text-sm" style="color: var(--text-muted)">SOTA транскрибатор для русской речи. Бесплатно и приватно.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Продукт</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="download.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Скачать</a></li>
+                        <li><a href="how-it-works.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Как работает</a></li>
+                        <li><a href="pricing.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Цены</a></li>
+                        <li><a href="diarization.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Диаризация</a></li>
+                        <li><a href="zoom-transcription.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Транскрибация Zoom</a></li>
+                        <li><a href="voice-messages.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Голосовые</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Кейсы</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="use-case-product-managers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для продакт-менеджеров</a></li>
+                        <li><a href="use-case-marketers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для маркетологов</a></li>
+                        <li><a href="use-case-developers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для разработчиков</a></li>
+                        <li><a href="use-case-hr.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для HR</a></li>
+                        <li><a href="use-case-coaches.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для коучей</a></li>
+                        <li><a href="use-case-researchers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для исследователей</a></li>
+                        <li><a href="use-case-realtors.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для риелторов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Сравнения</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="vs-otter.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
+                        <li><a href="vs-macwhisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
+                        <li><a href="vs-turboscribe.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
+                        <li><a href="gigaam-vs-whisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
+                        <li><a href="cloud-vs-offline.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
+                        <li><a href="best-transcription-russian.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Ресурсы</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="blog.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Блог</a></li>
+                        <li><a href="faq.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
+                        <li><a href="privacy.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Приватность</a></li>
+                        <li><a href="comparison.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Сравнение</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 text-center" style="border-top: 1px solid var(--card-border)">
+                <p class="text-sm" style="color: var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initTheme() { if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); } }
+        initTheme();
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); }
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+        document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+        window.addEventListener('scroll', function() { const nav = document.getElementById('nav'); if (window.scrollY > 20) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }, { passive: true });
+        const observer = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
+    </script>
+</body>
+</html>

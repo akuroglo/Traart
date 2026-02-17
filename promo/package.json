@@ -1,0 +1,21 @@
+{
+  "name": "traart-promo",
+  "version": "1.0.0",
+  "description": "Promotional videos for Traart",
+  "scripts": {
+    "studio": "npx remotion studio src/index.ts",
+    "render": "npx remotion render src/index.ts HowItWorks out/how-it-works.mp4",
+    "render:gif": "npx remotion render src/index.ts HowItWorks out/how-it-works.gif --image-format png"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.421",
+    "@remotion/cli": "4.0.421",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "remotion": "4.0.421",
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14"
+  }
+}

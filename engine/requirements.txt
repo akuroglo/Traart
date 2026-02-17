@@ -1,0 +1,4 @@
+pyannote.audio==3.4.0
+watchdog==6.0.0
+huggingface_hub>=0.24,<1.0
+static-ffmpeg
