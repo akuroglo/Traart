@@ -21,9 +21,7 @@ SOTA-модель GigaAM v3 (WER 8.3%) + диаризация pyannote. Лока
 
 <div align="center">
 
-[![Демо](assets/demo-preview.jpg)](https://github.com/akuroglo/Traart/releases/download/v1.0.0/how-it-works-v6.mp4)
-
-*Нажмите для просмотра видео*
+<img src="assets/demo.gif" width="640" alt="Traart — демо">
 
 </div>
 
