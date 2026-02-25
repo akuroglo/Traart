@@ -17,6 +17,7 @@ Options:
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -217,6 +218,77 @@ def transcribe_chunk(model, audio_tensor: torch.Tensor, sr: int) -> str:
             os.remove(temp_path)
 
 
+def _strip_punct(word: str) -> str:
+    """Strip punctuation and lowercase for comparison."""
+    return re.sub(r'[^\w]', '', word.lower())
+
+
+def _deduplicate_chunk_texts(
+    texts: List[str],
+    chunk_overlap: int,
+) -> List[str]:
+    """Remove duplicated text at chunk boundaries caused by audio overlap.
+
+    When audio is split into overlapping chunks, the overlap region gets
+    transcribed by both adjacent chunks. This detects the repeated text
+    (suffix of chunk A matching prefix of chunk B) and removes it.
+    """
+    if len(texts) <= 1 or chunk_overlap <= 0:
+        return list(texts)
+
+    # Search window: overlap_seconds * ~2.5 words/sec * 1.5 margin
+    window = max(8, int(chunk_overlap * 2.5 * 1.5))
+    min_match = 3
+
+    result = [texts[0]]
+
+    for i in range(1, len(texts)):
+        prev_words = result[-1].split()
+        curr_words = texts[i].split()
+
+        if len(prev_words) < min_match or len(curr_words) < min_match:
+            result.append(texts[i])
+            continue
+
+        # Build indexed normalized word lists (skip punctuation-only tokens)
+        prev_indexed = [(j, _strip_punct(w)) for j, w in enumerate(prev_words)]
+        prev_indexed = [(j, n) for j, n in prev_indexed if n]
+
+        curr_indexed = [(j, _strip_punct(w)) for j, w in enumerate(curr_words)]
+        curr_indexed = [(j, n) for j, n in curr_indexed if n]
+
+        if len(prev_indexed) < min_match or len(curr_indexed) < min_match:
+            result.append(texts[i])
+            continue
+
+        # Take tail of prev and head of curr
+        prev_tail = prev_indexed[-window:]
+        curr_head = curr_indexed[:window]
+
+        prev_norms = [n for _, n in prev_tail]
+        curr_norms = [n for _, n in curr_head]
+
+        # Find longest suffix-prefix match (allow ~25% mismatch for ASR variance)
+        best_match = 0
+        for length in range(min(len(prev_norms), len(curr_norms)), min_match - 1, -1):
+            suffix = prev_norms[-length:]
+            prefix = curr_norms[:length]
+            matches = sum(1 for a, b in zip(suffix, prefix) if a == b)
+            if matches >= max(min_match, int(length * 0.75)):
+                best_match = length
+                break
+
+        if best_match >= min_match:
+            # Cut curr_words after the matched portion
+            cut_idx = curr_head[best_match - 1][0] + 1
+            trimmed = " ".join(curr_words[cut_idx:]).strip()
+            result.append(trimmed if trimmed else texts[i])
+        else:
+            result.append(texts[i])
+
+    return result
+
+
 def transcribe_audio(
     audio_tensor: torch.Tensor,
     sr: int,
@@ -282,6 +354,15 @@ def transcribe_audio(
         progress = progress_offset + progress_scale * ((i + 1) / total_chunks)
         report_progress(progress, "transcribing", f"chunk {i + 1}/{total_chunks}", eta_seconds=eta)
 
+    # Deduplicate overlapping text between chunks
+    if chunk_overlap > 0 and len(texts) > 1:
+        texts = _deduplicate_chunk_texts(texts, chunk_overlap)
+        for j in range(len(segments)):
+            if j < len(texts):
+                segments[j]["text"] = texts[j]
+        segments = [s for s in segments if s.get("text", "").strip()]
+        texts = [t for t in texts if t.strip()]
+
     full_text = " ".join(texts)
     return full_text, segments
 
@@ -307,10 +388,24 @@ def transcribe_with_diarization(
     from diarize import diarize
 
     report_progress(0.16, "diarizing", "running speaker diarization")
+
+    # Heartbeat during diarization so progress doesn't appear frozen
+    diar_done = threading.Event()
+    def _diar_heartbeat():
+        p = 0.16
+        while not diar_done.is_set():
+            diar_done.wait(timeout=2.0)
+            if not diar_done.is_set():
+                p = min(p + 0.01, 0.34)
+                report_progress(p, "diarizing", "analyzing speakers")
+
+    hb = threading.Thread(target=_diar_heartbeat, daemon=True)
+    hb.start()
     diar_segments = diarize(
         wav_path, num_speakers=num_speakers, models_dir=models_dir,
         gap_threshold=merge_gap, min_duration=min_segment,
     )
+    diar_done.set()
     report_progress(0.35, "diarizing", f"found {len(diar_segments)} segments")
 
     results = []
@@ -337,6 +432,8 @@ def transcribe_with_diarization(
                 text = transcribe_chunk(model, chunk, sr)
                 if text:
                     parts.append(text)
+            if chunk_overlap > 0 and len(parts) > 1:
+                parts = _deduplicate_chunk_texts(parts, chunk_overlap)
             text = " ".join(parts)
         else:
             text = transcribe_chunk(model, segment_audio, sr)

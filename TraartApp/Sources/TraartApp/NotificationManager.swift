@@ -9,11 +9,13 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     private static let categoryFailed = "TRANSCRIPTION_FAILED"
     private static let categoryStarted = "TRANSCRIPTION_STARTED"
     private static let categorySetup = "SETUP_REQUIRED"
+    private static let categoryAnnouncement = "ANNOUNCEMENT"
 
     private static let actionTranscribe = "TRANSCRIBE_ACTION"
     private static let actionOpen = "OPEN_ACTION"
     private static let actionRetry = "RETRY_ACTION"
     private static let actionSetup = "SETUP_ACTION"
+    private static let actionOpenURL = "OPEN_URL_ACTION"
 
     var onTranscribeAction: ((URL) -> Void)?
     var onOpenAction: ((URL) -> Void)?
@@ -89,8 +91,20 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             intentIdentifiers: []
         )
 
+        let openURLAction = UNNotificationAction(
+            identifier: Self.actionOpenURL,
+            title: "Открыть",
+            options: .foreground
+        )
+
+        let announcementCategory = UNNotificationCategory(
+            identifier: Self.categoryAnnouncement,
+            actions: [openURLAction],
+            intentIdentifiers: []
+        )
+
         UNUserNotificationCenter.current().setNotificationCategories([
-            newFileCategory, completeCategory, failedCategory, startedCategory, setupCategory
+            newFileCategory, completeCategory, failedCategory, startedCategory, setupCategory, announcementCategory
         ])
     }
 
@@ -273,9 +287,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         case Self.actionSetup:
             onSetupAction?()
 
+        case Self.actionOpenURL:
+            AnnouncementsManager.shared.handleNotificationAction(userInfo: userInfo)
+
         case UNNotificationDefaultActionIdentifier:
             // User tapped the notification body
-            if let path = userInfo["filePath"] as? String {
+            if userInfo["announcementID"] != nil {
+                AnnouncementsManager.shared.handleNotificationAction(userInfo: userInfo)
+            } else if let path = userInfo["filePath"] as? String {
                 let url = URL(fileURLWithPath: path)
                 if FileManager.default.fileExists(atPath: path) {
                     onOpenAction?(url)

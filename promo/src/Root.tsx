@@ -3,11 +3,20 @@ import { HowItWorks } from "./HowItWorks";
 import { HowItWorksV2 } from "./HowItWorksV2";
 import { HowItWorksV3 } from "./HowItWorksV3";
 import { HowItWorksV4 } from "./HowItWorksV4";
+import { HowItWorksV5 } from "./HowItWorksV5";
+import { HowItWorksV6 } from "./HowItWorksV6";
 import { WerComparison } from "./WerComparison";
 import { CostComparison } from "./CostComparison";
 import { PrivacyComparison } from "./PrivacyComparison";
 import { MenuBarDemo } from "./MenuBarDemo";
 import { Logo } from "./Logo";
+import {
+  LogoDraw,
+  LogoBounce,
+  LogoReveal,
+  LogoFloat,
+  LogoStates,
+} from "./LogoAnimated";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -15,6 +24,46 @@ export const RemotionRoot: React.FC = () => {
       <Still
         id="Logo"
         component={Logo}
+        width={1024}
+        height={1024}
+      />
+      <Composition
+        id="LogoDraw"
+        component={LogoDraw}
+        durationInFrames={90}
+        fps={30}
+        width={1024}
+        height={1024}
+      />
+      <Composition
+        id="LogoBounce"
+        component={LogoBounce}
+        durationInFrames={75}
+        fps={30}
+        width={1024}
+        height={1024}
+      />
+      <Composition
+        id="LogoReveal"
+        component={LogoReveal}
+        durationInFrames={75}
+        fps={30}
+        width={1024}
+        height={1024}
+      />
+      <Composition
+        id="LogoFloat"
+        component={LogoFloat}
+        durationInFrames={120}
+        fps={30}
+        width={1024}
+        height={1024}
+      />
+      <Composition
+        id="LogoStates"
+        component={LogoStates}
+        durationInFrames={120}
+        fps={30}
         width={1024}
         height={1024}
       />
@@ -37,7 +86,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="HowItWorksV3-SplitScreen"
         component={HowItWorksV3}
-        durationInFrames={1350}
+        durationInFrames={840}
         fps={30}
         width={1920}
         height={1080}
@@ -46,6 +95,22 @@ export const RemotionRoot: React.FC = () => {
         id="HowItWorksV4-Typewriter"
         component={HowItWorksV4}
         durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="HowItWorksV5-Dynamic"
+        component={HowItWorksV5}
+        durationInFrames={810}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="HowItWorksV6-TransitionSeries"
+        component={HowItWorksV6}
+        durationInFrames={872}
         fps={30}
         width={1920}
         height={1080}

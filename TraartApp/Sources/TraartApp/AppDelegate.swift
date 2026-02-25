@@ -9,10 +9,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var onboardingController: OnboardingWindowController?
 
     private static let onboardingKey = "hasCompletedOnboarding"
+    private var setupStartTime: Date?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Initialize settings
         _ = SettingsManager.shared
+
+        // Initialize analytics
+        AnalyticsManager.shared.configure()
+        AnalyticsManager.shared.trackAppLaunched()
 
         // Load persistent history
         _ = HistoryManager.shared
@@ -75,19 +80,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         statusBarController = sbc
 
+        // Check for announcements
+        AnnouncementsManager.shared.onOpenURL = { url in
+            NSWorkspace.shared.open(url)
+        }
+        AnnouncementsManager.shared.checkForAnnouncements()
+
         // Onboarding or normal launch
         if !UserDefaults.standard.bool(forKey: Self.onboardingKey) {
             showOnboarding()
-        } else if SetupManager.needsSetup {
-            statusBarController?.updateStatus("Требуется настройка")
-            NotificationManager.shared.notifySetupRequired()
-            startSetup()
         } else {
-            startFileWatcher()
+            checkSetupAndLaunch()
         }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        AnalyticsManager.shared.trackAppTerminated()
         fileWatcher?.stop()
         transcriptionManager?.cancelCurrentJob()
         setupManager?.cancelSetup()
@@ -100,12 +108,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         controller.onComplete = { [weak self] in
             guard let self = self else { return }
             UserDefaults.standard.set(true, forKey: Self.onboardingKey)
+            AnalyticsManager.shared.trackOnboardingCompleted()
             self.onboardingController = nil
-            if SetupManager.needsSetup {
-                self.startSetup()
-            } else {
-                self.startFileWatcher()
-            }
+            self.checkSetupAndLaunch()
         }
         controller.onCancel = { [weak self] in
             guard let self = self else { return }
@@ -119,11 +124,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Setup
 
+    /// Async environment check — shows "Проверка окружения..." while running import torch in background.
+    private func checkSetupAndLaunch() {
+        statusBarController?.updateStatus("Проверка окружения...")
+        SetupManager.checkNeedsSetup { [weak self] needsSetup in
+            guard let self = self else { return }
+            if needsSetup {
+                self.statusBarController?.updateStatus("Требуется настройка")
+                NotificationManager.shared.notifySetupRequired()
+                self.startSetup()
+            } else {
+                self.statusBarController?.updateStatus("")
+                self.startFileWatcher()
+            }
+        }
+    }
+
     private func startSetup() {
         guard setupManager == nil || !(setupManager?.isSettingUp ?? false) else { return }
 
         let sm = SetupManager()
         setupManager = sm
+        setupStartTime = Date()
+        AnalyticsManager.shared.trackSetupStarted()
 
         statusBarController?.updateStatus("Установка окружения...")
 
@@ -134,12 +157,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         sm.startSetup { [weak self] success in
             guard let self = self else { return }
             if success {
+                let duration = Int(Date().timeIntervalSince(self.setupStartTime ?? Date()))
+                AnalyticsManager.shared.trackSetupCompleted(durationSeconds: duration)
                 self.statusBarController?.showSetupCompleted()
                 self.startFileWatcher()
             } else {
                 let detail = self.setupManager?.setupStatus ?? "Неизвестная ошибка"
+                AnalyticsManager.shared.trackSetupFailed(error: detail)
                 self.statusBarController?.showSetupFailed(error: detail)
             }
+            self.setupStartTime = nil
             self.setupManager = nil
         }
     }
@@ -157,16 +184,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Transcription
 
     private func transcribeFile(_ url: URL) {
-        // Check if setup is needed first
-        if SetupManager.needsSetup {
+        // Fast check (no Python binary → definitely needs setup)
+        if SetupManager.needsSetupFast {
             statusBarController?.showSetupRequired()
             NotificationManager.shared.notifySetupRequired()
             startSetup()
             return
         }
 
-        // Remove from detected files
+        // Remove from detected files and mark as seen to prevent re-detection
         fileWatcher?.removeDetectedFile(url)
+        fileWatcher?.markFileAsSeen(url)
         statusBarController?.updateDetectedFiles(fileWatcher?.detectedFiles ?? [])
 
         // Start transcription with the configured output folder
@@ -209,6 +237,7 @@ extension AppDelegate: FileWatcherDelegate {
 
             // Auto-transcribe if enabled — use configured output folder
             if settings.autoTranscribe {
+                AnalyticsManager.shared.trackAutoTranscribeTriggered()
                 let outputDir = settings.outputFolder
                 transcriptionManager?.transcribe(file: file, outputDir: outputDir)
                 watcher.removeDetectedFile(file)
@@ -239,6 +268,16 @@ extension AppDelegate: TranscriptionManagerDelegate {
         HistoryManager.shared.addJob(job)
         statusBarController?.updateCompletedJobs(HistoryManager.shared.jobs)
         updateQueueDisplay()
+
+        // Auto-copy for microphone recordings
+        if job.sourceFile.lastPathComponent.hasPrefix("traart-recording-") {
+            if let text = HistoryManager.shared.fullText(for: job) {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(text, forType: .string)
+            }
+            // Clean up temp file
+            try? FileManager.default.removeItem(at: job.sourceFile)
+        }
 
         if manager.queue.isEmpty {
             statusBarController?.showTranscriptionCompleted(fileName: job.sourceFileName)

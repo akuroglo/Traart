@@ -36,7 +36,8 @@ final class TranscriptionManager {
         let ext = settings.outputFileExtension
 
         // Dual transcription: two files — with diarization and without
-        if settings.dualTranscription && settings.enableDiarization && settings.qualityPreset == 4 {
+        var jobs: [TranscriptionJob] = []
+        if settings.dualTranscription && settings.qualityPreset == 4 {
             var jobPlain = TranscriptionJob(sourceFile: file)
             jobPlain.forceDiarization = false
             jobPlain.outputFile = outputDirectory.appendingPathComponent(baseName + ext)
@@ -45,33 +46,55 @@ final class TranscriptionManager {
             jobDiarized.forceDiarization = true
             jobDiarized.outputFile = outputDirectory.appendingPathComponent(baseName + "_speakers" + ext)
 
-            queue.append(jobPlain)
-            queue.append(jobDiarized)
+            jobs = [jobPlain, jobDiarized]
         } else {
             var job = TranscriptionJob(sourceFile: file)
             job.outputFile = outputDirectory.appendingPathComponent(baseName + ext)
-            queue.append(job)
+            jobs = [job]
         }
 
-        processQueue()
+        workQueue.async { [weak self] in
+            guard let self = self else { return }
+
+            // Dedup: skip if this file is already queued or being transcribed
+            let filePath = file.path
+            if self.currentJob?.sourceFile.path == filePath { return }
+            if self.queue.contains(where: { $0.sourceFile.path == filePath }) { return }
+
+            self.queue.append(contentsOf: jobs)
+            self._processNext()
+        }
     }
 
     func cancelCurrentJob() {
+        // Terminate on caller thread (safe — Process.terminate is thread-safe)
         currentProcess?.terminate()
-        currentProcess = nil
 
-        if var job = currentJob {
-            job.status = .cancelled
-            job.endTime = Date()
-            addToCompleted(job)
-            currentJob = nil
+        workQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.currentProcess = nil
+
+            if var job = self.currentJob {
+                job.status = .cancelled
+                job.endTime = Date()
+                self.addToCompleted(job)
+                self.currentJob = nil
+                AnalyticsManager.shared.trackTranscriptionCancelled()
+            }
+
+            self.isProcessing = false
+            self._processNext()
         }
-
-        isProcessing = false
-        processQueue()
     }
 
     private func processQueue() {
+        workQueue.async { [weak self] in
+            self?._processNext()
+        }
+    }
+
+    /// Must be called on workQueue only
+    private func _processNext() {
         guard !isProcessing, !queue.isEmpty else { return }
         isProcessing = true
 
@@ -80,14 +103,19 @@ final class TranscriptionManager {
         job.startTime = Date()
         currentJob = job
 
+        let settings = SettingsManager.shared
+        AnalyticsManager.shared.trackTranscriptionStarted(
+            diarizationEnabled: settings.enableDiarization,
+            outputFormat: settings.outputFormat,
+            qualityPreset: settings.qualityPresetName
+        )
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.delegate?.transcriptionManager(self, didStartJob: job)
         }
 
-        workQueue.async { [weak self] in
-            self?.executeTranscription(job)
-        }
+        executeTranscription(job)
     }
 
     private func executeTranscription(_ job: TranscriptionJob) {
@@ -344,61 +372,75 @@ final class TranscriptionManager {
     }
 
     private func completeJob(_ job: TranscriptionJob) {
-        // Guard: if this job was already cancelled/replaced, ignore the stale callback
-        guard currentJob?.id == job.id else { return }
-
-        var completed = job
-        completed.status = .completed
-        completed.progress = 1.0
-        completed.endTime = Date()
-
-        // Try to read the result file
-        if let outputFile = completed.outputFile,
-           let data = try? Data(contentsOf: outputFile) {
-            let ext = outputFile.pathExtension.lowercased()
-            if ext == "json",
-               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                completed.resultText = json["text"] as? String
-                completed.speakersDetected = json["speakers_detected"] as? Int
-            } else if let text = String(data: data, encoding: .utf8) {
-                // For md/txt, store first 500 chars as preview
-                completed.resultText = String(text.prefix(500))
-            }
-        }
-
-        addToCompleted(completed)
-        currentJob = nil
-        currentProcess = nil
-        isProcessing = false
-
-        DispatchQueue.main.async { [weak self] in
+        workQueue.async { [weak self] in
             guard let self = self else { return }
-            self.delegate?.transcriptionManager(self, didCompleteJob: completed)
-        }
+            // Guard: if this job was already cancelled/replaced, ignore the stale callback
+            guard self.currentJob?.id == job.id else { return }
 
-        processQueue()
+            var completed = job
+            completed.status = .completed
+            completed.progress = 1.0
+            completed.endTime = Date()
+
+            // Try to read the result file
+            if let outputFile = completed.outputFile,
+               let data = try? Data(contentsOf: outputFile) {
+                let ext = outputFile.pathExtension.lowercased()
+                if ext == "json",
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    completed.resultText = json["text"] as? String
+                    completed.speakersDetected = json["speakers_detected"] as? Int
+                } else if let text = String(data: data, encoding: .utf8) {
+                    // For md/txt, store first 500 chars as preview
+                    completed.resultText = String(text.prefix(500))
+                }
+            }
+
+            self.addToCompleted(completed)
+            self.currentJob = nil
+            self.currentProcess = nil
+            self.isProcessing = false
+
+            AnalyticsManager.shared.trackTranscriptionCompleted(
+                durationSeconds: Int(completed.duration ?? 0),
+                diarizationEnabled: SettingsManager.shared.enableDiarization,
+                speakersDetected: completed.speakersDetected
+            )
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.transcriptionManager(self, didCompleteJob: completed)
+            }
+
+            self._processNext()
+        }
     }
 
     private func failJob(_ job: TranscriptionJob, error: String) {
-        // Guard: if this job was already cancelled/replaced, ignore the stale callback
-        guard currentJob?.id == job.id else { return }
-
-        var failed = job
-        failed.status = .failed
-        failed.error = error
-        failed.endTime = Date()
-
-        addToCompleted(failed)
-        currentJob = nil
-        currentProcess = nil
-        isProcessing = false
-
-        DispatchQueue.main.async { [weak self] in
+        workQueue.async { [weak self] in
             guard let self = self else { return }
-            self.delegate?.transcriptionManager(self, didFailJob: failed)
-        }
+            // Guard: if this job was already cancelled/replaced, ignore the stale callback
+            guard self.currentJob?.id == job.id else { return }
 
-        processQueue()
+            var failed = job
+            failed.status = .failed
+            failed.error = error
+            failed.endTime = Date()
+
+            self.addToCompleted(failed)
+            self.currentJob = nil
+            self.currentProcess = nil
+            self.isProcessing = false
+
+            AnalyticsManager.shared.trackTranscriptionFailed(error: error)
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.transcriptionManager(self, didFailJob: failed)
+            }
+
+            self._processNext()
+        }
     }
 
     private func addToCompleted(_ job: TranscriptionJob) {

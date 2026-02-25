@@ -32,6 +32,13 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     private var outputNextToFileItem: NSMenuItem?
     private var outputFolderPathItem: NSMenuItem?
     private var launchAtLoginItem: NSMenuItem?
+    private var analyticsItem: NSMenuItem?
+    private var newsMenuItem: NSMenuItem?
+
+    // Recording
+    private var recordMenuItem: NSMenuItem?
+    private var pickFileItem: NSMenuItem?
+    private var micRecorder: MicrophoneRecorder?
 
     // Detailed settings panel
     private var detailedSettingsController: DetailedSettingsController?
@@ -75,6 +82,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             dragView.autoresizingMask = [.width, .height]
             dragView.onFilesDropped = { [weak self] urls in
                 for url in urls {
+                    AnalyticsManager.shared.trackFileDropped()
                     self?.onTranscribeFile?(url)
                 }
             }
@@ -126,6 +134,10 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         case .error:
             isTranscribing = false
             hasError = true
+            button.title = ""
+        case .recording:
+            isTranscribing = false
+            hasError = false
             button.title = ""
         }
     }
@@ -196,7 +208,23 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             keyEquivalent: "o"
         )
         pickFileItem.target = self
+        self.pickFileItem = pickFileItem
         menu.addItem(pickFileItem)
+
+        // Record a voice note
+        let recordItem = NSMenuItem(
+            title: "Записать заметку...",
+            action: #selector(toggleRecording(_:)),
+            keyEquivalent: "r"
+        )
+        recordItem.keyEquivalentModifierMask = [.command]
+        recordItem.target = self
+        if let micIcon = NSImage(systemSymbolName: "mic.fill", accessibilityDescription: nil) {
+            micIcon.isTemplate = true
+            recordItem.image = micIcon
+        }
+        self.recordMenuItem = recordItem
+        menu.addItem(recordItem)
 
         menu.addItem(NSMenuItem.separator())
 
@@ -238,40 +266,63 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
         menu.addItem(NSMenuItem.separator())
 
-        // Share app — single-line button with Telegram icon (custom view, doesn't close menu)
-        let shareContainer = NSView(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
+        // News / Announcements
+        let newsItem = NSMenuItem(title: "Новости", action: nil, keyEquivalent: "")
+        let newsSubmenu = NSMenu()
+        let loadingItem = NSMenuItem(title: "Загрузка...", action: nil, keyEquivalent: "")
+        loadingItem.isEnabled = false
+        newsSubmenu.addItem(loadingItem)
+        newsItem.submenu = newsSubmenu
+        menu.addItem(newsItem)
+        self.newsMenuItem = newsItem
+
+        // About + Share on the same row (Auto Layout to pin share to right edge)
+        let aboutShareRow = NSView(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
+        aboutShareRow.autoresizingMask = [.width]
+
+        let aboutBtn = NSButton(title: "О программе", target: self, action: #selector(showAbout(_:)))
+        aboutBtn.isBordered = false
+        aboutBtn.font = NSFont.menuFont(ofSize: 13)
+        aboutBtn.alignment = .left
+        aboutBtn.contentTintColor = .labelColor
+        aboutBtn.translatesAutoresizingMaskIntoConstraints = false
+        aboutShareRow.addSubview(aboutBtn)
+
         let shareBtn = NSButton(title: "Рассказать другу", target: self, action: #selector(copyShareText(_:)))
         shareBtn.isBordered = false
         shareBtn.font = NSFont.menuFont(ofSize: 13)
-        shareBtn.alignment = .left
-        shareBtn.imagePosition = .imageLeading
-        shareBtn.frame = NSRect(x: 14, y: 1, width: 230, height: 22)
+        shareBtn.alignment = .right
+        shareBtn.imagePosition = .imageTrailing
+        shareBtn.contentTintColor = .systemBlue
         if let icon = NSImage(systemSymbolName: "paperplane.fill", accessibilityDescription: nil) {
-            let config = NSImage.SymbolConfiguration(pointSize: 12, weight: .regular)
+            let config = NSImage.SymbolConfiguration(pointSize: 11, weight: .regular)
             shareBtn.image = icon.withSymbolConfiguration(config)
-            shareBtn.contentTintColor = .systemBlue
         }
-        shareContainer.addSubview(shareBtn)
-        let shareItem = NSMenuItem()
-        shareItem.view = shareContainer
-        menu.addItem(shareItem)
+        shareBtn.translatesAutoresizingMaskIntoConstraints = false
+        aboutShareRow.addSubview(shareBtn)
 
-        // About (includes "Поделиться логами")
-        let aboutItem = NSMenuItem(
-            title: "О программе",
-            action: #selector(showAbout(_:)),
-            keyEquivalent: ""
-        )
-        aboutItem.target = self
-        menu.addItem(aboutItem)
+        NSLayoutConstraint.activate([
+            aboutBtn.leadingAnchor.constraint(equalTo: aboutShareRow.leadingAnchor, constant: 14),
+            aboutBtn.centerYAnchor.constraint(equalTo: aboutShareRow.centerYAnchor),
+            shareBtn.trailingAnchor.constraint(equalTo: aboutShareRow.trailingAnchor, constant: -14),
+            shareBtn.centerYAnchor.constraint(equalTo: aboutShareRow.centerYAnchor),
+        ])
 
-        // Quit
-        let quitItem = NSMenuItem(
-            title: "Выход",
-            action: #selector(quitApp(_:)),
-            keyEquivalent: "q"
-        )
-        quitItem.target = self
+        let aboutShareItem = NSMenuItem()
+        aboutShareItem.view = aboutShareRow
+        menu.addItem(aboutShareItem)
+
+        // Quit — left-aligned, same visual level
+        let quitContainer = NSView(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
+        let quitBtn = NSButton(title: "Выход", target: self, action: #selector(quitApp(_:)))
+        quitBtn.isBordered = false
+        quitBtn.font = NSFont.menuFont(ofSize: 13)
+        quitBtn.alignment = .left
+        quitBtn.frame = NSRect(x: 14, y: 1, width: 120, height: 22)
+        quitBtn.contentTintColor = .labelColor
+        quitContainer.addSubview(quitBtn)
+        let quitItem = NSMenuItem()
+        quitItem.view = quitContainer
         menu.addItem(quitItem)
     }
 
@@ -542,6 +593,15 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         )
         self.launchAtLoginItem = loginItem
         submenu.addItem(loginItem)
+
+        // Analytics opt-out toggle (custom view — doesn't close menu)
+        let analyticsToggle = makeToggleItem(
+            title: "Анонимная статистика",
+            isOn: settings.analyticsEnabled,
+            action: #selector(toggleAnalytics(_:))
+        )
+        self.analyticsItem = analyticsToggle
+        submenu.addItem(analyticsToggle)
     }
 
     // MARK: - NSMenuDelegate
@@ -549,6 +609,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         clearErrorIconIfNeeded()
         refreshMenuState()
+        loadNewsSubmenu()
         onMenuWillOpen?()
     }
 
@@ -699,6 +760,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         toggleButton(in: diarizationItem)?.state = settings.enableDiarization ? .on : .off
         toggleButton(in: monitorDiskItem)?.state = settings.monitorEntireDisk ? .on : .off
         toggleButton(in: launchAtLoginItem)?.state = settings.launchAtLogin ? .on : .off
+        toggleButton(in: analyticsItem)?.state = settings.analyticsEnabled ? .on : .off
 
         // Update dual transcription visibility + state
         let isMaxQuality = settings.qualityPreset == 4
@@ -931,6 +993,61 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         submenu.addItem(clearItem)
     }
 
+    // MARK: - Recording
+
+    @objc private func toggleRecording(_ sender: NSMenuItem) {
+        if let recorder = micRecorder, recorder.isRecording {
+            // Stop recording
+            if let url = recorder.stopRecording() {
+                onTranscribeFile?(url)
+            }
+            resetRecordMenuItem()
+            setIconState(.idle)
+            micRecorder = nil
+        } else {
+            // Start recording
+            let recorder = MicrophoneRecorder()
+            recorder.onDurationUpdate = { [weak self] duration in
+                let mins = Int(duration) / 60
+                let secs = Int(duration) % 60
+                self?.recordMenuItem?.title = String(format: "Остановить запись (%02d:%02d)", mins, secs)
+            }
+            recorder.onPermissionDenied = { [weak self] in
+                self?.resetRecordMenuItem()
+                let alert = NSAlert()
+                alert.messageText = "Нет доступа к микрофону"
+                alert.informativeText = "Откройте Системные настройки → Конфиденциальность и безопасность → Микрофон и разрешите доступ для Traart."
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "Открыть настройки")
+                alert.addButton(withTitle: "Отмена")
+                NSApp.activate(ignoringOtherApps: true)
+                if alert.runModal() == .alertFirstButtonReturn {
+                    NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")!)
+                }
+            }
+            micRecorder = recorder
+            recorder.startRecording()
+
+            // Update menu item appearance
+            recordMenuItem?.title = "Остановить запись (00:00)"
+            if let stopIcon = NSImage(systemSymbolName: "stop.circle.fill", accessibilityDescription: nil) {
+                stopIcon.isTemplate = true
+                recordMenuItem?.image = stopIcon
+            }
+            pickFileItem?.isEnabled = false
+            setIconState(.recording)
+        }
+    }
+
+    private func resetRecordMenuItem() {
+        recordMenuItem?.title = "Записать заметку..."
+        if let micIcon = NSImage(systemSymbolName: "mic.fill", accessibilityDescription: nil) {
+            micIcon.isTemplate = true
+            recordMenuItem?.image = micIcon
+        }
+        pickFileItem?.isEnabled = true
+    }
+
     // MARK: - Actions
 
     @objc private func transcribeFile(_ sender: NSMenuItem) {
@@ -971,6 +1088,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         NSApp.activate(ignoringOtherApps: true)
         let response = panel.runModal()
         if response == .OK {
+            AnalyticsManager.shared.trackFilePickerUsed()
             for url in panel.urls {
                 onTranscribeFile?(url)
             }
@@ -1033,7 +1151,9 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     @objc private func qualitySliderChanged(_ sender: NSSlider) {
         let index = Int(sender.doubleValue)
         SettingsManager.shared.applyPreset(index)
-        qualityLabelItem?.title = "Качество: \(SettingsManager.shared.qualityPresetName)"
+        let presetName = SettingsManager.shared.qualityPresetName
+        AnalyticsManager.shared.trackSettingChanged(setting: "qualityPreset", value: presetName)
+        qualityLabelItem?.title = "Качество: \(presetName)"
 
         // Show dual transcription option only at max quality
         let isMax = index == 4
@@ -1055,8 +1175,10 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     @objc private func toggleAutoTranscribe(_ sender: Any) {
         SettingsManager.shared.autoTranscribe.toggle()
+        let isOn = SettingsManager.shared.autoTranscribe
+        AnalyticsManager.shared.trackSettingChanged(setting: "autoTranscribe", value: String(isOn))
         if let btn = sender as? NSButton {
-            btn.state = SettingsManager.shared.autoTranscribe ? .on : .off
+            btn.state = isOn ? .on : .off
         }
     }
 
@@ -1069,8 +1191,10 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     @objc private func toggleDiarization(_ sender: Any) {
         SettingsManager.shared.enableDiarization.toggle()
+        let isOn = SettingsManager.shared.enableDiarization
+        AnalyticsManager.shared.trackSettingChanged(setting: "diarization", value: String(isOn))
         if let btn = sender as? NSButton {
-            btn.state = SettingsManager.shared.enableDiarization ? .on : .off
+            btn.state = isOn ? .on : .off
         }
     }
 
@@ -1090,6 +1214,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     @objc private func selectFormat(_ sender: NSMenuItem) {
         guard let format = sender.representedObject as? NSString else { return }
         SettingsManager.shared.outputFormat = format as String
+        AnalyticsManager.shared.trackSettingChanged(setting: "outputFormat", value: format as String)
         if let fmtMenu = formatSubmenu {
             for item in fmtMenu.items {
                 item.state = (item.representedObject as? NSString == format) ? .on : .off
@@ -1182,6 +1307,63 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         if let btn = sender as? NSButton {
             btn.state = newValue ? .on : .off
         }
+    }
+
+    @objc private func toggleAnalytics(_ sender: Any) {
+        let settings = SettingsManager.shared
+        settings.analyticsEnabled.toggle()
+        let isOn = settings.analyticsEnabled
+        if let btn = sender as? NSButton {
+            btn.state = isOn ? .on : .off
+        }
+        if isOn {
+            AnalyticsManager.shared.configure()
+        }
+    }
+
+    private func loadNewsSubmenu() {
+        // Check for new announcements on every menu open (push notifications for new ones)
+        AnnouncementsManager.shared.checkForAnnouncements()
+
+        AnnouncementsManager.shared.fetchAnnouncementsForMenu { [weak self] announcements in
+            guard let self = self, let submenu = self.newsMenuItem?.submenu else { return }
+            submenu.removeAllItems()
+
+            if announcements.isEmpty {
+                let emptyItem = NSMenuItem(title: "(Нет новостей)", action: nil, keyEquivalent: "")
+                emptyItem.isEnabled = false
+                submenu.addItem(emptyItem)
+                return
+            }
+
+            for (i, announcement) in announcements.enumerated() {
+                if i > 0 {
+                    submenu.addItem(NSMenuItem.separator())
+                }
+
+                let cardItem = NSMenuItem()
+                let cardView = AnnouncementCardView(
+                    announcement: announcement,
+                    target: self,
+                    action: #selector(self.openAnnouncementURL(_:))
+                )
+                cardItem.view = cardView
+                submenu.addItem(cardItem)
+            }
+        }
+    }
+
+    @objc private func openAnnouncementURL(_ sender: Any?) {
+        let url: URL?
+        if let button = sender as? NSButton {
+            url = button.cell?.representedObject as? URL
+        } else if let menuItem = sender as? NSMenuItem {
+            url = menuItem.representedObject as? URL
+        } else {
+            url = nil
+        }
+        guard let url = url else { return }
+        NSWorkspace.shared.open(url)
     }
 
     // MARK: - Share App
@@ -1282,11 +1464,14 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             Работает локально на Mac, без облака и подписок.
             Точность в 2 раза выше Whisper (GigaAM v3 + pyannote).
 
-            traart.ru
+            Автор: Александр Куроглo
+            traart.ru · localhost.ru
             """
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Открыть сайт")
+        alert.addButton(withTitle: "Сайт")
+        alert.addButton(withTitle: "Лента")
+        alert.addButton(withTitle: "LinkedIn автора")
         alert.addButton(withTitle: "Поделиться логами...")
 
         NSApp.activate(ignoringOtherApps: true)
@@ -1295,6 +1480,10 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         if response == .alertSecondButtonReturn {
             NSWorkspace.shared.open(URL(string: "https://traart.ru")!)
         } else if response == .alertThirdButtonReturn {
+            NSWorkspace.shared.open(URL(string: "https://www.localhost.ru")!)
+        } else if response == NSApplication.ModalResponse(rawValue: 1003) {
+            NSWorkspace.shared.open(URL(string: "https://www.linkedin.com/in/aleksandr-kuroglo-45048434/")!)
+        } else if response == NSApplication.ModalResponse(rawValue: 1004) {
             shareLogs(sender)
         }
     }

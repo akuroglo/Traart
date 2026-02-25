@@ -92,8 +92,12 @@ def _load_pipeline(models_dir: Optional[str] = None):
 
             if models_dir:
                 diarization_dir = os.path.join(models_dir, "pyannote", "speaker-diarization-3.1")
-                if os.path.isdir(diarization_dir):
-                    pipeline = Pipeline.from_pretrained(diarization_dir)
+                config_path = os.path.join(diarization_dir, "config.yaml")
+                if os.path.isfile(config_path):
+                    pipeline = Pipeline.from_pretrained(
+                        config_path,
+                        use_auth_token=_HF_TOKEN,
+                    )
                 else:
                     pipeline = Pipeline.from_pretrained(
                         "pyannote/speaker-diarization-3.1",

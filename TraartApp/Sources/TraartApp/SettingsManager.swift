@@ -27,6 +27,7 @@ final class SettingsManager {
         static let minSegmentDuration = "minSegmentDuration"
         static let expansionPadding = "expansionPadding"
         static let monitoredFileTypes = "monitoredFileTypes"
+        static let analyticsEnabled = "analyticsEnabled"
         static let dualTranscription = "dualTranscription"
     }
 
@@ -54,6 +55,7 @@ final class SettingsManager {
             Keys.minSegmentDuration: 0.2,
             Keys.expansionPadding: 3,
             Keys.monitoredFileTypes: "audio",
+            Keys.analyticsEnabled: true,
             Keys.dualTranscription: false,
         ])
     }
@@ -177,11 +179,11 @@ final class SettingsManager {
     }
 
     static let qualityPresets: [QualityPreset] = [
-        QualityPreset(name: "Быстро",         chunkDuration: 25, chunkOverlap: 3, mergeGap: 1.5, minSegmentDuration: 0.3,  expansionPadding: 2),
-        QualityPreset(name: "Быстрее",        chunkDuration: 20, chunkOverlap: 3, mergeGap: 1.0, minSegmentDuration: 0.25, expansionPadding: 3),
-        QualityPreset(name: "Сбалансировано", chunkDuration: 20, chunkOverlap: 4, mergeGap: 0.8, minSegmentDuration: 0.2,  expansionPadding: 3),
-        QualityPreset(name: "Качественнее",   chunkDuration: 15, chunkOverlap: 5, mergeGap: 0.5, minSegmentDuration: 0.15, expansionPadding: 4),
-        QualityPreset(name: "Максимум",        chunkDuration: 12, chunkOverlap: 5, mergeGap: 0.3, minSegmentDuration: 0.1,  expansionPadding: 5),
+        QualityPreset(name: "Быстро",         chunkDuration: 30, chunkOverlap: 2, mergeGap: 1.5, minSegmentDuration: 0.3,  expansionPadding: 2),
+        QualityPreset(name: "Быстрее",        chunkDuration: 25, chunkOverlap: 2, mergeGap: 1.0, minSegmentDuration: 0.25, expansionPadding: 3),
+        QualityPreset(name: "Сбалансировано", chunkDuration: 20, chunkOverlap: 3, mergeGap: 0.8, minSegmentDuration: 0.2,  expansionPadding: 3),
+        QualityPreset(name: "Качественнее",   chunkDuration: 15, chunkOverlap: 3, mergeGap: 0.5, minSegmentDuration: 0.15, expansionPadding: 4),
+        QualityPreset(name: "Максимум",        chunkDuration: 12, chunkOverlap: 3, mergeGap: 0.3, minSegmentDuration: 0.1,  expansionPadding: 5),
     ]
 
     /// Quality preset index (0–4), or -1 for custom settings
@@ -306,6 +308,16 @@ final class SettingsManager {
         set {
             queue.async(flags: .barrier) { [weak self] in
                 self?.defaults.set(newValue, forKey: Keys.monitoredFileTypes)
+                self?.postChangeNotification()
+            }
+        }
+    }
+
+    var analyticsEnabled: Bool {
+        get { queue.sync { defaults.bool(forKey: Keys.analyticsEnabled) } }
+        set {
+            queue.async(flags: .barrier) { [weak self] in
+                self?.defaults.set(newValue, forKey: Keys.analyticsEnabled)
                 self?.postChangeNotification()
             }
         }

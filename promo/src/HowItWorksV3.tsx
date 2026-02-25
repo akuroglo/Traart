@@ -10,37 +10,40 @@ import { C } from "./shared/colors";
 import { ease } from "./shared/animation";
 import { TraartSparkleIcon } from "./components/mac-menubar/TraartSparkleIcon";
 import { ProgressBar } from "./components/mac-menubar/ProgressBar";
+import { FinderWindow } from "./components/ui/FinderWindow";
+import type { FinderFileItem } from "./components/ui/FinderWindow";
 
 /**
  * HowItWorksV3 — "Split Screen Race" (TikTok Teaser)
- * 1920x1080, 660 frames @ 30fps (22 sec)
+ * 1920x1080, 840 frames @ 30fps (28 sec)
  *
- * Fast-paced teaser: hook → split race → win → stats punch → CTA
+ * Fast-paced teaser with visual feature demos.
  *
  * Timeline:
- *   0-36:    HOOK — "Час аудио → текст" (fast scale-in)
- *   36-54:   "Два способа" — split screen drops in
+ *   0-36:    HOOK — "Час аудио → текст за 38 секунд"
+ *   36-54:   "Два способа" split intro
  *   54-270:  RACE — cloud crawls, Traart zooms
- *   270-330: WIN — checkmark burst, cloud still loading
- *   330-432: STATS PUNCH — 3 numbers fly in rapid succession
- *   432-540: BIG CLAIM — "В 2× точнее Whisper"
- *   540-660: CTA — sparkle + Traart + pills + url
+ *   270-340: WIN — flash + checkmark burst
+ *   340-475: FINDER — transcript file appears next to original
+ *   475-595: FEATURES — offline / diarization / free (slam-in)
+ *   595-690: BIG CLAIM — "В 2× точнее Whisper"
+ *   690-840: CTA — sparkle + pills + url
  */
 export const HowItWorksV3: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const bgHue = interpolate(frame, [0, 660], [225, 270], {
+  const bgHue = interpolate(frame, [0, 840], [225, 270], {
     extrapolateRight: "clamp",
   });
 
   // =======================================
   // Animated gradient blobs (mesh-like background)
   // =======================================
-  const blob1X = interpolate(frame, [0, 660], [20, 35], { extrapolateRight: "clamp" });
-  const blob1Y = interpolate(frame, [0, 660], [30, 50], { extrapolateRight: "clamp" });
-  const blob2X = interpolate(frame, [0, 660], [75, 60], { extrapolateRight: "clamp" });
-  const blob2Y = interpolate(frame, [0, 660], [60, 40], { extrapolateRight: "clamp" });
+  const blob1X = interpolate(frame, [0, 840], [20, 38], { extrapolateRight: "clamp" });
+  const blob1Y = interpolate(frame, [0, 840], [30, 55], { extrapolateRight: "clamp" });
+  const blob2X = interpolate(frame, [0, 840], [75, 58], { extrapolateRight: "clamp" });
+  const blob2Y = interpolate(frame, [0, 840], [60, 38], { extrapolateRight: "clamp" });
 
   // =======================================
   // SECTION 1: HOOK (0-36) — 1.2 sec
@@ -77,14 +80,13 @@ export const HowItWorksV3: React.FC = () => {
     ease(frame, 1, 0, 325, 340)
   );
 
-  // Divider slides in from top
   const dividerDrop = spring({
     frame: Math.max(0, frame - 55),
     fps,
     config: { damping: 15, stiffness: 200 },
   });
 
-  // Cloud upload: painfully slow (0 → 45% over full race)
+  // Cloud: painfully slow (0 → 45%)
   const cloudPct = frame >= 70
     ? interpolate(frame, [70, 330], [0, 45], {
         extrapolateLeft: "clamp",
@@ -92,7 +94,7 @@ export const HowItWorksV3: React.FC = () => {
       })
     : 0;
 
-  // Traart progress: zooms to 100%
+  // Traart: zooms to 100%
   const traartPct = frame >= 70
     ? interpolate(
         frame,
@@ -103,12 +105,12 @@ export const HowItWorksV3: React.FC = () => {
     : 0;
   const traartDone = traartPct >= 100;
 
-  // Cloud pain messages appear staggered
-  const cloudMsg1 = ease(frame, 0, 1, 120, 130); // "Загрузка..."
-  const cloudMsg2 = ease(frame, 0, 1, 180, 190); // "Очередь: ~3 мин"
-  const cloudMsg3 = ease(frame, 0, 1, 270, 280); // "Всё ещё грузит..."
+  // Cloud pain messages
+  const cloudMsg1 = ease(frame, 0, 1, 120, 130);
+  const cloudMsg2 = ease(frame, 0, 1, 180, 190);
+  const cloudMsg3 = ease(frame, 0, 1, 270, 280);
 
-  // Traart text appearing (typewriter-style preview)
+  // Traart typewriter preview
   const textPreviewChars = frame >= 160
     ? Math.floor(interpolate(frame, [160, 255], [0, 60], {
         extrapolateLeft: "clamp",
@@ -119,7 +121,7 @@ export const HowItWorksV3: React.FC = () => {
   const visibleText = previewText.slice(0, textPreviewChars);
 
   // =======================================
-  // SECTION 4: WIN (270-330) — 2 sec
+  // SECTION 4: WIN (270-340) — 2.3 sec
   // =======================================
   const checkBurst = spring({
     frame: Math.max(0, frame - 260),
@@ -133,7 +135,6 @@ export const HowItWorksV3: React.FC = () => {
     config: { damping: 10, stiffness: 200 },
   });
 
-  // Flash effect on win
   const flashOpacity = frame >= 258 && frame < 270
     ? interpolate(frame, [258, 262, 270], [0, 0.3, 0], {
         extrapolateLeft: "clamp",
@@ -142,48 +143,132 @@ export const HowItWorksV3: React.FC = () => {
     : 0;
 
   // =======================================
-  // SECTION 5: STATS PUNCH (330-432) — 3.4 sec
+  // SECTION 5: FINDER (340-475) — 4.5 sec
   // =======================================
-  const stats = [
-    { value: "8.3%", label: "WER", sub: "точность", color: C.teal, frame: 335 },
-    { value: "0₽", label: "навсегда", sub: "бесплатно", color: C.green, frame: 365 },
-    { value: "0 байт", label: "в сеть", sub: "оффлайн", color: C.accent, frame: 395 },
-  ];
-  const statsVisible = frame >= 330 && frame < 440;
-  const statsOverallOp = Math.min(
-    ease(frame, 0, 1, 330, 340),
-    ease(frame, 1, 0, 425, 440)
+  const finderVisible = frame >= 340 && frame < 480;
+  const finderWindowScale = spring({
+    frame: Math.max(0, frame - 345),
+    fps,
+    config: { damping: 12, stiffness: 150 },
+  });
+  const finderOp = Math.min(
+    ease(frame, 0, 1, 340, 355),
+    ease(frame, 1, 0, 465, 480)
   );
 
+  // New .md file appears at frame 385
+  const mdFileScale = spring({
+    frame: Math.max(0, frame - 385),
+    fps,
+    config: { damping: 10, stiffness: 180 },
+  });
+  const mdFileOp = ease(frame, 0, 1, 385, 395);
+
+  // Glow on the new file
+  const mdGlowOp = frame >= 385 && frame < 440
+    ? interpolate(frame, [385, 400, 440], [0, 1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      })
+    : 0;
+
+  const finderFiles: FinderFileItem[] = [
+    {
+      name: "interview_2025-02-11.mp4",
+      icon: "\uD83C\uDFA5",
+      size: "127 МБ",
+      dateModified: "11 фев 2025, 14:30",
+      kind: "Видео MP4",
+    },
+    {
+      name: "notes_standup.txt",
+      icon: "\uD83D\uDCC4",
+      size: "4 КБ",
+      dateModified: "10 фев 2025, 09:15",
+      kind: "Текст",
+    },
+    {
+      name: "interview_2025-02-11.md",
+      icon: "\uD83D\uDCDD",
+      size: "24 КБ",
+      dateModified: "11 фев 2025, 14:31",
+      kind: "Markdown",
+      opacity: mdFileOp,
+      scale: mdFileScale,
+      glowColor: mdGlowOp > 0 ? C.teal : undefined,
+    },
+  ];
+
+  // Caption under Finder
+  const finderCaptionOp = ease(frame, 0, 1, 410, 425);
+  const finderCaptionScale = spring({
+    frame: Math.max(0, frame - 412),
+    fps,
+    config: { damping: 12, stiffness: 200 },
+  });
+
   // =======================================
-  // SECTION 6: BIG CLAIM (432-540) — 3.6 sec
+  // SECTION 6: FEATURES (475-595) — 4 sec
   // =======================================
-  const claimVisible = frame >= 432 && frame < 545;
+  const featuresVisible = frame >= 475 && frame < 600;
+  const featuresOp = Math.min(
+    ease(frame, 0, 1, 475, 490),
+    ease(frame, 1, 0, 585, 600)
+  );
+
+  const features = [
+    {
+      icon: "\uD83D\uDD12",
+      title: "100% Оффлайн",
+      sub: "Данные не покидают Mac",
+      color: C.accent,
+      startFrame: 480,
+    },
+    {
+      icon: "\uD83D\uDC65",
+      title: "Диаризация",
+      sub: "Определяет кто говорит",
+      color: C.teal,
+      startFrame: 500,
+    },
+    {
+      icon: "\uD83C\uDF81",
+      title: "Бесплатно",
+      sub: "Навсегда, без подписок",
+      color: C.green,
+      startFrame: 520,
+    },
+  ];
+
+  // =======================================
+  // SECTION 7: BIG CLAIM (595-690) — 3.2 sec
+  // =======================================
+  const claimVisible = frame >= 595 && frame < 695;
   const claimScale = spring({
-    frame: Math.max(0, frame - 435),
+    frame: Math.max(0, frame - 598),
     fps,
     config: { damping: 8, stiffness: 120 },
   });
   const claimOp = Math.min(
-    ease(frame, 0, 1, 432, 445),
-    ease(frame, 1, 0, 530, 545)
+    ease(frame, 0, 1, 595, 608),
+    ease(frame, 1, 0, 680, 695)
   );
 
   // =======================================
-  // SECTION 7: CTA (540-660) — 4 sec
+  // SECTION 8: CTA (690-840) — 5 sec
   // =======================================
-  const ctaOp = ease(frame, 0, 1, 540, 560);
+  const ctaOp = ease(frame, 0, 1, 690, 710);
   const sparkleCtaScale = spring({
-    frame: Math.max(0, frame - 545),
+    frame: Math.max(0, frame - 695),
     fps,
     config: { damping: 8, stiffness: 100 },
   });
 
-  // Particle burst on CTA (sparkles flying out)
+  // Particle burst
   const particles = Array.from({ length: 16 }, (_, i) => {
     const angle = (i / 16) * Math.PI * 2;
     const dist = spring({
-      frame: Math.max(0, frame - 550 - (i % 4)),
+      frame: Math.max(0, frame - 700 - (i % 4)),
       fps,
       config: { damping: 20, stiffness: 80 },
     });
@@ -212,7 +297,6 @@ export const HowItWorksV3: React.FC = () => {
           background: `linear-gradient(135deg, ${C.bg1} 0%, ${C.bg2} 50%, ${C.bg3} 100%)`,
         }}
       />
-      {/* Drifting blobs */}
       <div
         style={{
           position: "absolute",
@@ -239,7 +323,6 @@ export const HowItWorksV3: React.FC = () => {
           transform: "translate(-50%, -50%)",
         }}
       />
-      {/* Grid */}
       <div
         style={{
           position: "absolute",
@@ -298,7 +381,7 @@ export const HowItWorksV3: React.FC = () => {
               marginTop: 8,
             }}
           >
-            → текст за 38 секунд
+            &rarr; текст за 38 секунд
           </div>
         </div>
       )}
@@ -356,7 +439,6 @@ export const HowItWorksV3: React.FC = () => {
               overflow: "hidden",
             }}
           >
-            {/* Red ambient */}
             <div
               style={{
                 position: "absolute",
@@ -387,7 +469,7 @@ export const HowItWorksV3: React.FC = () => {
                   color: C.red,
                 }}
               >
-                Облако
+                &#9729; Облако
               </span>
             </div>
 
@@ -417,7 +499,6 @@ export const HowItWorksV3: React.FC = () => {
                 width: 340,
               }}
             >
-              {/* Bar */}
               <div
                 style={{
                   height: 8,
@@ -449,7 +530,7 @@ export const HowItWorksV3: React.FC = () => {
                 Загрузка: {Math.round(cloudPct)}%
               </div>
 
-              {/* Pain messages stagger in */}
+              {/* Pain messages */}
               <div style={{ marginTop: 40, textAlign: "center" }}>
                 <div
                   style={{
@@ -460,7 +541,7 @@ export const HowItWorksV3: React.FC = () => {
                     transform: `translateX(${(1 - cloudMsg1) * 20}px)`,
                   }}
                 >
-                  ⏳ Загрузка 127 МБ...
+                  &#9203; Загрузка 127 МБ...
                 </div>
                 <div
                   style={{
@@ -471,7 +552,7 @@ export const HowItWorksV3: React.FC = () => {
                     transform: `translateX(${(1 - cloudMsg2) * 20}px)`,
                   }}
                 >
-                  🔄 Очередь на сервере: ~3 мин
+                  &#128260; Очередь на сервере: ~3 мин
                 </div>
                 <div
                   style={{
@@ -482,12 +563,12 @@ export const HowItWorksV3: React.FC = () => {
                     transform: `translateX(${(1 - cloudMsg3) * 20}px)`,
                   }}
                 >
-                  😤 Всё ещё грузит...
+                  &#128548; Всё ещё грузит...
                 </div>
               </div>
             </div>
 
-            {/* Bottom: sad result */}
+            {/* Bottom: sad percentage */}
             {frame >= 280 && (
               <div
                 style={{
@@ -525,7 +606,6 @@ export const HowItWorksV3: React.FC = () => {
               overflow: "hidden",
             }}
           >
-            {/* Teal ambient */}
             <div
               style={{
                 position: "absolute",
@@ -592,7 +672,6 @@ export const HowItWorksV3: React.FC = () => {
             >
               {!traartDone ? (
                 <>
-                  {/* Sparkle + status */}
                   <div
                     style={{
                       display: "flex",
@@ -612,7 +691,6 @@ export const HowItWorksV3: React.FC = () => {
                       Локально на Mac
                     </span>
                   </div>
-                  {/* ProgressBar component */}
                   <div style={{ opacity: ease(frame, 0, 1, 75, 85) }}>
                     <ProgressBar
                       progress={traartPct / 100}
@@ -634,7 +712,6 @@ export const HowItWorksV3: React.FC = () => {
                     />
                   </div>
 
-                  {/* Live text preview */}
                   {textPreviewChars > 0 && (
                     <div
                       style={{
@@ -666,7 +743,6 @@ export const HowItWorksV3: React.FC = () => {
                   )}
                 </>
               ) : (
-                /* WIN state */
                 <div style={{ textAlign: "center" }}>
                   <div style={{ transform: `scale(${checkBurst})` }}>
                     <svg width={72} height={72} viewBox="0 0 72 72">
@@ -694,7 +770,6 @@ export const HowItWorksV3: React.FC = () => {
                     38 секунд!
                   </div>
 
-                  {/* Result preview */}
                   <div
                     style={{
                       marginTop: 16,
@@ -719,8 +794,80 @@ export const HowItWorksV3: React.FC = () => {
         </div>
       )}
 
-      {/* ========== STATS PUNCH ========== */}
-      {statsVisible && (
+      {/* ========== FINDER — FILE SAVES NEXT TO ORIGINAL ========== */}
+      {finderVisible && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: finderOp,
+          }}
+        >
+          {/* Finder window with spring entrance */}
+          <div
+            style={{
+              transform: `scale(${finderWindowScale})`,
+              transformOrigin: "center center",
+            }}
+          >
+            <FinderWindow
+              title="Interviews"
+              files={finderFiles}
+              width={720}
+            />
+          </div>
+
+          {/* Arrow pointing from .mp4 to .md + caption */}
+          <div
+            style={{
+              marginTop: 28,
+              textAlign: "center",
+              opacity: finderCaptionOp,
+              transform: `scale(${finderCaptionScale})`,
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "10px 24px",
+                borderRadius: 16,
+                background: `${C.teal}15`,
+                border: `1px solid ${C.teal}25`,
+              }}
+            >
+              <TraartSparkleIcon state="completed" size={20} />
+              <span
+                style={{
+                  fontSize: 20,
+                  fontWeight: 600,
+                  color: C.teal,
+                }}
+              >
+                Транскрипция — рядом с оригиналом
+              </span>
+            </div>
+            <div
+              style={{
+                marginTop: 8,
+                fontSize: 15,
+                color: C.textMuted,
+                opacity: ease(frame, 0, 1, 425, 440),
+              }}
+            >
+              .mp4 &rarr; .md в той же папке, автоматически
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========== FEATURES — SLAM-IN CARDS ========== */}
+      {featuresVisible && (
         <div
           style={{
             position: "absolute",
@@ -728,43 +875,47 @@ export const HowItWorksV3: React.FC = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 60,
-            opacity: statsOverallOp,
+            gap: 32,
+            opacity: featuresOp,
           }}
         >
-          {stats.map((stat, i) => {
-            const sScale = spring({
-              frame: Math.max(0, frame - stat.frame),
+          {features.map((feat, i) => {
+            const fScale = spring({
+              frame: Math.max(0, frame - feat.startFrame),
               fps,
               config: { damping: 8, stiffness: 180 },
             });
-            const sOp = ease(frame, 0, 1, stat.frame, stat.frame + 8);
+            const fOp = ease(frame, 0, 1, feat.startFrame, feat.startFrame + 10);
             return (
               <div
-                key={stat.label}
+                key={feat.title}
                 style={{
+                  width: 280,
+                  padding: "32px 24px",
+                  borderRadius: 20,
+                  background: "rgba(255,255,255,0.06)",
+                  backdropFilter: "blur(16px)",
+                  border: `1px solid ${feat.color}20`,
                   textAlign: "center",
-                  transform: `scale(${sScale})`,
-                  opacity: sOp,
+                  transform: `scale(${fScale})`,
+                  opacity: fOp,
+                  boxShadow: `0 8px 32px rgba(0,0,0,0.3), 0 0 20px ${feat.color}10`,
                 }}
               >
+                <div style={{ fontSize: 48, marginBottom: 12 }}>{feat.icon}</div>
                 <div
                   style={{
-                    fontSize: 72,
-                    fontWeight: 900,
-                    color: stat.color,
-                    lineHeight: 1,
-                    textShadow: `0 0 40px ${stat.color}40`,
-                    letterSpacing: -2,
+                    fontSize: 24,
+                    fontWeight: 800,
+                    color: feat.color,
+                    marginBottom: 6,
+                    letterSpacing: -0.5,
                   }}
                 >
-                  {stat.value}
+                  {feat.title}
                 </div>
-                <div style={{ fontSize: 18, fontWeight: 600, color: C.text, marginTop: 8 }}>
-                  {stat.label}
-                </div>
-                <div style={{ fontSize: 14, color: C.textMuted, marginTop: 2 }}>
-                  {stat.sub}
+                <div style={{ fontSize: 15, color: C.textMuted, lineHeight: 1.4 }}>
+                  {feat.sub}
                 </div>
               </div>
             );
@@ -800,7 +951,7 @@ export const HowItWorksV3: React.FC = () => {
                 lineHeight: 1,
               }}
             >
-              В <span style={{ color: C.teal }}>2×</span> точнее
+              В <span style={{ color: C.teal }}>2&times;</span> точнее
             </div>
             <div
               style={{
@@ -817,7 +968,7 @@ export const HowItWorksV3: React.FC = () => {
       )}
 
       {/* ========== CTA ========== */}
-      {frame >= 540 && (
+      {frame >= 690 && (
         <div
           style={{
             position: "absolute",
@@ -865,12 +1016,12 @@ export const HowItWorksV3: React.FC = () => {
             Traart
           </div>
 
-          {/* Feature pills with staggered springs */}
+          {/* Feature pills */}
           <div style={{ display: "flex", gap: 14, marginBottom: 32 }}>
             {["Оффлайн", "WER 8.3%", "Бесплатно", "Диаризация"].map(
               (label, i) => {
                 const pillScale = spring({
-                  frame: Math.max(0, frame - 570 - i * 6),
+                  frame: Math.max(0, frame - 720 - i * 6),
                   fps,
                   config: { damping: 10, stiffness: 200 },
                 });
@@ -900,7 +1051,7 @@ export const HowItWorksV3: React.FC = () => {
               fontSize: 26,
               fontWeight: 700,
               color: C.teal,
-              opacity: ease(frame, 0, 1, 610, 635),
+              opacity: ease(frame, 0, 1, 760, 790),
               textShadow: `0 0 40px ${C.teal}50`,
             }}
           >

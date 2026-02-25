@@ -1,12 +1,20 @@
 #!/bin/bash
 # Build the TraartApp Swift package and create .app bundle
 # Usage: ./scripts/build.sh
+# Set CHANNEL env var for distribution: CHANNEL=website ./scripts/build.sh
+# Valid channels: github (default), website, homebrew
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_DIR/build"
+
+# Distribution channel: github, website, homebrew (default: github)
+CHANNEL="${CHANNEL:-github}"
+CHANNEL_FLAG="CHANNEL_$(echo "$CHANNEL" | tr '[:lower:]' '[:upper:]')"
+SWIFT_DEFINES="-Xswiftc -D${CHANNEL_FLAG}"
+echo "Distribution channel: $CHANNEL (flag: $CHANNEL_FLAG)"
 APP_BUNDLE="$BUILD_DIR/Traart.app"
 CONTENTS_DIR="$APP_BUNDLE/Contents"
 MACOS_DIR="$CONTENTS_DIR/MacOS"
@@ -29,11 +37,11 @@ echo ""
 echo "[1/5] Building Universal Binary..."
 cd "$PROJECT_DIR/TraartApp"
 
-swift build -c release --arch arm64 2>&1
-ARM64_BIN=$(swift build -c release --arch arm64 --show-bin-path)/TraartApp
+swift build -c release --arch arm64 $SWIFT_DEFINES 2>&1
+ARM64_BIN=$(swift build -c release --arch arm64 $SWIFT_DEFINES --show-bin-path)/TraartApp
 
-swift build -c release --arch x86_64 2>&1
-X86_BIN=$(swift build -c release --arch x86_64 --show-bin-path)/TraartApp
+swift build -c release --arch x86_64 $SWIFT_DEFINES 2>&1
+X86_BIN=$(swift build -c release --arch x86_64 $SWIFT_DEFINES --show-bin-path)/TraartApp
 
 if [ ! -f "$ARM64_BIN" ] || [ ! -f "$X86_BIN" ]; then
     echo "ERROR: One or both architecture builds failed"
@@ -91,6 +99,8 @@ cat > "$CONTENTS_DIR/Info.plist" << 'PLIST'
     <false/>
     <key>NSSupportsSuddenTermination</key>
     <false/>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Traart использует микрофон для записи голосовых заметок и последующей транскрибации в текст.</string>
 </dict>
 </plist>
 PLIST
@@ -130,12 +140,54 @@ for file in "${ENGINE_FILES[@]}"; do
     fi
 done
 
-# Ad-hoc code sign
+# Code signing
+# Use Developer ID if available, otherwise ad-hoc
 echo ""
-echo "Code signing..."
-codesign --force --sign - "$APP_BUNDLE" 2>&1 || {
-    echo "WARNING: Code signing failed (may require Xcode tools). App bundle is still usable locally."
-}
+DEVELOPER_ID=$(security find-identity -v -p codesigning 2>/dev/null | grep "Developer ID Application" | head -1 | sed 's/.*"\(.*\)"/\1/')
+
+if [ -n "$DEVELOPER_ID" ]; then
+    echo "Code signing with Developer ID: $DEVELOPER_ID"
+    codesign --force --options runtime --sign "$DEVELOPER_ID" "$APP_BUNDLE" 2>&1
+    echo "Signed with Developer ID (hardened runtime enabled)"
+
+    # Notarization
+    echo ""
+    echo "Notarizing..."
+    APPLE_ID="${APPLE_ID:-}"
+    TEAM_ID="${TEAM_ID:-}"
+    NOTARY_PROFILE="${NOTARY_PROFILE:-traart-notary}"
+
+    if xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1; then
+        # Create zip for notarization
+        NOTARIZE_ZIP="$BUILD_DIR/Traart-notarize.zip"
+        ditto -c -k --keepParent "$APP_BUNDLE" "$NOTARIZE_ZIP"
+
+        xcrun notarytool submit "$NOTARIZE_ZIP" \
+            --keychain-profile "$NOTARY_PROFILE" \
+            --wait 2>&1
+
+        # Staple the ticket
+        xcrun stapler staple "$APP_BUNDLE" 2>&1
+        rm -f "$NOTARIZE_ZIP"
+        echo "Notarization complete, ticket stapled"
+    elif [ -n "$APPLE_ID" ] && [ -n "$TEAM_ID" ]; then
+        echo "No keychain profile found. Set up with:"
+        echo "  xcrun notarytool store-credentials traart-notary --apple-id $APPLE_ID --team-id $TEAM_ID"
+        echo "Skipping notarization."
+    else
+        echo "Skipping notarization (set APPLE_ID, TEAM_ID, or run: xcrun notarytool store-credentials traart-notary)"
+    fi
+else
+    echo "Code signing (ad-hoc — no Developer ID found)..."
+    codesign --force --sign - "$APP_BUNDLE" 2>&1 || {
+        echo "WARNING: Code signing failed (may require Xcode tools). App bundle is still usable locally."
+    }
+    echo ""
+    echo "To sign with Developer ID:"
+    echo "  1. Open Xcode → Settings → Accounts → Manage Certificates"
+    echo "  2. Create 'Developer ID Application' certificate"
+    echo "  3. Re-run this script"
+fi
 
 # Verify
 echo ""
@@ -148,3 +200,4 @@ find "$APP_BUNDLE" -type f | sort | while read -r f; do
 done
 echo ""
 du -sh "$APP_BUNDLE" | awk '{print "Bundle size: " $1}'
+codesign -dvv "$APP_BUNDLE" 2>&1 | grep -E "Authority|Signature|TeamIdentifier" || true

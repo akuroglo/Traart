@@ -31,6 +31,13 @@ final class SetupManager {
 
     // MARK: - Needs setup check
 
+    /// Fast synchronous check — only verifies Python binary exists (no imports).
+    static var needsSetupFast: Bool {
+        let pythonBin = SettingsManager.shared.pythonExecutable
+        return !FileManager.default.fileExists(atPath: pythonBin.path)
+    }
+
+    /// Full check including `import torch; import gigaam`. Always call from background thread.
     static var needsSetup: Bool {
         let pythonBin = SettingsManager.shared.pythonExecutable
         guard FileManager.default.fileExists(atPath: pythonBin.path) else { return true }
@@ -47,6 +54,21 @@ final class SetupManager {
             return process.terminationStatus != 0
         } catch {
             return true
+        }
+    }
+
+    /// Async check — runs full needsSetup on background queue, calls back on main.
+    static func checkNeedsSetup(completion: @escaping (Bool) -> Void) {
+        // Fast path: no Python binary at all
+        if needsSetupFast {
+            completion(true)
+            return
+        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = needsSetup
+            DispatchQueue.main.async {
+                completion(result)
+            }
         }
     }
 

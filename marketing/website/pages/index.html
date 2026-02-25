@@ -117,55 +117,72 @@
         ]
     }
     </script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106908653', 'ym');
+
+        ym(106908653, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106908653" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav class="nav-header" id="nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                    </div>
-                    <span class="text-xl font-bold" style="color: var(--text)">Traart</span>
-                </a>
+    <nav class="nav-floating" id="nav">
+        <div class="nav-pill">
+            <a href="index.html" class="flex items-center gap-2">
+                <svg class="w-5 h-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
+                <span class="text-base font-bold" style="color: var(--text)">Traart</span>
+            </a>
 
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="index.html" class="text-sm font-medium" style="color: var(--primary)">Главная</a>
-                    <a href="how-it-works.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Как работает</a>
-                    <div class="nav-dropdown"><a href="comparison.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Сравнение <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a><div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div></div>
-                    <a href="pricing.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Цены</a>
-                    <a href="faq.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">FAQ</a>
-                    <a href="download.html" class="btn-primary text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        Скачать
-                    </a>
-                    <button id="theme-toggle" class="p-2 rounded-[10px] transition-colors" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">
-                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                    </button>
+            <div class="hidden md:flex items-center gap-1">
+                <a href="index.html" class="nav-link nav-link-active">Главная</a>
+                <a href="how-it-works.html" class="nav-link">Как работает</a>
+                <div class="nav-dropdown">
+                    <a href="comparison.html" class="nav-link">Сравнение <svg class="w-3 h-3 inline-block ml-0.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
+                    <div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div>
                 </div>
-
-                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg" style="color: var(--text-muted)">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
+                <a href="pricing.html" class="nav-link">Цены</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
             </div>
+
+            <div class="hidden md:flex items-center gap-2">
+                <button id="theme-toggle" class="nav-icon-btn">
+                    <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+                <a href="download.html" class="nav-cta">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Скачать
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--card-border); background: var(--bg)">
-            <div class="px-4 py-4 space-y-3">
-                <a href="index.html" class="block text-sm font-medium" style="color: var(--primary)">Главная</a>
-                <a href="how-it-works.html" class="block text-sm font-medium" style="color: var(--text-muted)">Как работает</a>
-                <a href="comparison.html" class="block text-sm font-medium" style="color: var(--text-muted)">Сравнение</a><a href="vs-macwhisper.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs MacWhisper</a><a href="vs-turboscribe.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs TurboScribe</a><a href="vs-otter.html" class="block text-xs font-medium pl-4" style="color: var(--text-muted)">vs Otter.ai</a>
-                <a href="pricing.html" class="block text-sm font-medium" style="color: var(--text-muted)">Цены</a>
-                <a href="faq.html" class="block text-sm font-medium" style="color: var(--text-muted)">FAQ</a>
-                <a href="download.html" class="block text-sm font-medium" style="color: var(--primary)">Скачать</a>
-                <button id="theme-toggle-mobile" class="text-sm font-medium" style="color: var(--text-muted)">Сменить тему</button>
+        <div id="mobile-menu" class="hidden md:hidden nav-mobile-menu">
+            <div class="px-4 py-3 space-y-1">
+                <a href="index.html" class="nav-mobile-link nav-link-active">Главная</a>
+                <a href="how-it-works.html" class="nav-mobile-link">Как работает</a>
+                <a href="comparison.html" class="nav-mobile-link">Сравнение</a>
+                <a href="pricing.html" class="nav-mobile-link">Цены</a>
+                <a href="faq.html" class="nav-mobile-link">FAQ</a>
+                <a href="download.html" class="nav-mobile-link" style="color: var(--primary)">Скачать</a>
+                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left">Сменить тему</button>
             </div>
         </div>
     </nav>
@@ -181,13 +198,8 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="text-center max-w-4xl mx-auto">
-                <div class="badge fade-in-up mb-8" style="background: oklch(0.55 0.15 145 / 0.15); color: oklch(0.55 0.15 145);">
-                    <span class="pulse-dot"></span>
-                    Бесплатно пока в бета-версии
-                </div>
-
                 <h1 class="text-reveal text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
-                    <span class="word">Бесплатный</span> <span class="word">транскрибатор</span>
+                    <span class="word">Бесплатный</span> <span class="word">транскрибатор</span> <span class="word">для</span> <span class="word">Mac</span>
                     <br>
                     <span class="word gradient-text">расшифровка аудио в текст</span>
                 </h1>
@@ -228,58 +240,52 @@
         </div>
     </section>
 
-    <!-- Social Proof -->
-    <section class="py-12 md:py-16" style="background: var(--bg-secondary)">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="fade-in-up text-center">
-                <p class="text-sm font-medium mb-6" style="color: var(--text-muted)">Используют 1 000+ профессионалов</p>
-                <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--primary-light)">
-                            <svg class="w-5 h-5" style="color: var(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <p class="text-sm font-semibold" style="color: var(--text)">Журналисты</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Интервью и расследования</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--accent-green-bg)">
-                            <svg class="w-5 h-5" style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <p class="text-sm font-semibold" style="color: var(--text)">Бизнес</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Протоколы и звонки</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--accent-amber-bg)">
-                            <svg class="w-5 h-5" style="color: var(--accent-amber)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <p class="text-sm font-semibold" style="color: var(--text)">Студенты</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Лекции и семинары</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--accent-purple-bg)">
-                            <svg class="w-5 h-5" style="color: var(--accent-purple)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <p class="text-sm font-semibold" style="color: var(--text)">Юристы</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Конфиденциальность</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--accent-rose-bg)">
-                            <svg class="w-5 h-5" style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <p class="text-sm font-semibold" style="color: var(--text)">Подкастеры</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Show notes и субтитры</p>
-                        </div>
+    <!-- Video Demo -->
+    <section class="py-14 md:py-20" style="background: var(--bg-secondary)">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Traart в действии</h2>
+                <p class="text-lg" style="color: var(--text-secondary)">Посмотрите, как работает транскрибация за 29 секунд</p>
+            </div>
+            <div class="fade-in-up">
+                <div id="demo-container" class="relative rounded-2xl overflow-hidden" style="border: 1px solid var(--card-border); cursor: pointer;">
+                    <img id="demo-poster" src="how-it-works-poster.jpg" alt="Traart демо" style="width: 100%; display: block;">
+                    <div id="demo-play" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);transition:opacity .3s">
+                        <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="36" fill="rgba(0,0,0,0.5)"/><path d="M28 22l22 14-22 14V22z" fill="#fff"/></svg>
                     </div>
                 </div>
+                <script>
+                (function(){
+                    var c=document.getElementById('demo-container'),
+                        p=document.getElementById('demo-poster'),
+                        b=document.getElementById('demo-play');
+                    function loadVideo(){
+                        var v=document.createElement('video');
+                        v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;
+                        v.style.cssText='width:100%;display:block';
+                        v.src='how-it-works-v6.mp4';
+                        v.oncanplay=function(){p.remove();b.remove();c.style.cursor='';};
+                        c.insertBefore(v,p);
+                    }
+                    // Проверяем скорость: грузим poster ещё раз (из кеша) + замеряем
+                    // Если connection API доступен — используем его
+                    var conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+                    if(conn&&conn.effectiveType){
+                        if(conn.effectiveType==='4g'){loadVideo();return;}
+                        // 3g/2g/slow-2g — ждём клика
+                    } else {
+                        // Нет API — пробуем загрузить маленький чанк видео и замерить
+                        var start=performance.now();
+                        fetch('how-it-works-poster.jpg',{cache:'no-cache'}).then(function(r){return r.blob()}).then(function(bl){
+                            var ms=performance.now()-start;
+                            var speed=bl.size/1024/(ms/1000); // KB/s
+                            if(speed>300){loadVideo();return;} // >300 KB/s — грузим видео
+                        }).catch(function(){});
+                    }
+                    // При клике — грузим в любом случае
+                    c.addEventListener('click',function(){loadVideo();b.style.opacity='0';},{once:true});
+                })();
+                </script>
             </div>
         </div>
     </section>
@@ -299,16 +305,15 @@
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 rounded-full" style="background: var(--accent-rose)"></div>
-                            <span class="text-sm font-semibold" style="color: var(--text)">Whisper large-v3</span>
+                            <span class="text-sm font-semibold" style="color: var(--text)">Whisper (OpenAI)</span>
                         </div>
-                        <span class="badge text-xs" style="background: oklch(0.65 0.15 25 / 0.15); color: oklch(0.65 0.15 25);">WER ~16%</span>
+                        <span class="badge text-xs" style="background: oklch(0.65 0.15 25 / 0.15); color: oklch(0.65 0.15 25);">large-v3-turbo</span>
                     </div>
                     <div class="rounded-xl p-4 text-sm leading-relaxed font-mono" style="background: var(--bg); color: var(--text-secondary); border: 1px solid var(--card-border)">
-                        <p class="mb-2"><span style="color: var(--text-muted)">[00:00]</span> Давайте обсудим <span class="line-through" style="color: var(--accent-rose)">результат</span> <span style="color: var(--accent-rose)">результаты</span> последнего <span class="line-through" style="color: var(--accent-rose)">квортала</span> <span style="color: var(--accent-rose)">квартала</span>.</p>
-                        <p class="mb-2"><span style="color: var(--text-muted)">[00:03]</span> <span class="line-through" style="color: var(--accent-rose)">Выручко</span> <span style="color: var(--accent-rose)">Выручка</span> выросла на <span class="line-through" style="color: var(--accent-rose)">23 процент</span> <span style="color: var(--accent-rose)">23 процента</span>.</p>
-                        <p><span style="color: var(--text-muted)">[00:07]</span> <span class="line-through" style="color: var(--accent-rose)">Опирационная</span> <span style="color: var(--accent-rose)">Операционная</span> маржа <span class="line-through" style="color: var(--accent-rose)">состовила</span> <span style="color: var(--accent-rose)">составила</span> 18%.</p>
+                        <p class="mb-2"><span style="color: var(--text-muted)">[53:05]</span> Есть ещё <span style="color: var(--accent-rose); text-decoration: underline; text-decoration-style: wavy">лимитизация</span>. Она требует использования словарей, даже иногда и <span style="color: var(--accent-rose); text-decoration: underline; text-decoration-style: wavy">нерастевых</span> моделей.</p>
+                        <p><span style="color: var(--text-muted)">[53:54]</span> Например, есть <span style="color: var(--accent-rose); text-decoration: underline; text-decoration-style: wavy">кавкавео</span>, работает так. Если ты ищешь в <span style="color: var(--accent-rose); text-decoration: underline; text-decoration-style: wavy">кавкавео</span> любое слово universal...</p>
                     </div>
-                    <p class="text-xs mt-3 text-center" style="color: var(--text-muted)">5 ошибок в 3 предложениях</p>
+                    <p class="text-xs mt-3 text-center" style="color: var(--text-muted)">4 ошибки: «лемматизация» → «лимитизация», «нейросетевых» → «нерастевых», «Coveo» → «кавкавео» ×2</p>
                 </div>
 
                 <!-- Traart / GigaAM result -->
@@ -321,54 +326,18 @@
                         <span class="badge badge-green text-xs">WER 8.3%</span>
                     </div>
                     <div class="rounded-xl p-4 text-sm leading-relaxed font-mono" style="background: var(--bg); color: var(--text-secondary); border: 1px solid oklch(0.55 0.15 145 / 0.2)">
-                        <p class="mb-2"><span style="color: var(--text-muted)">[00:00]</span> <span style="color: var(--accent-green)">Спикер 1:</span> Давайте обсудим результаты последнего квартала.</p>
-                        <p class="mb-2"><span style="color: var(--text-muted)">[00:03]</span> <span style="color: var(--accent-green)">Спикер 1:</span> Выручка выросла на 23 процента.</p>
-                        <p><span style="color: var(--text-muted)">[00:07]</span> <span style="color: var(--accent-green)">Спикер 2:</span> Операционная маржа составила 18%.</p>
+                        <p class="mb-2"><span style="color: var(--text-muted)">[53:05]</span> Есть ещё <span style="color: var(--accent-green)">лемматизация</span>. Она требует использования словарей, даже иногда и <span style="color: var(--accent-green)">нейросетевых</span> моделей.</p>
+                        <p><span style="color: var(--text-muted)">[53:54]</span> Например, есть <span style="color: var(--accent-green)">Coveo</span>, работает так. Если ты ищешь в <span style="color: var(--accent-green)">Coveo</span> любое слово universal...</p>
                     </div>
-                    <p class="text-xs mt-3 text-center" style="color: var(--accent-green)">0 ошибок + диаризация спикеров</p>
+                    <p class="text-xs mt-3 text-center" style="color: var(--accent-green)">0 ошибок — все термины распознаны корректно</p>
                 </div>
             </div>
-            <div class="text-center mt-8 fade-in-up">
+            <p class="text-xs text-center mt-4 fade-in-up" style="color: var(--text-muted)">Источник: <a href="https://podcast.ru/e/23Xz446BBsL" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: underline">«Организованное программирование» #74</a> — подкаст Кирилла Мокевнина, 97 мин. русской речи</p>
+            <div class="text-center mt-6 fade-in-up">
                 <a href="gigaam-vs-whisper.html" class="link-arrow">
                     Полное сравнение GigaAM vs Whisper
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Video Placeholder -->
-    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Traart в действии</h2>
-                <p class="text-lg" style="color: var(--text-secondary)">Посмотрите, как работает транскрибация за 90 секунд</p>
-            </div>
-            <div class="fade-in-up">
-                <div class="relative rounded-2xl overflow-hidden cursor-pointer group" style="aspect-ratio: 16/9; background: linear-gradient(135deg, oklch(0.25 0.02 260), oklch(0.18 0.02 260)); border: 1px solid var(--card-border);" id="video-placeholder">
-                    <!-- Grid pattern background -->
-                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, var(--text-muted) 1px, transparent 1px); background-size: 24px 24px;"></div>
-                    <!-- Play button -->
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-20 h-20 rounded-full flex items-center justify-center transition-transform group-hover:scale-110" style="background: var(--primary); box-shadow: 0 0 40px oklch(0.55 0.2 260 / 0.4);">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </div>
-                    <!-- Bottom overlay with text -->
-                    <div class="absolute bottom-0 left-0 right-0 p-6" style="background: linear-gradient(transparent, oklch(0.15 0.02 260 / 0.9));">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-white">Демо: транскрибация интервью</p>
-                                <p class="text-xs text-white/60">1:32 / Перетаскивание файла, диаризация, экспорт</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -605,7 +574,21 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Кому подходит Traart</h2>
                 <p class="text-lg" style="color: var(--text-secondary)">Решение для профессионалов и студентов</p>
             </div>
+
+            <!-- Grid 2x2 -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
+                <a href="use-case-vibecoders.html" class="group gradient-border-card p-7 fade-in-up block" style="text-decoration: none; color: var(--text)">
+                    <div class="flex items-start gap-4">
+                        <div class="icon-wrap flex-shrink-0" style="background: var(--primary-light)">
+                            <svg style="color: var(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2 transition-colors" style="color: var(--text)">Вайбкодеры</h3>
+                            <p class="text-sm" style="color: var(--text-secondary)">Транскрибируйте записи Zoom-звонков, Loom-видео и скринкастов. Используйте транскрипты как контекст для Cursor, Claude Code, ChatGPT.</p>
+                        </div>
+                    </div>
+                </a>
+
                 <a href="use-case-product-managers.html" class="group gradient-border-card p-7 fade-in-up block" style="text-decoration: none; color: var(--text)">
                     <div class="flex items-start gap-4">
                         <div class="icon-wrap flex-shrink-0" style="background: var(--primary-light)">
@@ -653,90 +636,38 @@
                         </div>
                     </div>
                 </a>
+
+                <a href="use-case-researchers.html" class="group gradient-border-card p-7 fade-in-up block" style="text-decoration: none; color: var(--text)">
+                    <div class="flex items-start gap-4">
+                        <div class="icon-wrap flex-shrink-0" style="background: oklch(0.95 0.03 250)">
+                            <svg style="color: oklch(0.55 0.15 250)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2 transition-colors" style="color: var(--text)">Исследователи</h3>
+                            <p class="text-sm" style="color: var(--text-secondary)">Расшифровка полевых интервью для диссертаций и научных работ. Оффлайн — этичная обработка данных респондентов.</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-    </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Что говорят пользователи</h2>
-                <p class="text-lg" style="color: var(--text-secondary)">Реальные сценарии использования Traart</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
-                <div class="glass-card p-7 fade-in-up">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-wrap flex-shrink-0" style="background: var(--primary-light)">
-                            <svg style="color: var(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-sm" style="color: var(--text)">Журналист-расследователь</p>
-                            <p class="text-xs" style="color: var(--text-muted)">Медиа, Москва</p>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary)">«Раньше расшифровывала интервью вручную по 4 часа. С Traart часовое интервью превращается в текст за 6 минут. А главное — источники защищены, потому что аудио никуда не уходит.»</p>
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-green text-xs">Приватность</span>
-                        <span class="badge text-xs">Диаризация</span>
-                    </div>
-                </div>
-
-                <div class="glass-card p-7 fade-in-up">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-wrap flex-shrink-0" style="background: var(--accent-green-bg)">
-                            <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-sm" style="color: var(--text)">Руководитель отдела</p>
-                            <p class="text-xs" style="color: var(--text-muted)">FinTech, Санкт-Петербург</p>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary)">«У нас 5-6 Zoom-звонков в день. Настроил автоматический мониторинг папки с записями — протоколы появляются сами. Экономим на подписке Otter.ai, которая все равно не понимала русский.»</p>
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-green text-xs">Автоматизация</span>
-                        <span class="badge text-xs">Бесплатно</span>
-                    </div>
-                </div>
-
-                <div class="glass-card p-7 fade-in-up">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-wrap flex-shrink-0" style="background: var(--accent-amber-bg)">
-                            <svg style="color: var(--accent-amber)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-sm" style="color: var(--text)">Аспирант</p>
-                            <p class="text-xs" style="color: var(--text-muted)">МГУ, Москва</p>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary)">«Записываю лекции и получаю текст с таймкодами. Могу быстро найти нужный момент. Whisper путал термины и имена, а Traart распознает намного точнее — даже специфическую лексику.»</p>
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-green text-xs">Качество</span>
-                        <span class="badge text-xs">Таймкоды</span>
-                    </div>
-                </div>
-
-                <div class="glass-card p-7 fade-in-up">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-wrap flex-shrink-0" style="background: var(--accent-rose-bg)">
-                            <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-sm" style="color: var(--text)">YouTube-блогер</p>
-                            <p class="text-xs" style="color: var(--text-muted)">150K подписчиков</p>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary)">«Делаю субтитры для видео и шоуноты для подкаста. Раньше платил за TurboScribe $20/мес, теперь получаю лучше качество бесплатно. Диаризация спикеров для подкаста — просто спасение.»</p>
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-green text-xs">Субтитры</span>
-                        <span class="badge text-xs">Диаризация</span>
-                    </div>
+            <!-- More use cases -->
+            <div class="mt-8 fade-in-up">
+                <p class="text-sm font-medium mb-4 text-center" style="color: var(--text-muted)">Ещё кейсы:</p>
+                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem">
+                    <a href="use-case-coaches.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Коучи</a>
+                    <a href="use-case-realtors.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Риелторы</a>
+                    <a href="use-cases/lawyers.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Юристы</a>
+                    <a href="use-cases/medical.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Медики</a>
+                    <a href="use-cases/students.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Студенты</a>
+                    <a href="use-cases/journalists.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Журналисты</a>
+                    <a href="use-cases/podcasters.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Подкастеры</a>
+                    <a href="use-cases/content-creators.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Контент-мейкеры</a>
+                    <a href="use-cases/business.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Бизнес</a>
+                    <a href="use-cases/lectures.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.375rem 0.875rem;font-size:0.8125rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--card-border)';this.style.color='var(--text-secondary)'">Лекции</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <hr class="section-divider">
 
     <!-- FAQ Section -->
     <section class="py-20 md:py-28" style="background: var(--bg)">
@@ -787,10 +718,6 @@
         <div class="noise-overlay"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
             <div class="fade-in-up">
-                <div class="badge mb-6" style="background: oklch(0.55 0.15 145 / 0.15); color: oklch(0.55 0.15 145);">
-                    <span class="pulse-dot"></span>
-                    Бесплатно пока в бета-версии
-                </div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Начните транскрибировать сегодня</h2>
                 <p class="text-lg mb-10 max-w-2xl mx-auto" style="color: var(--text-secondary)">
                     Скачайте Traart бесплатно и получите SOTA-качество распознавания русской речи прямо на вашем Mac
@@ -816,65 +743,93 @@
         </div>
     </section>
 
+    <hr class="section-divider">
+
+    <!-- About Creator -->
+    <section class="py-10 md:py-12" style="background: var(--bg)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+            <p class="text-lg font-semibold" style="color: var(--text); margin-bottom: 0.125rem">Александр Курогло</p>
+            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 1rem">автор проекта</p>
+            <div class="flex items-center justify-center gap-5">
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://github.com/akuroglo" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
-                <div class="col-span-2 md:col-span-1">
-                    <div class="flex items-center gap-2.5 mb-4">
-                        <div class="w-8 h-8 rounded-[10px] flex items-center justify-center" style="background: var(--primary)">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                        </div>
-                        <span class="text-lg font-bold">Traart</span>
-                    </div>
-                    <p class="text-sm" style="color: var(--text-muted)">SOTA транскрибатор для русской речи. Бесплатно и приватно.</p>
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--card-bg)">
+                    <svg class="w-4 h-4" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
                 </div>
+                <span class="text-base font-bold">Traart</span>
+                <span style="color:var(--text-muted);font-size:0.75rem">SOTA транскрибатор для русской речи</span>
+            </div>
+            <div class="footer-links" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 2rem;font-size:0.8125rem;line-height:1.75">
                 <div>
-                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Продукт</h4>
-                    <ul class="space-y-2.5">
-                        <li><a href="download.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Скачать</a></li>
-                        <li><a href="how-it-works.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Как работает</a></li>
-                        <li><a href="pricing.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Цены</a></li>
-                        <li><a href="diarization.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Диаризация</a></li>
-                        <li><a href="zoom-transcription.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Транскрибация Zoom</a></li>
-                        <li><a href="voice-messages.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Голосовые</a></li>
+                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Продукт</p>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li><a href="download.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Скачать</a></li>
+                        <li><a href="how-it-works.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Как работает</a></li>
+                        <li><a href="pricing.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Цены</a></li>
+                        <li><a href="diarization.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Диаризация</a></li>
+                        <li><a href="zoom-transcription.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Zoom</a></li>
+                        <li><a href="voice-messages.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Голосовые</a></li>
+                        <li><a href="blog.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Блог</a></li>
+                        <li><a href="faq.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Кейсы</h4>
-                    <ul class="space-y-2.5">
-                        <li><a href="use-case-product-managers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для продакт-менеджеров</a></li>
-                        <li><a href="use-case-marketers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для маркетологов</a></li>
-                        <li><a href="use-case-developers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для разработчиков</a></li>
-                        <li><a href="use-case-hr.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для HR</a></li>
-                        <li><a href="use-case-coaches.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для коучей</a></li>
-                        <li><a href="use-case-researchers.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для исследователей</a></li>
-                        <li><a href="use-case-realtors.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Для риелторов</a></li>
+                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Кейсы</p>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li><a href="use-case-vibecoders.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Вайбкодеры</a></li>
+                        <li><a href="use-case-product-managers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Продакт-менеджеры</a></li>
+                        <li><a href="use-case-marketers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Маркетологи</a></li>
+                        <li><a href="use-case-developers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Разработчики</a></li>
+                        <li><a href="use-case-hr.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">HR</a></li>
+                        <li><a href="use-case-coaches.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Коучи</a></li>
+                        <li><a href="use-case-researchers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Исследователи</a></li>
+                        <li><a href="use-case-realtors.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Риелторы</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Сравнения</h4>
-                    <ul class="space-y-2.5">
-                        <li><a href="vs-otter.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
-                        <li><a href="vs-macwhisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
-                        <li><a href="vs-turboscribe.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
-                        <li><a href="gigaam-vs-whisper.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
-                        <li><a href="cloud-vs-offline.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
-                        <li><a href="best-transcription-russian.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
+                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Ещё кейсы</p>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li><a href="use-cases/lawyers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Юристы</a></li>
+                        <li><a href="use-cases/medical.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Медики</a></li>
+                        <li><a href="use-cases/students.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Студенты</a></li>
+                        <li><a href="use-cases/journalists.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Журналисты</a></li>
+                        <li><a href="use-cases/podcasters.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Подкастеры</a></li>
+                        <li><a href="use-cases/content-creators.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Контент-мейкеры</a></li>
+                        <li><a href="use-cases/business.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Бизнес</a></li>
+                        <li><a href="use-cases/lectures.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лекции</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--text-muted)">Ресурсы</h4>
-                    <ul class="space-y-2.5">
-                        <li><a href="blog.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Блог</a></li>
-                        <li><a href="faq.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
-                        <li><a href="privacy.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Приватность</a></li>
-                        <li><a href="comparison.html" class="text-sm transition-colors" style="color: var(--text-secondary); text-decoration: none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Сравнение</a></li>
+                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Сравнения</p>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li><a href="comparison.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Общее сравнение</a></li>
+                        <li><a href="vs-otter.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
+                        <li><a href="vs-macwhisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
+                        <li><a href="vs-turboscribe.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
+                        <li><a href="gigaam-vs-whisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
+                        <li><a href="cloud-vs-offline.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
+                        <li><a href="best-transcription-russian.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
+                        <li><a href="privacy.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Приватность</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-12 pt-8 text-center" style="border-top: 1px solid var(--card-border)">
-                <p class="text-sm" style="color: var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
+            <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--card-border);text-align:center">
+                <p style="font-size:0.75rem;color:var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
             </div>
         </div>
     </footer>

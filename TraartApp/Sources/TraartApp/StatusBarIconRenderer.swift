@@ -5,6 +5,7 @@ enum IconState: Equatable {
     case transcribing(progress: Double)
     case completed
     case error
+    case recording
 }
 
 final class StatusBarIconRenderer {
@@ -20,6 +21,8 @@ final class StatusBarIconRenderer {
             return renderCompleted()
         case .error:
             return renderError()
+        case .recording:
+            return renderRecording()
         }
     }
 
@@ -169,6 +172,43 @@ final class StatusBarIconRenderer {
             ctx.fillPath()
 
             drawAccentMarks(in: ctx, color: red.cgColor)
+
+            return true
+        }
+        image.isTemplate = false
+        return image
+    }
+
+    // MARK: - Recording (red mic icon)
+
+    private static func renderRecording() -> NSImage {
+        let size = iconSize
+        let image = NSImage(size: NSSize(width: size, height: size), flipped: false) { rect in
+            guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
+
+            let red = NSColor(calibratedRed: 1.0, green: 0.23, blue: 0.19, alpha: 1.0)
+
+            // Draw SF Symbol mic.fill via NSImage
+            if let mic = NSImage(systemSymbolName: "mic.fill", accessibilityDescription: nil) {
+                let config = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
+                if let configured = mic.withSymbolConfiguration(config) {
+                    ctx.saveGState()
+                    // Tint
+                    ctx.setBlendMode(.normal)
+                    let micRect = CGRect(
+                        x: (rect.width - 14) / 2,
+                        y: (rect.height - 14) / 2,
+                        width: 14,
+                        height: 14
+                    )
+                    configured.draw(in: micRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+                    // Color overlay
+                    ctx.setBlendMode(.sourceAtop)
+                    ctx.setFillColor(red.cgColor)
+                    ctx.fill(rect)
+                    ctx.restoreGState()
+                }
+            }
 
             return true
         }
