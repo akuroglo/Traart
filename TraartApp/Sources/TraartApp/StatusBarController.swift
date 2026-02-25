@@ -1344,26 +1344,13 @@ final class StatusBarController: NSObject, NSMenuDelegate {
                 let cardItem = NSMenuItem()
                 let cardView = AnnouncementCardView(
                     announcement: announcement,
-                    target: self,
-                    action: #selector(self.openAnnouncementURL(_:))
+                    target: nil,
+                    action: nil
                 )
                 cardItem.view = cardView
                 submenu.addItem(cardItem)
             }
         }
-    }
-
-    @objc private func openAnnouncementURL(_ sender: Any?) {
-        let url: URL?
-        if let button = sender as? NSButton {
-            url = button.cell?.representedObject as? URL
-        } else if let menuItem = sender as? NSMenuItem {
-            url = menuItem.representedObject as? URL
-        } else {
-            url = nil
-        }
-        guard let url = url else { return }
-        NSWorkspace.shared.open(url)
     }
 
     // MARK: - Share App
