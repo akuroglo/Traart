@@ -1408,7 +1408,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         }
     }
 
-    @objc private func showAbout(_ sender: NSMenuItem) {
+    @objc private func showAbout(_ sender: Any?) {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
 
         let alert = NSAlert()
@@ -1417,29 +1417,29 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             Автоматическая транскрибация аудио и видео на русском языке.
 
             Работает локально на Mac, без облака и подписок.
-            Точность в 2 раза выше Whisper (GigaAM v3 + pyannote).
+            Точность в 3 раза выше Whisper (GigaAM v3 + pyannote).
 
             Автор: Александр Куроглo
-            traart.ru · localhost.ru
+            traart.ru
             """
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Сайт")
-        alert.addButton(withTitle: "Лента")
-        alert.addButton(withTitle: "LinkedIn автора")
-        alert.addButton(withTitle: "Поделиться логами...")
+        alert.addButton(withTitle: "traart.ru")
+        alert.addButton(withTitle: "✈️ Telegram")
+        alert.addButton(withTitle: "🔗 LinkedIn")
 
         NSApp.activate(ignoringOtherApps: true)
         let response = alert.runModal()
 
-        if response == .alertSecondButtonReturn {
+        switch response {
+        case .alertSecondButtonReturn:
             NSWorkspace.shared.open(URL(string: "https://traart.ru")!)
-        } else if response == .alertThirdButtonReturn {
-            NSWorkspace.shared.open(URL(string: "https://www.localhost.ru")!)
-        } else if response == NSApplication.ModalResponse(rawValue: 1003) {
+        case .alertThirdButtonReturn:
+            NSWorkspace.shared.open(URL(string: "https://t.me/AIgobrr")!)
+        case NSApplication.ModalResponse(rawValue: 1003):
             NSWorkspace.shared.open(URL(string: "https://www.linkedin.com/in/aleksandr-kuroglo-45048434/")!)
-        } else if response == NSApplication.ModalResponse(rawValue: 1004) {
-            shareLogs(sender)
+        default:
+            break
         }
     }
 
