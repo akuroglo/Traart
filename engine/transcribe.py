@@ -116,39 +116,6 @@ def select_device() -> torch.device:
     return torch.device("cpu")
 
 
-def convert_to_wav(input_path: str) -> Tuple[str, bool]:
-    """Convert audio/video to 16kHz mono WAV via ffmpeg.
-
-    Returns:
-        Tuple of (wav_path, was_converted). If was_converted is True,
-        the caller is responsible for cleaning up the temp file.
-    """
-    cmd = [
-        FFMPEG_PATH, "-y", "-hide_banner", "-loglevel", "error",
-        "-i", input_path,
-        "-ar", str(SAMPLE_RATE),
-        "-ac", "1",
-        "-c:a", "pcm_s16le",
-    ]
-
-    temp_fd, temp_path = tempfile.mkstemp(suffix=".wav")
-    os.close(temp_fd)
-    cmd.append(temp_path)
-
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-        if result.returncode != 0:
-            os.remove(temp_path)
-            raise RuntimeError(f"ffmpeg conversion failed: {result.stderr.strip()}")
-        return temp_path, True
-    except FileNotFoundError:
-        os.remove(temp_path)
-        raise RuntimeError("ffmpeg not found. Install with: brew install ffmpeg")
-    except subprocess.TimeoutExpired:
-        os.remove(temp_path)
-        raise RuntimeError("ffmpeg conversion timed out after 300 seconds")
-
-
 def get_audio_duration(audio_path: str) -> float:
     """Get audio duration in seconds using ffprobe."""
     try:
@@ -164,6 +131,44 @@ def get_audio_duration(audio_path: str) -> float:
         return float(result.stdout.strip())
     except Exception:
         return 0.0
+
+
+def convert_to_wav(input_path: str) -> Tuple[str, bool]:
+    """Convert audio/video to 16kHz mono WAV via ffmpeg.
+
+    Returns:
+        Tuple of (wav_path, was_converted). If was_converted is True,
+        the caller is responsible for cleaning up the temp file.
+    """
+    # Get file duration to set proportional timeout
+    file_duration = get_audio_duration(input_path)
+    # At least 120s, or 3x file duration, capped at 3600s
+    convert_timeout = min(max(120, int(file_duration * 3)), 3600) if file_duration > 0 else 300
+
+    cmd = [
+        FFMPEG_PATH, "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
+        "-i", input_path,
+        "-ar", str(SAMPLE_RATE),
+        "-ac", "1",
+        "-c:a", "pcm_s16le",
+    ]
+
+    temp_fd, temp_path = tempfile.mkstemp(suffix=".wav")
+    os.close(temp_fd)
+    cmd.append(temp_path)
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=convert_timeout)
+        if result.returncode != 0:
+            os.remove(temp_path)
+            raise RuntimeError(f"ffmpeg conversion failed: {result.stderr.strip()}")
+        return temp_path, True
+    except FileNotFoundError:
+        os.remove(temp_path)
+        raise RuntimeError("ffmpeg not found. Install with: brew install ffmpeg")
+    except subprocess.TimeoutExpired:
+        os.remove(temp_path)
+        raise RuntimeError(f"ffmpeg conversion timed out after {convert_timeout} seconds")
 
 
 def load_asr_model(models_dir: Optional[str] = None):

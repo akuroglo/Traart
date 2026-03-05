@@ -14,26 +14,35 @@ final class AnnouncementsManager {
 
     private static let notificationCategory = "ANNOUNCEMENT"
 
-    // Callback for when user taps an announcement with a URL
-    var onOpenURL: ((URL) -> Void)?
+    /// The most recently fetched announcement (cached in memory).
+    private(set) var latestAnnouncement: Announcement?
 
     private init() {}
 
     // MARK: - Data Model
 
+    struct AnnouncementAction: Codable {
+        let title: String
+        let url: String?
+        let style: String?  // "primary" or "secondary"
+    }
+
     struct Announcement: Codable {
         let id: String
         let title: String
-        let body: String
+        let body: String           // short text for push notification
         let date: String           // ISO 8601 date string
-        let url: String?           // optional link to open
+        let url: String?           // optional legacy link
+        let badge: String?         // emoji badge for the title
+        let detail: String?        // long rich text for the window (paragraphs separated by \n\n, > for quotes)
+        let actions: [AnnouncementAction]?  // action buttons
         let minVersion: String?    // show only to users on this version or later
         let maxVersion: String?    // show only to users on this version or earlier
     }
 
     // MARK: - Public API
 
-    /// Check for new announcements (throttled to once per day).
+    /// Check for new announcements (throttled).
     func checkForAnnouncements() {
         guard shouldCheck() else { return }
 
@@ -50,6 +59,11 @@ final class AnnouncementsManager {
 
             guard let announcements = try? JSONDecoder().decode([Announcement].self, from: data) else {
                 return
+            }
+
+            // Cache latest
+            if let first = announcements.first {
+                self.latestAnnouncement = first
             }
 
             let seenIDs = self.seenAnnouncementIDs
@@ -70,21 +84,33 @@ final class AnnouncementsManager {
                 self.showNotification(for: announcement)
                 self.markAsSeen(announcement.id)
             }
+
+            // Auto-show window for the latest new announcement
+            if let latest = newAnnouncements.first {
+                DispatchQueue.main.async {
+                    AnnouncementWindowController.shared.show(announcement: latest)
+                }
+            }
         }.resume()
     }
 
-    /// Get all announcements that have been shown (for displaying in menu).
-    func fetchAnnouncementsForMenu(completion: @escaping ([Announcement]) -> Void) {
+    /// Fetch the latest announcement (for showing window from menu).
+    func fetchLatest(completion: @escaping (Announcement?) -> Void) {
+        if let cached = latestAnnouncement {
+            DispatchQueue.main.async { completion(cached) }
+            return
+        }
+
         let request = URLRequest(url: Self.feedURL, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
-        URLSession.shared.dataTask(with: request) { data, _, _ in
+        URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
             guard let data = data,
-                  let announcements = try? JSONDecoder().decode([Announcement].self, from: data) else {
-                DispatchQueue.main.async { completion([]) }
+                  let announcements = try? JSONDecoder().decode([Announcement].self, from: data),
+                  let first = announcements.first else {
+                DispatchQueue.main.async { completion(nil) }
                 return
             }
-            // Return latest 5
-            let latest = Array(announcements.prefix(5))
-            DispatchQueue.main.async { completion(latest) }
+            self?.latestAnnouncement = first
+            DispatchQueue.main.async { completion(first) }
         }.resume()
     }
 
@@ -112,11 +138,10 @@ final class AnnouncementsManager {
         UNUserNotificationCenter.current().add(request)
     }
 
-    /// Handle notification tap — called from NotificationManager.
+    /// Handle notification tap — open window instead of browser.
     func handleNotificationAction(userInfo: [AnyHashable: Any]) {
-        if let urlStr = userInfo["announcementURL"] as? String,
-           let url = URL(string: urlStr) {
-            onOpenURL?(url)
+        DispatchQueue.main.async {
+            AnnouncementWindowController.shared.showLatest()
         }
     }
 

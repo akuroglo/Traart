@@ -266,13 +266,9 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
         menu.addItem(NSMenuItem.separator())
 
-        // News / Announcements
-        let newsItem = NSMenuItem(title: "Новости", action: nil, keyEquivalent: "")
-        let newsSubmenu = NSMenu()
-        let loadingItem = NSMenuItem(title: "Загрузка...", action: nil, keyEquivalent: "")
-        loadingItem.isEnabled = false
-        newsSubmenu.addItem(loadingItem)
-        newsItem.submenu = newsSubmenu
+        // Latest announcement
+        let newsItem = NSMenuItem(title: "Последняя новость", action: #selector(showLatestNews(_:)), keyEquivalent: "")
+        newsItem.target = self
         menu.addItem(newsItem)
         self.newsMenuItem = newsItem
 
@@ -609,7 +605,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         clearErrorIconIfNeeded()
         refreshMenuState()
-        loadNewsSubmenu()
+        AnnouncementsManager.shared.checkForAnnouncements()
         onMenuWillOpen?()
     }
 
@@ -1321,36 +1317,8 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         }
     }
 
-    private func loadNewsSubmenu() {
-        // Check for new announcements on every menu open (push notifications for new ones)
-        AnnouncementsManager.shared.checkForAnnouncements()
-
-        AnnouncementsManager.shared.fetchAnnouncementsForMenu { [weak self] announcements in
-            guard let self = self, let submenu = self.newsMenuItem?.submenu else { return }
-            submenu.removeAllItems()
-
-            if announcements.isEmpty {
-                let emptyItem = NSMenuItem(title: "(Нет новостей)", action: nil, keyEquivalent: "")
-                emptyItem.isEnabled = false
-                submenu.addItem(emptyItem)
-                return
-            }
-
-            for (i, announcement) in announcements.enumerated() {
-                if i > 0 {
-                    submenu.addItem(NSMenuItem.separator())
-                }
-
-                let cardItem = NSMenuItem()
-                let cardView = AnnouncementCardView(
-                    announcement: announcement,
-                    target: nil,
-                    action: nil
-                )
-                cardItem.view = cardView
-                submenu.addItem(cardItem)
-            }
-        }
+    @objc private func showLatestNews(_ sender: Any?) {
+        AnnouncementWindowController.shared.showLatest()
     }
 
     // MARK: - Share App

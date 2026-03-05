@@ -81,9 +81,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarController = sbc
 
         // Check for announcements
-        AnnouncementsManager.shared.onOpenURL = { url in
-            NSWorkspace.shared.open(url)
-        }
         AnnouncementsManager.shared.checkForAnnouncements()
 
         // Onboarding or normal launch
