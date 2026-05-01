@@ -138,7 +138,6 @@
 
     <hr class="section-divider">
     <!-- Reading-time + Floating Table of Contents (v4 — tocbot + custom glass) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.min.js" defer></script>
 
     <!-- Inline ToC card — visible on tablet/mobile, hidden on desktop (floating sidebar takes over) -->
@@ -208,8 +207,8 @@
 
     /* ===== Floating right sidebar (desktop) ===== */
     .toc-floating { display: none; position: fixed; top: 96px;
-        right: max(20px, calc((100vw - 1024px) / 2 - 280px));
-        width: 260px; max-height: calc(100vh - 140px);
+        right: max(24px, calc((100vw - 1024px) / 2 - 260px));
+        width: 232px; max-height: calc(100vh - 140px);
         z-index: 30; pointer-events: none; }
     .toc-floating-card { pointer-events: auto;
         background: linear-gradient(135deg, rgba(78, 205, 196, 0.05), rgba(108, 92, 231, 0.05), rgba(232, 121, 168, 0.05));
@@ -233,7 +232,9 @@
     .toc-target-floating { padding: 0.5rem 0.75rem 0.875rem; overflow-y: auto; flex: 1; }
 
     /* Show floating sidebar at wide widths only */
-    @media (min-width: 1280px) {
+    /* Show floating sidebar only when viewport is wide enough that it won't
+       overlap content (content max-w is up to 1024px = max-w-5xl on vs-* pages). */
+    @media (min-width: 1440px) {
         .toc-floating { display: block; }
         .toc-inline-section { display: none; }
         .toc-sticky-btn { display: none !important; }
@@ -312,6 +313,16 @@
         color: var(--text-muted); padding: 0.25rem; display: flex;
         border-radius: 0.375rem; transition: background .15s, color .15s; }
     .toc-popover-close:hover { background: var(--bg-secondary); color: var(--text); }
+
+    
+    /* Reset tocbot defaults — we provide all visuals */
+    .toc-target .toc-list { padding-left: 0 !important; overflow: visible !important; position: static !important; }
+    .toc-target .toc, .toc-target .toc-list-item { list-style: none !important; }
+    .toc-target .toc-link { background-color: transparent !important; outline: none !important; }
+    .toc-target .toc-link:focus,
+    .toc-target .toc-link:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    /* Tocbot ships an inline ::before grey bar — neutralize it */
+    .toc-target .toc-link::before { background: transparent !important; width: auto !important; }
 
     @media (prefers-reduced-motion: reduce) {
         .toc-card, .toc-target .toc-link, .toc-sticky-btn, .toc-popover, .reading-progress
