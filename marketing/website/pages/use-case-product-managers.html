@@ -155,6 +155,197 @@
     </section>
 
     <hr class="section-divider">
+    <!-- Reading-time + Table of Contents -->
+    <section class="py-8 md:py-10" style="background: var(--bg)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-2xl overflow-hidden" style="background: var(--bg-secondary); border: 1px solid var(--card-border); position: relative">
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%)"></div>
+                <div class="p-5 md:p-6">
+                    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--primary)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                            <span class="font-bold text-base" style="color: var(--text)">В этой статье</span>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-full" id="reading-time" style="background: var(--bg); color: var(--text-muted); border: 1px solid var(--card-border)">~ мин чтения</span>
+                    </div>
+                    <ol id="toc-list" class="space-y-1.5" style="list-style: none; padding: 0; margin: 0; counter-reset: toc-counter"></ol>
+                </div>
+            </div>
+        </div>
+        <style>
+        #toc-list li { counter-increment: toc-counter; padding-left: 2rem; position: relative; line-height: 1.5 }
+        #toc-list li::before {
+            content: counter(toc-counter, decimal-leading-zero);
+            position: absolute; left: 0; top: 0;
+            font-size: 0.75rem; font-weight: 600;
+            color: var(--text-muted); font-variant-numeric: tabular-nums;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+        #toc-list a { color: var(--text-secondary); text-decoration: none; font-size: 0.9375rem; transition: color 0.15s }
+        #toc-list a:hover { color: var(--primary) }
+        #toc-list a.is-active { color: var(--primary); font-weight: 600 }
+        </style>
+        <script>
+        (function() {
+            const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT']);
+            function visibleText(node, acc) {
+                if (!node) return acc;
+                if (node.nodeType === Node.TEXT_NODE) { acc.push(node.textContent); return acc; }
+                if (node.nodeType !== Node.ELEMENT_NODE) return acc;
+                if (exclude.has(node.tagName)) return acc;
+                node.childNodes.forEach(c => visibleText(c, acc));
+                return acc;
+            }
+            const text = visibleText(document.body, []).join(' ');
+            const words = (text.match(/\S+/g) || []).length;
+            const minutes = Math.max(1, Math.round(words / 200));
+            const tEl = document.getElementById('reading-time');
+            if (tEl) tEl.textContent = '~ ' + minutes + ' мин';
+
+            function slugify(s) {
+                return s.toLowerCase()
+                    .replace(/[^a-z0-9а-яё\s-]/gi, '')
+                    .trim().replace(/\s+/g, '-').substring(0, 60);
+            }
+            const list = document.getElementById('toc-list');
+            const h2s = Array.from(document.querySelectorAll('h2')).filter(h => {
+                let p = h.parentElement;
+                while (p) { if (exclude.has(p.tagName)) return false; p = p.parentElement; }
+                return h.textContent.trim().length > 0;
+            });
+            if (h2s.length < 3) {
+                const tocSection = document.querySelector('section [id="toc-list"]')?.closest('section');
+                if (tocSection) tocSection.style.display = 'none';
+                return;
+            }
+            const links = [];
+            h2s.forEach((h, i) => {
+                const text = h.textContent.trim();
+                const id = h.id || ('toc-' + i + '-' + slugify(text));
+                if (!h.id) h.id = id;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = text;
+                li.appendChild(a);
+                list.appendChild(li);
+                links.push({a: a, h: h});
+            });
+
+            // Smooth scroll on click
+            list.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const target = document.querySelector(e.target.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                        history.replaceState(null, '', e.target.getAttribute('href'));
+                    }
+                }
+            });
+
+            // Active section tracking via IntersectionObserver
+            const obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        links.forEach(l => l.a.classList.remove('is-active'));
+                        const match = links.find(l => l.h === entry.target);
+                        if (match) match.a.classList.add('is-active');
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+            h2s.forEach(h => obs.observe(h));
+            // Sticky floating ToC button on scroll
+            const stickyBtn = document.createElement('button');
+            stickyBtn.setAttribute('aria-label', 'Содержание');
+            stickyBtn.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;width:48px;height:48px;border-radius:9999px;background:linear-gradient(135deg,#4ECDC4 0%,#6C5CE7 50%,#E879A8 100%);border:none;color:white;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:none;align-items:center;justify-content:center;transition:transform .15s';
+            stickyBtn.innerHTML = '<svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>';
+            stickyBtn.onmouseenter = () => stickyBtn.style.transform = 'scale(1.08)';
+            stickyBtn.onmouseleave = () => stickyBtn.style.transform = '';
+            document.body.appendChild(stickyBtn);
+
+            const popover = document.createElement('div');
+            popover.style.cssText = 'position:fixed;bottom:5.5rem;right:1.5rem;z-index:50;max-width:340px;width:calc(100vw - 3rem);max-height:70vh;overflow-y:auto;background:var(--bg);border:1px solid var(--card-border);border-radius:1rem;padding:1rem 1.25rem;box-shadow:0 12px 40px rgba(0,0,0,0.18);display:none';
+            popover.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem"><span style="font-weight:600;color:var(--text);font-size:0.95rem">Содержание</span><button id="toc-pop-close" aria-label="Закрыть" style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:0.25rem;display:flex"><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div>';
+            const popList = document.createElement('ol');
+            popList.style.cssText = 'list-style:none;padding:0;margin:0;counter-reset:toc-counter';
+            // Clone link items from the inline ToC into the popover, but keep references to the same h2s
+            links.forEach(({a, h}) => {
+                const li = document.createElement('li');
+                li.style.cssText = 'counter-increment:toc-counter;padding-left:2rem;position:relative;line-height:1.5;margin-bottom:0.4rem';
+                const num = document.createElement('span');
+                num.textContent = String(links.indexOf({a, h})).padStart(2, '0');
+                const a2 = document.createElement('a');
+                a2.href = a.getAttribute('href');
+                a2.textContent = a.textContent;
+                a2.dataset.linkIdx = String(links.findIndex(l => l.a === a));
+                a2.style.cssText = 'color:var(--text-secondary);text-decoration:none;font-size:0.9rem;display:block';
+                a2.addEventListener('mouseenter', () => a2.style.color = 'var(--primary)');
+                a2.addEventListener('mouseleave', () => { if (!a2.classList.contains('is-active-pop')) a2.style.color = 'var(--text-secondary)'; });
+                li.appendChild(a2);
+                popList.appendChild(li);
+            });
+            // Add CSS counters
+            const style = document.createElement('style');
+            style.textContent = '#toc-pop-list li::before{content:counter(toc-counter, decimal-leading-zero);position:absolute;left:0;top:0;font-size:0.75rem;font-weight:600;color:var(--text-muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}#toc-pop-list a.is-active-pop{color:var(--primary)!important;font-weight:600}';
+            document.head.appendChild(style);
+            popList.id = 'toc-pop-list';
+            popover.appendChild(popList);
+            document.body.appendChild(popover);
+
+            popover.querySelector('#toc-pop-close').onclick = () => { popover.style.display = 'none'; };
+            stickyBtn.onclick = () => {
+                popover.style.display = popover.style.display === 'none' ? 'block' : 'none';
+            };
+            popover.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const target = document.querySelector(e.target.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                        history.replaceState(null, '', e.target.getAttribute('href'));
+                        popover.style.display = 'none';
+                    }
+                }
+            });
+            // Close popover on outside click
+            document.addEventListener('click', function(e) {
+                if (popover.style.display === 'block' && !popover.contains(e.target) && e.target !== stickyBtn && !stickyBtn.contains(e.target)) {
+                    popover.style.display = 'none';
+                }
+            });
+
+            // Sync active link in popover with main IO callback
+            const popLinks = popover.querySelectorAll('a');
+            const obs2 = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        popLinks.forEach(l => { l.classList.remove('is-active-pop'); l.style.color = 'var(--text-secondary)'; });
+                        const idx = h2s.indexOf(entry.target);
+                        if (idx >= 0 && popLinks[idx]) {
+                            popLinks[idx].classList.add('is-active-pop');
+                            popLinks[idx].style.color = 'var(--primary)';
+                        }
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+            h2s.forEach(h => obs2.observe(h));
+
+            // Show sticky button only after scrolling past the inline ToC
+            const inlineToc = document.querySelector('section #toc-list')?.closest('section');
+            if (inlineToc) {
+                const tocObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        stickyBtn.style.display = entry.isIntersecting ? 'none' : 'flex';
+                        if (entry.isIntersecting) popover.style.display = 'none';
+                    });
+                }, { threshold: 0 });
+                tocObserver.observe(inlineToc);
+            }
+        })();
+        </script>
+    </section>
+
 
     <!-- "Расшифровка совещаний" — усиление ВЧ-запроса 5082/мес -->
     <section class="py-16 md:py-24" style="background: var(--bg)">
@@ -192,7 +383,7 @@
             </div>
 
             <p class="text-center text-sm mt-6 max-w-2xl mx-auto fade-in-up" style="color: var(--text-secondary)">
-                В отличие от Otter, Fireflies или tl;dv — Traart не отправляет записи на чужие серверы. Расшифровка совещаний идёт локально через GigaAM v3 (WER 8.3% на русском), быстро и без подписки.
+                В отличие от <a href="vs-otter.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">Otter</a>, Fireflies или tl;dv — Traart не отправляет записи на чужие серверы. Расшифровка совещаний идёт локально через GigaAM v3 (WER 8.3% на русском), быстро и без подписки.
             </p>
         </div>
     </section>
@@ -216,7 +407,7 @@
                         <svg style="color: var(--accent-rose)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
                     <h3 class="text-lg font-semibold mb-2" style="color: var(--accent-rose)">Стратегия в облаке</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Otter.ai и Fireflies отправляют обсуждения roadmap, OKR и стратегии на чужие серверы. Конфиденциальность продуктовых решений под угрозой.</p>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)"><a href="vs-otter.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">Otter.ai</a> и Fireflies отправляют обсуждения roadmap, OKR и стратегии на чужие серверы. Конфиденциальность продуктовых решений под угрозой.</p>
                 </div>
                 <div class="glass-card p-7 fade-in-up" style="border-color: var(--accent-rose)">
                     <div class="icon-wrap mb-5" style="background: var(--accent-rose-bg)">
@@ -401,7 +592,7 @@
                     <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Полностью. Traart работает 100% оффлайн -- стратегические обсуждения, OKR и roadmap никогда не покидают ваш Mac. Приложение не делает сетевых запросов при обработке.</p>
                 </div>
                 <div class="glass-card p-7 fade-in-up">
-                    <h3 class="font-semibold mb-3" style="color: var(--text)">Как работает диаризация на стендапах?</h3>
+                    <h3 class="font-semibold mb-3" style="color: var(--text)">Как работает <a href="diarization.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">диаризация</a> на стендапах?</h3>
                     <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Traart автоматически определяет спикеров по голосу. На стендапе с 5-7 участниками каждая реплика будет подписана (Спикер 1, 2, 3...) с таймкодом. Блокеры каждого участника легко найти.</p>
                 </div>
                 <div class="glass-card p-7 fade-in-up">
