@@ -38,14 +38,20 @@ final class SetupManager {
     }
 
     /// Full check including `import torch; import gigaam`. Always call from background thread.
+    /// Also enforces pyannote.audio < 3.4 — newer versions need torchcodec, which we don't ship.
     static var needsSetup: Bool {
         let pythonBin = SettingsManager.shared.pythonExecutable
         guard FileManager.default.fileExists(atPath: pythonBin.path) else { return true }
 
-        // Check that torch is actually importable
+        let probe = """
+        import torch, gigaam, pyannote.audio
+        v = pyannote.audio.__version__.split('.')
+        assert (int(v[0]), int(v[1])) < (3, 4), 'pyannote >= 3.4 requires torchcodec'
+        """
+
         let process = Process()
         process.executableURL = pythonBin
-        process.arguments = ["-c", "import torch; import gigaam"]
+        process.arguments = ["-c", probe]
         process.standardOutput = FileHandle.nullDevice
         process.standardError = FileHandle.nullDevice
         do {

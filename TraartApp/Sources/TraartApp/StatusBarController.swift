@@ -598,6 +598,16 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         )
         self.analyticsItem = analyticsToggle
         submenu.addItem(analyticsToggle)
+
+        submenu.addItem(NSMenuItem.separator())
+
+        let shareLogsItem = NSMenuItem(
+            title: "Поделиться логами…",
+            action: #selector(shareLogs(_:)),
+            keyEquivalent: ""
+        )
+        shareLogsItem.target = self
+        submenu.addItem(shareLogsItem)
     }
 
     // MARK: - NSMenuDelegate
@@ -1427,6 +1437,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         alert.addButton(withTitle: "traart.ru")
         alert.addButton(withTitle: "✈️ Telegram")
         alert.addButton(withTitle: "🔗 LinkedIn")
+        alert.addButton(withTitle: "Поделиться логами…")
 
         NSApp.activate(ignoringOtherApps: true)
         let response = alert.runModal()
@@ -1438,6 +1449,8 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             NSWorkspace.shared.open(URL(string: "https://t.me/AIgobrr")!)
         case NSApplication.ModalResponse(rawValue: 1003):
             NSWorkspace.shared.open(URL(string: "https://www.linkedin.com/in/aleksandr-kuroglo-45048434/")!)
+        case NSApplication.ModalResponse(rawValue: 1004):
+            shareLogs(NSMenuItem())
         default:
             break
         }
