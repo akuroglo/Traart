@@ -155,8 +155,12 @@
     </section>
 
     <hr class="section-divider">
-    <!-- Reading-time + Table of Contents (v3 — animated, glass) -->
-    <section class="py-8 md:py-10" style="background: var(--bg)">
+    <!-- Reading-time + Floating Table of Contents (v4 — tocbot + custom glass) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.min.js" defer></script>
+
+    <!-- Inline ToC card — visible on tablet/mobile, hidden on desktop (floating sidebar takes over) -->
+    <section class="py-8 md:py-10 toc-inline-section" style="background: var(--bg)">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="toc-card">
                 <div class="toc-card-shine"></div>
@@ -168,304 +172,347 @@
                             </div>
                             <span>В этой статье</span>
                         </div>
-                        <span class="toc-pill" id="reading-time">~ мин чтения</span>
+                        <span class="toc-pill" id="reading-time">~ мин</span>
                     </div>
-                    <ol class="toc-list" id="toc-list"></ol>
+                    <div id="toc-mobile" class="toc-target"></div>
                 </div>
             </div>
         </div>
-        <style>
-        .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-            background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%);
-            z-index: 100; transition: width .15s linear; will-change: width;
-            box-shadow: 0 0 12px rgba(108, 92, 231, 0.5); }
+    </section>
 
-        .toc-card { position: relative; border-radius: 1.25rem; overflow: hidden;
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(108, 92, 231, 0.04), rgba(232, 121, 168, 0.04));
-            border: 1px solid var(--card-border); backdrop-filter: blur(8px);
-            transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s; }
-        .toc-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(108, 92, 231, 0.08); }
-        .toc-card-shine { position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%); }
-        .toc-card-inner { padding: 1.25rem 1.5rem; }
+    <!-- Floating right sidebar — visible only on wide desktops -->
+    <aside id="toc-floating" class="toc-floating" aria-label="Содержание страницы">
+        <div class="toc-floating-card">
+            <div class="toc-floating-card-shine"></div>
+            <div class="toc-floating-header">
+                <div class="toc-floating-icon">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                </div>
+                <span class="toc-floating-title">Содержание</span>
+                <span class="toc-floating-time" id="reading-time-floating">~ мин</span>
+            </div>
+            <div id="toc-desktop" class="toc-target toc-target-floating"></div>
+        </div>
+    </aside>
 
-        .toc-header { display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
-        .toc-header-title { display: flex; align-items: center; gap: 0.625rem;
-            font-weight: 700; font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
-        .toc-header-icon { width: 28px; height: 28px; border-radius: 0.5rem;
-            background: linear-gradient(135deg, #4ECDC4, #6C5CE7);
-            display: flex; align-items: center; justify-content: center; color: white;
-            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.25); }
-        .toc-pill { font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.6rem;
-            border-radius: 9999px; background: var(--bg);
-            color: var(--text-muted); border: 1px solid var(--card-border);
-            display: inline-flex; align-items: center; gap: 0.375rem; }
+    <style>
+    /* ===== Reading progress bar (always-on, mobile + desktop) ===== */
+    .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+        background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%);
+        z-index: 100; transition: width .15s linear; will-change: width;
+        box-shadow: 0 0 12px rgba(108, 92, 231, 0.5); }
 
-        .toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc-counter; }
-        .toc-list li { counter-increment: toc-counter; position: relative;
-            padding: 0.4rem 0.75rem 0.4rem 2.5rem; border-radius: 0.5rem;
-            transition: background .15s, transform .15s; cursor: pointer; }
-        .toc-list li::before {
-            content: counter(toc-counter, decimal-leading-zero);
-            position: absolute; left: 0.625rem; top: 0.5rem;
-            font-size: 0.7rem; font-weight: 600;
-            color: var(--text-muted);
-            font-variant-numeric: tabular-nums;
-            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-            transition: color .15s;
+    /* ===== Inline ToC card (mobile/tablet) ===== */
+    .toc-card { position: relative; border-radius: 1.25rem; overflow: hidden;
+        background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(108, 92, 231, 0.04), rgba(232, 121, 168, 0.04));
+        border: 1px solid var(--card-border); backdrop-filter: blur(8px);
+        transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s; }
+    .toc-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(108, 92, 231, 0.08); }
+    .toc-card-shine { position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%); }
+    .toc-card-inner { padding: 1.25rem 1.5rem; }
+    .toc-header { display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+    .toc-header-title { display: flex; align-items: center; gap: 0.625rem;
+        font-weight: 700; font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
+    .toc-header-icon { width: 28px; height: 28px; border-radius: 0.5rem;
+        background: linear-gradient(135deg, #4ECDC4, #6C5CE7);
+        display: flex; align-items: center; justify-content: center; color: white;
+        box-shadow: 0 2px 8px rgba(108, 92, 231, 0.25); }
+    .toc-pill { font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.6rem;
+        border-radius: 9999px; background: var(--bg);
+        color: var(--text-muted); border: 1px solid var(--card-border);
+        display: inline-flex; align-items: center; gap: 0.375rem; }
+
+    /* ===== Floating right sidebar (desktop) ===== */
+    .toc-floating { display: none; position: fixed; top: 96px;
+        right: max(20px, calc((100vw - 1024px) / 2 - 280px));
+        width: 260px; max-height: calc(100vh - 140px);
+        z-index: 30; pointer-events: none; }
+    .toc-floating-card { pointer-events: auto;
+        background: linear-gradient(135deg, rgba(78, 205, 196, 0.05), rgba(108, 92, 231, 0.05), rgba(232, 121, 168, 0.05));
+        border: 1px solid var(--card-border); border-radius: 1rem; overflow: hidden;
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        max-height: calc(100vh - 140px); display: flex; flex-direction: column; }
+    .toc-floating-card-shine { height: 2px; flex-shrink: 0;
+        background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%); }
+    .toc-floating-header { display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.875rem 1rem 0.75rem; border-bottom: 1px solid var(--card-border);
+        flex-shrink: 0; }
+    .toc-floating-icon { width: 22px; height: 22px; border-radius: 0.4rem;
+        background: linear-gradient(135deg, #4ECDC4, #6C5CE7);
+        display: flex; align-items: center; justify-content: center; color: white;
+        flex-shrink: 0; }
+    .toc-floating-title { font-weight: 700; font-size: 0.8125rem;
+        color: var(--text); letter-spacing: -0.005em; flex: 1; }
+    .toc-floating-time { font-size: 0.6875rem; color: var(--text-muted);
+        white-space: nowrap; }
+    .toc-target-floating { padding: 0.5rem 0.75rem 0.875rem; overflow-y: auto; flex: 1; }
+
+    /* Show floating sidebar at wide widths only */
+    @media (min-width: 1280px) {
+        .toc-floating { display: block; }
+        .toc-inline-section { display: none; }
+        .toc-sticky-btn { display: none !important; }
+    }
+
+    /* ===== tocbot list styling (works for both inline and floating containers) ===== */
+    .toc-target .toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc-counter; }
+    .toc-target .toc-list-item { counter-increment: toc-counter; position: relative;
+        padding: 0; margin: 0.125rem 0; border-radius: 0.5rem;
+        transition: background .15s ease; }
+    .toc-target .toc-link { display: block; position: relative;
+        padding: 0.4rem 0.75rem 0.4rem 2.25rem;
+        color: var(--text-secondary); text-decoration: none;
+        font-size: 0.875rem; line-height: 1.45;
+        border-radius: 0.5rem; transition: color .15s, background .15s, transform .15s; }
+    .toc-target .toc-link::before {
+        content: counter(toc-counter, decimal-leading-zero);
+        position: absolute; left: 0.625rem; top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.6875rem; font-weight: 600;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        transition: color .15s;
+    }
+    .toc-target .toc-link::after {
+        content: ''; position: absolute; left: 0; top: 50%;
+        height: 0; width: 3px;
+        background: linear-gradient(180deg, #4ECDC4, #6C5CE7);
+        border-radius: 0 3px 3px 0;
+        transform: translateY(-50%); transition: height .2s ease;
+    }
+    .toc-target .toc-link:hover { background: var(--bg); color: var(--text); transform: translateX(2px); }
+    .toc-target .toc-link:hover::before { color: var(--primary); }
+    .toc-target .toc-link.is-active-link {
+        background: linear-gradient(90deg, rgba(108, 92, 231, 0.10), transparent);
+        color: var(--primary); font-weight: 600;
+    }
+    .toc-target .toc-link.is-active-link::before { color: var(--primary); }
+    .toc-target .toc-link.is-active-link::after { height: 70%; }
+    /* Suppress nested lists — we only want H2 in the TOC */
+    .toc-target .toc-list .toc-list { display: none; }
+
+    /* ===== Sticky button (mobile/tablet only) ===== */
+    .toc-sticky-btn { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50;
+        width: 56px; height: 56px; border-radius: 9999px; border: none; cursor: pointer;
+        background: var(--bg); padding: 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); display: none;
+        align-items: center; justify-content: center;
+        transition: transform .2s cubic-bezier(.16,1,.3,1); will-change: transform; }
+    .toc-sticky-btn:hover { transform: scale(1.08) rotate(-5deg); }
+    .toc-sticky-btn .toc-progress-ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+    .toc-sticky-btn .ring-track { fill: none; stroke: var(--card-border); stroke-width: 3; }
+    .toc-sticky-btn .ring-fill { fill: none; stroke: url(#sticky-grad);
+        stroke-width: 3; stroke-linecap: round;
+        transition: stroke-dashoffset .3s ease; }
+    .toc-sticky-btn .toc-icon-wrap { width: 36px; height: 36px; border-radius: 9999px;
+        background: linear-gradient(135deg, #4ECDC4, #6C5CE7, #E879A8);
+        display: flex; align-items: center; justify-content: center; color: white;
+        position: relative; z-index: 1; }
+
+    /* ===== Mobile-pull-out popover (sticky button popover) ===== */
+    .toc-popover { position: fixed; bottom: 5.75rem; right: 1.5rem; z-index: 50;
+        max-width: 360px; width: calc(100vw - 3rem); max-height: 70vh; overflow-y: auto;
+        background: var(--bg); border: 1px solid var(--card-border);
+        border-radius: 1rem; padding: 1rem 1.25rem;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24); display: none;
+        transform: translateY(8px); opacity: 0;
+        transition: transform .2s cubic-bezier(.16,1,.3,1), opacity .15s; }
+    .toc-popover.is-open { display: block; transform: translateY(0); opacity: 1; }
+    .toc-popover-header { display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 0.75rem; padding-bottom: 0.625rem;
+        border-bottom: 1px solid var(--card-border); }
+    .toc-popover-title { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+    .toc-popover-close { background: none; border: none; cursor: pointer;
+        color: var(--text-muted); padding: 0.25rem; display: flex;
+        border-radius: 0.375rem; transition: background .15s, color .15s; }
+    .toc-popover-close:hover { background: var(--bg-secondary); color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+        .toc-card, .toc-target .toc-link, .toc-sticky-btn, .toc-popover, .reading-progress
+        { transition: none !important; }
+    }
+    </style>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <linearGradient id="sticky-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4ECDC4"/>
+                <stop offset="50%" stop-color="#6C5CE7"/>
+                <stop offset="100%" stop-color="#E879A8"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <script>
+    function initTocAndChrome() {
+        // ----- Reading time -----
+        const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT', 'ASIDE']);
+        function visibleText(node, acc) {
+            if (!node) return acc;
+            if (node.nodeType === Node.TEXT_NODE) { acc.push(node.textContent); return acc; }
+            if (node.nodeType !== Node.ELEMENT_NODE) return acc;
+            if (exclude.has(node.tagName)) return acc;
+            node.childNodes.forEach(c => visibleText(c, acc));
+            return acc;
         }
-        .toc-list li::after {
-            content: ''; position: absolute; left: 0; top: 50%; height: 0; width: 3px;
-            background: linear-gradient(180deg, #4ECDC4, #6C5CE7);
-            border-radius: 0 3px 3px 0;
-            transform: translateY(-50%); transition: height .2s ease;
+        const text = visibleText(document.body, []).join(' ');
+        const words = (text.match(/\S+/g) || []).length;
+        const minutes = Math.max(1, Math.round(words / 200));
+        const clockSvg = '<svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:inline-block;vertical-align:-1px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        ['reading-time', 'reading-time-floating'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = clockSvg + ' ' + minutes + ' мин';
+        });
+
+        // ----- Slugify and assign IDs to all H2 first (tocbot uses href targets) -----
+        function slugify(s) {
+            return s.toLowerCase()
+                .replace(/[^a-z0-9а-яё\s-]/gi, '').trim()
+                .replace(/\s+/g, '-').substring(0, 60);
         }
-        .toc-list li:hover { background: var(--bg); transform: translateX(2px); }
-        .toc-list li:hover::before { color: var(--primary); }
-        .toc-list li.is-active { background: linear-gradient(90deg, rgba(108, 92, 231, 0.08), transparent); }
-        .toc-list li.is-active::before { color: var(--primary); }
-        .toc-list li.is-active::after { height: 70%; }
-        .toc-list a { color: var(--text-secondary); text-decoration: none;
-            font-size: 0.9375rem; line-height: 1.5; display: block;
-            transition: color .15s; }
-        .toc-list li:hover a { color: var(--text); }
-        .toc-list li.is-active a { color: var(--primary); font-weight: 600; }
+        const h2s = Array.from(document.querySelectorAll('h2')).filter(h => {
+            let p = h.parentElement;
+            while (p) { if (exclude.has(p.tagName)) return false; p = p.parentElement; }
+            return h.textContent.trim().length > 0;
+        });
+        h2s.forEach((h, i) => {
+            if (!h.id) h.id = 'sec-' + i + '-' + slugify(h.textContent.trim());
+        });
 
-        .toc-sticky-btn { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50;
-            width: 56px; height: 56px; border-radius: 9999px; border: none; cursor: pointer;
-            background: var(--bg); padding: 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); display: none;
-            align-items: center; justify-content: center;
-            transition: transform .2s cubic-bezier(.16,1,.3,1); will-change: transform; }
-        .toc-sticky-btn:hover { transform: scale(1.08) rotate(-5deg); }
-        .toc-sticky-btn .toc-progress-ring { position: absolute; inset: 0; transform: rotate(-90deg); }
-        .toc-sticky-btn .ring-track { fill: none; stroke: var(--card-border); stroke-width: 3; }
-        .toc-sticky-btn .ring-fill { fill: none; stroke: url(#sticky-grad);
-            stroke-width: 3; stroke-linecap: round;
-            transition: stroke-dashoffset .3s ease; }
-        .toc-sticky-btn .toc-icon-wrap { width: 36px; height: 36px; border-radius: 9999px;
-            background: linear-gradient(135deg, #4ECDC4, #6C5CE7, #E879A8);
-            display: flex; align-items: center; justify-content: center; color: white;
-            position: relative; z-index: 1; }
-
-        .toc-popover { position: fixed; bottom: 5.75rem; right: 1.5rem; z-index: 50;
-            max-width: 360px; width: calc(100vw - 3rem); max-height: 70vh; overflow-y: auto;
-            background: var(--bg); border: 1px solid var(--card-border);
-            border-radius: 1rem; padding: 1rem 1.25rem;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24); display: none;
-            transform: translateY(8px); opacity: 0;
-            transition: transform .2s cubic-bezier(.16,1,.3,1), opacity .15s; }
-        .toc-popover.is-open { display: block; transform: translateY(0); opacity: 1; }
-        .toc-popover-header { display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 0.75rem; padding-bottom: 0.625rem;
-            border-bottom: 1px solid var(--card-border); }
-        .toc-popover-title { font-weight: 700; color: var(--text); font-size: 0.95rem; letter-spacing: -0.01em; }
-        .toc-popover-close { background: none; border: none; cursor: pointer;
-            color: var(--text-muted); padding: 0.25rem; display: flex;
-            border-radius: 0.375rem; transition: background .15s, color .15s; }
-        .toc-popover-close:hover { background: var(--bg-secondary); color: var(--text); }
-        .toc-popover ol { list-style: none; padding: 0; margin: 0; counter-reset: toc-counter; }
-        .toc-popover li { counter-increment: toc-counter; position: relative;
-            padding: 0.35rem 0.5rem 0.35rem 2.25rem; border-radius: 0.375rem;
-            transition: background .15s; cursor: pointer; }
-        .toc-popover li::before {
-            content: counter(toc-counter, decimal-leading-zero);
-            position: absolute; left: 0.5rem; top: 0.45rem;
-            font-size: 0.7rem; font-weight: 600;
-            color: var(--text-muted);
-            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        // Hide ToC blocks if too few headings
+        if (h2s.length < 3) {
+            document.querySelectorAll('.toc-inline-section, .toc-floating').forEach(el => el.style.display = 'none');
+            return;
         }
-        .toc-popover li:hover { background: var(--bg-secondary); }
-        .toc-popover li.is-active { background: linear-gradient(90deg, rgba(108, 92, 231, 0.08), transparent); }
-        .toc-popover li.is-active::before { color: var(--primary); }
-        .toc-popover a { color: var(--text-secondary); text-decoration: none;
-            font-size: 0.875rem; display: block; transition: color .15s; }
-        .toc-popover li:hover a { color: var(--text); }
-        .toc-popover li.is-active a { color: var(--primary); font-weight: 600; }
 
-        @media (prefers-reduced-motion: reduce) {
-            .toc-card, .toc-list li, .toc-sticky-btn, .toc-popover { transition: none !important; }
-            .reading-progress { transition: none !important; }
+        // ----- Initialize tocbot for both containers -----
+        function startTocbot() {
+            ['toc-mobile', 'toc-desktop'].forEach(id => {
+                tocbot.init({
+                    tocSelector: '#' + id,
+                    contentSelector: 'body',
+                    headingSelector: 'h2',
+                    ignoreSelector: 'nav h2, footer h2, aside h2, .toc-card h2, .toc-floating h2',
+                    hasInnerContainers: false,
+                    scrollSmooth: true,
+                    scrollSmoothDuration: 420,
+                    scrollSmoothOffset: -80,
+                    headingsOffset: 80,
+                    activeLinkClass: 'is-active-link',
+                    listClass: 'toc-list',
+                    listItemClass: 'toc-list-item',
+                    linkClass: 'toc-link',
+                    extraListClasses: '',
+                    extraLinkClasses: '',
+                    collapseDepth: 0,
+                });
+            });
         }
-        </style>
-        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-            <defs>
-                <linearGradient id="sticky-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#4ECDC4"/>
-                    <stop offset="50%" stop-color="#6C5CE7"/>
-                    <stop offset="100%" stop-color="#E879A8"/>
-                </linearGradient>
-            </defs>
-        </svg>
-        <script>
-        function initTocAndSticky() {
-            const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT']);
+        if (window.tocbot) {
+            startTocbot();
+        } else {
+            // tocbot loaded with defer — wait
+            const wait = setInterval(() => {
+                if (window.tocbot) { clearInterval(wait); startTocbot(); }
+            }, 50);
+            setTimeout(() => clearInterval(wait), 5000);
+        }
 
-            function visibleText(node, acc) {
-                if (!node) return acc;
-                if (node.nodeType === Node.TEXT_NODE) { acc.push(node.textContent); return acc; }
-                if (node.nodeType !== Node.ELEMENT_NODE) return acc;
-                if (exclude.has(node.tagName)) return acc;
-                node.childNodes.forEach(c => visibleText(c, acc));
-                return acc;
-            }
-            const text = visibleText(document.body, []).join(' ');
-            const words = (text.match(/\S+/g) || []).length;
-            const minutes = Math.max(1, Math.round(words / 200));
-            const tEl = document.getElementById('reading-time');
-            if (tEl) {
-                tEl.innerHTML = '<svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> ' + minutes + ' мин';
-            }
+        // ----- Reading progress bar -----
+        const progressBar = document.createElement('div');
+        progressBar.className = 'reading-progress';
+        document.body.appendChild(progressBar);
 
-            function slugify(s) {
-                return s.toLowerCase()
-                    .replace(/[^a-z0-9а-яё\s-]/gi, '').trim()
-                    .replace(/\s+/g, '-').substring(0, 60);
-            }
-            const inlineList = document.getElementById('toc-list');
-            const h2s = Array.from(document.querySelectorAll('h2')).filter(h => {
-                let p = h.parentElement;
-                while (p) { if (exclude.has(p.tagName)) return false; p = p.parentElement; }
-                return h.textContent.trim().length > 0;
+        // ----- Sticky button + popover (only on narrower viewports — controlled by CSS) -----
+        const stickyBtn = document.createElement('button');
+        stickyBtn.className = 'toc-sticky-btn';
+        stickyBtn.setAttribute('aria-label', 'Содержание');
+        stickyBtn.innerHTML = '<svg class="toc-progress-ring" width="56" height="56" viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="25"/><circle class="ring-fill" cx="28" cy="28" r="25"/></svg><span class="toc-icon-wrap"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h7"/></svg></span>';
+        document.body.appendChild(stickyBtn);
+        const ringFill = stickyBtn.querySelector('.ring-fill');
+        const ringCircumference = 2 * Math.PI * 25;
+        if (ringFill) {
+            ringFill.style.strokeDasharray = String(ringCircumference);
+            ringFill.style.strokeDashoffset = String(ringCircumference);
+        }
+
+        const popover = document.createElement('div');
+        popover.className = 'toc-popover';
+        popover.innerHTML = '<div class="toc-popover-header"><span class="toc-popover-title">Содержание</span><button class="toc-popover-close" aria-label="Закрыть"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/></svg></button></div><div id="toc-popover-list" class="toc-target"></div>';
+        document.body.appendChild(popover);
+
+        // Populate popover via tocbot
+        if (window.tocbot) {
+            tocbot.init({
+                tocSelector: '#toc-popover-list',
+                contentSelector: 'body',
+                headingSelector: 'h2',
+                ignoreSelector: 'nav h2, footer h2, aside h2, .toc-card h2, .toc-floating h2',
+                hasInnerContainers: false,
+                scrollSmooth: true,
+                scrollSmoothDuration: 420,
+                scrollSmoothOffset: -80,
+                headingsOffset: 80,
+                activeLinkClass: 'is-active-link',
+                listClass: 'toc-list',
+                listItemClass: 'toc-list-item',
+                linkClass: 'toc-link',
+                collapseDepth: 0,
             });
-            const tocSection = inlineList ? inlineList.closest('section') : null;
-            if (h2s.length < 3) {
-                if (tocSection) tocSection.style.display = 'none';
-                return;
+        }
+
+        popover.querySelector('.toc-popover-close').onclick = () => popover.classList.remove('is-open');
+        stickyBtn.onclick = (e) => { e.stopPropagation(); popover.classList.toggle('is-open'); };
+        popover.addEventListener('click', function(e) {
+            const a = e.target.closest('a');
+            if (a) popover.classList.remove('is-open');
+        });
+        document.addEventListener('click', function(e) {
+            if (popover.classList.contains('is-open') && !popover.contains(e.target) && !stickyBtn.contains(e.target)) {
+                popover.classList.remove('is-open');
             }
+        });
 
-            const links = [];
-            h2s.forEach((h, i) => {
-                const txt = h.textContent.trim();
-                const id = h.id || ('toc-' + i + '-' + slugify(txt));
-                if (!h.id) h.id = id;
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#' + id; a.textContent = txt;
-                li.appendChild(a);
-                inlineList.appendChild(li);
-                links.push({ a, li, h });
-            });
-
-            inlineList.addEventListener('click', function(e) {
-                const a = e.target.closest('a');
-                if (!a) return;
-                e.preventDefault();
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    history.replaceState(null, '', a.getAttribute('href'));
-                }
-            });
-
-            const progressBar = document.createElement('div');
-            progressBar.className = 'reading-progress';
-            document.body.appendChild(progressBar);
-
-            const stickyBtn = document.createElement('button');
-            stickyBtn.className = 'toc-sticky-btn';
-            stickyBtn.setAttribute('aria-label', 'Содержание');
-            stickyBtn.innerHTML = '<svg class="toc-progress-ring" width="56" height="56" viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="25"/><circle class="ring-fill" cx="28" cy="28" r="25"/></svg><span class="toc-icon-wrap"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h7"/></svg></span>';
-            document.body.appendChild(stickyBtn);
-            const ringFill = stickyBtn.querySelector('.ring-fill');
-            const ringCircumference = 2 * Math.PI * 25;
-            if (ringFill) {
-                ringFill.style.strokeDasharray = String(ringCircumference);
-                ringFill.style.strokeDashoffset = String(ringCircumference);
-            }
-
-            function updateProgress() {
-                const docH = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = docH > 0 ? Math.min(100, Math.max(0, (window.scrollY / docH) * 100)) : 0;
-                progressBar.style.width = pct + '%';
-                if (ringFill) {
-                    ringFill.style.strokeDashoffset = String(ringCircumference * (1 - pct / 100));
-                }
-            }
-
-            const popover = document.createElement('div');
-            popover.className = 'toc-popover';
-            const popHeader = document.createElement('div');
-            popHeader.className = 'toc-popover-header';
-            popHeader.innerHTML = '<span class="toc-popover-title">Содержание</span><button class="toc-popover-close" aria-label="Закрыть"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/></svg></button>';
-            popover.appendChild(popHeader);
-            const popList = document.createElement('ol');
-            const popLinkRefs = [];
-            links.forEach(({ a, h }) => {
-                const li = document.createElement('li');
-                const a2 = document.createElement('a');
-                a2.href = a.getAttribute('href');
-                a2.textContent = a.textContent;
-                li.appendChild(a2);
-                popList.appendChild(li);
-                popLinkRefs.push({ a: a2, li, h });
-            });
-            popover.appendChild(popList);
-            document.body.appendChild(popover);
-
-            popover.querySelector('.toc-popover-close').onclick = () => popover.classList.remove('is-open');
-            stickyBtn.onclick = (e) => { e.stopPropagation(); popover.classList.toggle('is-open'); };
-            popover.addEventListener('click', function(e) {
-                const a = e.target.closest('a');
-                if (!a) return;
-                e.preventDefault();
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    history.replaceState(null, '', a.getAttribute('href'));
-                    popover.classList.remove('is-open');
-                }
-            });
-            document.addEventListener('click', function(e) {
-                if (popover.classList.contains('is-open') && !popover.contains(e.target) && !stickyBtn.contains(e.target)) {
-                    popover.classList.remove('is-open');
-                }
-            });
-
-            const activeObs = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
+        // Show sticky button only after scrolling past the inline ToC card.
+        // On wide screens .toc-sticky-btn is forced display:none via CSS.
+        const inlineSection = document.querySelector('.toc-inline-section');
+        if (inlineSection) {
+            const tocVisObs = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const idx = h2s.indexOf(entry.target);
-                        links.forEach(l => l.li.classList.remove('is-active'));
-                        popLinkRefs.forEach(l => l.li.classList.remove('is-active'));
-                        if (links[idx]) links[idx].li.classList.add('is-active');
-                        if (popLinkRefs[idx]) popLinkRefs[idx].li.classList.add('is-active');
+                        stickyBtn.style.display = 'none';
+                        popover.classList.remove('is-open');
+                    } else {
+                        // CSS still hides it on >=1280px via !important
+                        stickyBtn.style.display = 'flex';
                     }
                 });
-            }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
-            h2s.forEach(h => activeObs.observe(h));
-
-            if (tocSection) {
-                const tocVisObs = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            stickyBtn.style.display = 'none';
-                            popover.classList.remove('is-open');
-                        } else {
-                            stickyBtn.style.display = 'flex';
-                        }
-                    });
-                }, { threshold: 0 });
-                tocVisObs.observe(tocSection);
-            }
-
-            let ticking = false;
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(function() { updateProgress(); ticking = false; });
-                    ticking = true;
-                }
-            }, { passive: true });
-            updateProgress();
+            }, { threshold: 0 });
+            tocVisObs.observe(inlineSection);
         }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initTocAndSticky);
-        } else {
-            initTocAndSticky();
+
+        function updateProgress() {
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docH > 0 ? Math.min(100, Math.max(0, (window.scrollY / docH) * 100)) : 0;
+            progressBar.style.width = pct + '%';
+            if (ringFill) ringFill.style.strokeDashoffset = String(ringCircumference * (1 - pct / 100));
         }
-        </script>
-    </section>
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) { requestAnimationFrame(function() { updateProgress(); ticking = false; }); ticking = true; }
+        }, { passive: true });
+        updateProgress();
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTocAndChrome);
+    } else {
+        initTocAndChrome();
+    }
+    </script>
 <!-- Pain Points -->
     <section class="py-20 md:py-28" style="background: var(--bg)">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
