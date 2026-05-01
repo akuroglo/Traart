@@ -196,7 +196,7 @@
         #toc-list a.is-active { color: var(--primary); font-weight: 600 }
         </style>
         <script>
-        (function() {
+        function initTocAndSticky() {
             const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT']);
             function visibleText(node, acc) {
                 if (!node) return acc;
@@ -352,7 +352,12 @@
                 }, { threshold: 0 });
                 tocObserver.observe(inlineToc);
             }
-        })();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTocAndSticky);
+        } else {
+            initTocAndSticky();
+        }
         </script>
     </section>
 <!-- Head-to-Head Comparison Table -->
