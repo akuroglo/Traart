@@ -67,6 +67,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://traart.ru/vs-saluteSpeech</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://traart.ru/vs-vosk</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://traart.ru/author</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://traart.ru/cloud-vs-offline</loc>
     <lastmod>2026-02-11</lastmod>
     <changefreq>monthly</changefreq>

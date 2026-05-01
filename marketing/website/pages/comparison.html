@@ -63,7 +63,7 @@
                 <a href="how-it-works.html" class="nav-link">Как работает</a>
                 <div class="nav-dropdown">
                     <a href="comparison.html" class="nav-link nav-link-active">Сравнение <svg class="w-3 h-3 inline-block ml-0.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
-                    <div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div>
+                    <div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="vs-saluteSpeech.html">vs SaluteSpeech</a><a href="vs-vosk.html">vs VOSK</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div>
                 </div>
                 <a href="pricing.html" class="nav-link">Цены</a>
                 <a href="faq.html" class="nav-link">FAQ</a>
@@ -126,6 +126,81 @@
     </section>
 
     <hr class="section-divider">
+    <!-- Reading-time + Table of Contents -->
+    <section class="py-6 md:py-8" style="background: var(--bg-secondary); border-bottom: 1px solid var(--card-border)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 text-sm mb-3" style="color: var(--text-muted)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span id="reading-time" data-i18n="reading-time">~ мин чтения</span>
+            </div>
+            <details id="toc" class="rounded-lg" style="background: var(--bg); border: 1px solid var(--card-border); padding: 0.75rem 1rem">
+                <summary style="cursor: pointer; font-weight: 600; font-size: 0.95rem; color: var(--text); list-style: none; display: flex; align-items: center; gap: 0.5rem">
+                    <svg class="w-4 h-4 transition-transform" id="toc-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    Содержание статьи
+                </summary>
+                <ol id="toc-list" style="margin-top: 0.75rem; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary)"></ol>
+            </details>
+        </div>
+        <script>
+        (function() {
+            // Reading time: words on the page (excluding nav/footer) divided by 200 wpm RU
+            const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT']);
+            function visibleText(node, acc) {
+                if (!node) return acc;
+                if (node.nodeType === Node.TEXT_NODE) { acc.push(node.textContent); return acc; }
+                if (node.nodeType !== Node.ELEMENT_NODE) return acc;
+                if (exclude.has(node.tagName)) return acc;
+                node.childNodes.forEach(c => visibleText(c, acc));
+                return acc;
+            }
+            const text = visibleText(document.body, []).join(' ');
+            const words = (text.match(/\S+/g) || []).length;
+            const minutes = Math.max(1, Math.round(words / 200));
+            const tEl = document.getElementById('reading-time');
+            if (tEl) tEl.textContent = '~ ' + minutes + ' мин чтения';
+
+            // Build ToC from H2s in body (skip the ones inside nav/footer)
+            function slugify(s) {
+                return s.toLowerCase()
+                    .replace(/[^a-z0-9а-яё\s-]/gi, '')
+                    .trim()
+                    .replace(/\s+/g, '-')
+                    .substring(0, 60);
+            }
+            const list = document.getElementById('toc-list');
+            const h2s = Array.from(document.querySelectorAll('h2')).filter(h => {
+                let p = h.parentElement;
+                while (p) { if (exclude.has(p.tagName)) return false; p = p.parentElement; }
+                return h.textContent.trim().length > 0;
+            });
+            if (h2s.length < 3) {
+                document.getElementById('toc').style.display = 'none';
+                return;
+            }
+            h2s.forEach((h, i) => {
+                const text = h.textContent.trim();
+                const id = h.id || ('toc-' + i + '-' + slugify(text));
+                if (!h.id) h.id = id;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = text;
+                a.style.color = 'var(--text-secondary)';
+                a.style.textDecoration = 'none';
+                a.addEventListener('mouseenter', () => a.style.color = 'var(--primary)');
+                a.addEventListener('mouseleave', () => a.style.color = 'var(--text-secondary)');
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+
+            // Rotate chevron when open
+            const toc = document.getElementById('toc');
+            const chev = document.getElementById('toc-chevron');
+            toc.addEventListener('toggle', () => { chev.style.transform = toc.open ? 'rotate(90deg)' : ''; });
+        })();
+        </script>
+    </section>
+
 
     <!-- Visual WER Chart -->
     <section class="py-16 md:py-24" style="background:var(--bg)">
@@ -789,7 +864,7 @@
     <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
-                Автор Traart — <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи.
+                Автор Traart — <a href="author.html" rel="author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи. <a href="author.html" style="color: var(--text-muted); text-decoration: none">Подробнее →</a>
             </p>
             <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
                 <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
@@ -857,6 +932,8 @@
                         <li><a href="vs-otter.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
                         <li><a href="vs-macwhisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
                         <li><a href="vs-turboscribe.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
+                        <li><a href="vs-saluteSpeech.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs SaluteSpeech</a></li>
+                        <li><a href="vs-vosk.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs VOSK</a></li>
                         <li><a href="gigaam-vs-whisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
                         <li><a href="cloud-vs-offline.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
                         <li><a href="best-transcription-russian.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
