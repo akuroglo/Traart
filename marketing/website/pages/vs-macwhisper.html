@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traart vs MacWhisper — бесплатный транскрибатор vs EUR 59: сравнение для Mac</title>
-    <meta name="description" content="Traart vs MacWhisper: WER 8.3% vs ~16% для русского. GigaAM v3 vs Whisper. Бесплатно vs EUR 59. Диаризация, приватность, форматы. Подробное сравнение транскрибаторов для macOS.">
+    <title>Traart vs MacWhisper — бесплатно vs EUR 59 для Mac</title>
+    <meta name="description" content="Traart vs MacWhisper: WER 8.3% vs ~16% на русском. GigaAM v3 vs Whisper. Бесплатно vs EUR 59. Диаризация, приватность, форматы.">
     <meta name="keywords" content="MacWhisper альтернатива, MacWhisper vs Traart, транскрибация mac, whisper mac русский, macwhisper русский язык, офлайн транскрибация mac">
-    <meta property="og:title" content="Traart vs MacWhisper — какой транскрибатор лучше для русского">
-    <meta property="og:description" content="WER 8.3% vs ~16%. Бесплатно vs EUR 59. Подробное сравнение для macOS.">
+    <meta property="og:title" content="Traart vs MacWhisper — бесплатно vs EUR 59 для Mac">
+    <meta property="og:description" content="Traart vs MacWhisper: WER 8.3% vs ~16% на русском. GigaAM v3 vs Whisper. Бесплатно vs EUR 59. Диаризация, приватность, форматы.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://traart.ru/vs-macwhisper">
     <meta property="og:image" content="https://traart.ru/og-image.png">
@@ -16,8 +16,8 @@
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Traart">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Traart vs MacWhisper — бесплатный vs EUR 59: сравнение транскрибаторов для Mac">
-    <meta name="twitter:description" content="WER 8.3% vs ~16%. Бесплатно vs EUR 59. Подробное сравнение для macOS.">
+    <meta name="twitter:title" content="Traart vs MacWhisper — бесплатно vs EUR 59 для Mac">
+    <meta name="twitter:description" content="Traart vs MacWhisper: WER 8.3% vs ~16% на русском. GigaAM v3 vs Whisper. Бесплатно vs EUR 59. Диаризация, приватность, форматы.">
     <meta name="twitter:image" content="https://traart.ru/og-image.png">
     <link rel="canonical" href="https://traart.ru/vs-macwhisper">
     <script type="application/ld+json">
@@ -131,7 +131,8 @@
                     <span style="color: var(--text)">vs MacWhisper</span>
                 </nav>
                 <h1 class="text-reveal text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.1] mb-6 tracking-tight">
-                    <span class="word">Traart</span> <span class="word">vs</span> <span class="word gradient-text">MacWhisper</span>
+                    Traart vs
+                    <span class="gradient-text">MacWhisper</span>
                 </h1>
                 <p class="fade-in-up text-lg md:text-xl max-w-2xl mx-auto mb-6" style="color: var(--text-secondary)">
                     Traart vs MacWhisper: бесплатный транскрибатор vs EUR 59. Сравнение оффлайн расшифровки для Mac. Для русского языка разница в качестве -- в 2 раза.
@@ -375,6 +376,22 @@
             </div>
         </div>
     </section>
+    <!-- E-E-A-T: автор — для поисковиков и для пользователей -->
+    <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
+                Автор Traart — <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи.
+            </p>
+            <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
+                <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
+                <span>·</span>
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">Telegram</a>
+                <span>·</span>
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-muted); text-decoration: none">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Footer -->
     <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
@@ -455,6 +472,38 @@
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() { document.getElementById('mobile-menu').classList.toggle('hidden'); });
         window.addEventListener('scroll', function() { const nav = document.getElementById('nav'); if (window.scrollY > 20) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }, { passive: true });
         const observer = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        // Wrap each word of .text-reveal in a <span.word> so opacity-cascade animation works
+        function wrapRevealWords(el) {
+            if (el.dataset.wordsWrapped === '1') return;
+            el.dataset.wordsWrapped = '1';
+            const newNodes = [];
+            el.childNodes.forEach(function(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    (node.textContent.match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeName === 'BR') {
+                    newNodes.push(node.cloneNode());
+                } else if (node.classList && node.classList.contains('gradient-text')) {
+                    ((node.textContent || '').match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word gradient-text';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('word')) {
+                    // Already wrapped — keep as is
+                    newNodes.push(node.cloneNode(true), document.createTextNode(' '));
+                }
+            });
+            el.innerHTML = '';
+            newNodes.forEach(function(n) { el.appendChild(n); });
+        }
+        document.querySelectorAll('.text-reveal').forEach(wrapRevealWords);
+
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
     </script>
 </body>

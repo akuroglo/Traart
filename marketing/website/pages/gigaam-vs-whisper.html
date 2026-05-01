@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GigaAM vs Whisper — WER 8.3% vs ~16%: какая модель лучше для русской речи</title>
-    <meta name="description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% против ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур, параметров и скорости. INTERSPEECH 2025. Лучшая нейросеть для русской речи.">
+    <title>GigaAM vs Whisper — WER на русском (8.3% vs ~16%)</title>
+    <meta name="description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
     <meta name="keywords" content="GigaAM vs Whisper, whisper транскрибация русский, GigaAM v3 бенчмарки, транскрипция русский язык, whisper русский WER, GigaAM RNNT">
-    <meta property="og:title" content="GigaAM vs Whisper — какая модель лучше для русской речи">
-    <meta property="og:description" content="WER 8.3% vs ~16%. Бенчмарки на 4 датасетах. Архитектура, размер, скорость.">
+    <meta property="og:title" content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)">
+    <meta property="og:description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://traart.ru/gigaam-vs-whisper">
     <meta property="og:image" content="https://traart.ru/og-image.png">
@@ -16,8 +16,8 @@
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Traart">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GigaAM vs Whisper — WER 8.3% vs ~16% для русской речи">
-    <meta name="twitter:description" content="WER 8.3% vs ~16%. Бенчмарки на 4 датасетах. Лучшая нейросеть для русской речи.">
+    <meta name="twitter:title" content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)">
+    <meta name="twitter:description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
     <meta name="twitter:image" content="https://traart.ru/og-image.png">
     <link rel="canonical" href="https://traart.ru/gigaam-vs-whisper">
     <script type="application/ld+json">
@@ -133,8 +133,9 @@
                     Техническое сравнение
                 </div>
                 <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
-                    <span class="word">GigaAM</span> <span class="word">vs</span> <span class="word gradient-text">Whisper</span>
-                    <span class="word">-- в 2x точнее</span>
+                    GigaAM vs
+                    <span class="gradient-text">Whisper</span>
+                    -- в 2x точнее
                 </h1>
                 <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
                     Какая модель лучше для русской речи? Детальное сравнение GigaAM и Whisper: бенчмарки WER на 4 датасетах, архитектура, размер и скорость транскрибации.
@@ -541,6 +542,22 @@
             </div>
         </div>
     </section>
+    <!-- E-E-A-T: автор — для поисковиков и для пользователей -->
+    <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
+                Автор Traart — <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи.
+            </p>
+            <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
+                <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
+                <span>·</span>
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">Telegram</a>
+                <span>·</span>
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-muted); text-decoration: none">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Footer -->
     <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
@@ -621,6 +638,38 @@
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() { document.getElementById('mobile-menu').classList.toggle('hidden'); });
         window.addEventListener('scroll', function() { const nav = document.getElementById('nav'); if (window.scrollY > 20) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }, { passive: true });
         const observer = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        // Wrap each word of .text-reveal in a <span.word> so opacity-cascade animation works
+        function wrapRevealWords(el) {
+            if (el.dataset.wordsWrapped === '1') return;
+            el.dataset.wordsWrapped = '1';
+            const newNodes = [];
+            el.childNodes.forEach(function(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    (node.textContent.match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeName === 'BR') {
+                    newNodes.push(node.cloneNode());
+                } else if (node.classList && node.classList.contains('gradient-text')) {
+                    ((node.textContent || '').match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word gradient-text';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('word')) {
+                    // Already wrapped — keep as is
+                    newNodes.push(node.cloneNode(true), document.createTextNode(' '));
+                }
+            });
+            el.innerHTML = '';
+            newNodes.forEach(function(n) { el.appendChild(n); });
+        }
+        document.querySelectorAll('.text-reveal').forEach(wrapRevealWords);
+
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
     </script>
 </body>

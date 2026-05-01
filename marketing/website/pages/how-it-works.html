@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Как работает распознавание речи в Traart — GigaAM v3 и диаризация спикеров</title>
-    <meta name="description" content="Техническое описание распознавания речи в Traart: модель GigaAM v3 от Сбера, диаризация pyannote, локальная обработка на Apple Silicon с MPS-ускорением. Транскрибация с таймкодами.">
+    <title>Как работает распознавание речи в Traart — GigaAM v3</title>
+    <meta name="description" content="Распознавание речи в Traart: модель GigaAM v3 от Сбера, диаризация pyannote, локально на Apple Silicon с MPS. Транскрибация с таймкодами.">
     <meta name="keywords" content="GigaAM v3, pyannote, диаризация, Apple Silicon, MPS, транскрибация, ASR">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Как работает распознавание речи в Traart — GigaAM v3 и диаризация">
-    <meta name="twitter:description" content="Техническое описание: GigaAM v3, диаризация pyannote, Apple Silicon MPS-ускорение.">
+    <meta name="twitter:title" content="Как работает распознавание речи в Traart — GigaAM v3">
+    <meta name="twitter:description" content="Распознавание речи в Traart: модель GigaAM v3 от Сбера, диаризация pyannote, локально на Apple Silicon с MPS. Транскрибация с таймкодами.">
     <meta name="twitter:image" content="https://traart.ru/og-image.png">
     <link rel="canonical" href="https://traart.ru/how-it-works">
     <meta property="og:title" content="Как работает распознавание речи в Traart — GigaAM v3">
-    <meta property="og:description" content="GigaAM v3, диаризация pyannote, Apple Silicon. Полностью оффлайн распознавание речи.">
+    <meta property="og:description" content="Распознавание речи в Traart: модель GigaAM v3 от Сбера, диаризация pyannote, локально на Apple Silicon с MPS. Транскрибация с таймкодами.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://traart.ru/how-it-works">
     <meta property="og:image" content="https://traart.ru/og-image.png">
@@ -125,8 +125,9 @@
                 </nav>
 
                 <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
-                    <span class="word">Как</span> <span class="word">работает</span>
-                    <span class="word gradient-text">распознавание</span> <span class="word">речи</span>
+                    Как работает
+                    <span class="gradient-text">распознавание</span>
+                    речи
                 </h1>
 
                 <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
@@ -222,7 +223,7 @@
                 </div>
                 <div class="fade-in-up">
                     <div class="glass-card p-7">
-                        <h4 class="font-semibold mb-5">Ключевые характеристики</h4>
+                        <h3 class="font-semibold mb-5">Ключевые характеристики</h3>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 check-icon mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -267,7 +268,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div class="order-2 lg:order-1 fade-in-up">
                     <div class="glass-card p-7">
-                        <h4 class="font-semibold mb-4">Пример вывода с диаризацией</h4>
+                        <h3 class="font-semibold mb-4">Пример вывода с диаризацией</h3>
                         <div class="code-block leading-relaxed">
                             <p style="color: var(--text-muted)" class="mb-2">## Транскрипция: meeting_2025.mp4</p>
                             <p class="mb-2"><span style="color: var(--primary)">[00:00:05]</span> <span style="color: var(--accent-purple); font-weight: 600">Спикер 1:</span> Добрый день, коллеги. Давайте начнём совещание.</p>
@@ -542,6 +543,22 @@
             </div>
         </div>
     </section>
+    <!-- E-E-A-T: автор — для поисковиков и для пользователей -->
+    <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
+                Автор Traart — <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи.
+            </p>
+            <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
+                <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
+                <span>·</span>
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">Telegram</a>
+                <span>·</span>
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-muted); text-decoration: none">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
     <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
@@ -656,6 +673,38 @@
             threshold: 0.1,
             rootMargin: '0px 0px -40px 0px'
         });
+
+        // Wrap each word of .text-reveal in a <span.word> so opacity-cascade animation works
+        function wrapRevealWords(el) {
+            if (el.dataset.wordsWrapped === '1') return;
+            el.dataset.wordsWrapped = '1';
+            const newNodes = [];
+            el.childNodes.forEach(function(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    (node.textContent.match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeName === 'BR') {
+                    newNodes.push(node.cloneNode());
+                } else if (node.classList && node.classList.contains('gradient-text')) {
+                    ((node.textContent || '').match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word gradient-text';
+                        s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('word')) {
+                    // Already wrapped — keep as is
+                    newNodes.push(node.cloneNode(true), document.createTextNode(' '));
+                }
+            });
+            el.innerHTML = '';
+            newNodes.forEach(function(n) { el.appendChild(n); });
+        }
+        document.querySelectorAll('.text-reveal').forEach(wrapRevealWords);
 
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) {
             observer.observe(el);

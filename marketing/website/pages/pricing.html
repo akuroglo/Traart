@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бесплатная транскрибация без лимитов — Traart $0 навсегда vs конкуренты $10-96/мес</title>
+    <title>Бесплатная транскрибация без лимитов — Traart $0 vs $10-96</title>
     <meta name="description" content="Traart — бесплатная транскрибация без лимитов и подписок. Сравните: $0 за Traart vs $120-960 в год за TurboScribe, Notta, Otter.ai. Оффлайн, WER 8.3%.">
     <meta name="keywords" content="бесплатная транскрибация, стоимость транскрибации, бесплатный транскрибатор mac, цены транскрибация, Traart бесплатно">
-    <meta property="og:title" content="Бесплатная транскрибация без лимитов — Traart $0 навсегда">
+    <meta property="og:title" content="Бесплатная транскрибация без лимитов — Traart $0 vs $10-96">
     <meta property="og:description" content="$0 за Traart vs $120-960/год за конкурентов. Бесплатная транскрибация без подписок.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://traart.ru/pricing">
@@ -16,7 +16,7 @@
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Traart">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Бесплатная транскрибация без лимитов — Traart $0 навсегда">
+    <meta name="twitter:title" content="Бесплатная транскрибация без лимитов — Traart $0 vs $10-96">
     <meta name="twitter:description" content="$0 за Traart vs $120-960/год за конкурентов. Транскрибация бесплатно, без подписок.">
     <meta name="twitter:image" content="https://traart.ru/og-image.png">
     <link rel="canonical" href="https://traart.ru/pricing">
@@ -111,10 +111,10 @@
                     Без подписок. Без лимитов.
                 </div>
                 <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-                    <span class="word">Бесплатная</span>
-                    <span class="word gradient-text">транскрибация</span>
+                    Бесплатная
+                    <span class="gradient-text">транскрибация</span>
                     <br>
-                    <span class="word">без</span> <span class="word">лимитов</span>
+                    без лимитов
                 </h1>
                 <p class="fade-in-up text-lg md:text-xl max-w-2xl mx-auto" style="color:var(--text-secondary)">
                     Бесплатная транскрибация без ограничений по минутам. Traart -- $0 навсегда, пока конкуренты берут $10-96/мес. Расшифровка аудио в текст без подписки.
@@ -425,6 +425,22 @@
             </div>
         </div>
     </section>
+    <!-- E-E-A-T: автор — для поисковиков и для пользователей -->
+    <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
+                Автор Traart — <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи.
+            </p>
+            <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
+                <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
+                <span>·</span>
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">Telegram</a>
+                <span>·</span>
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-muted); text-decoration: none">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
     <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
@@ -500,6 +516,34 @@
         document.getElementById('mobile-menu-btn')?.addEventListener('click',function(){document.getElementById('mobile-menu').classList.toggle('hidden')});
         window.addEventListener('scroll',function(){const n=document.getElementById('nav');if(window.scrollY>20)n.classList.add('scrolled');else n.classList.remove('scrolled')},{passive:true});
         const observer=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add('visible');observer.unobserve(en.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+        // Wrap each word of .text-reveal in a <span.word> so opacity-cascade animation works
+        function wrapRevealWords(el) {
+            if (el.dataset.wordsWrapped === '1') return;
+            el.dataset.wordsWrapped = '1';
+            const newNodes = [];
+            el.childNodes.forEach(function(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    (node.textContent.match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word'; s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeName === 'BR') {
+                    newNodes.push(node.cloneNode());
+                } else if (node.classList && node.classList.contains('gradient-text')) {
+                    ((node.textContent || '').match(/\S+/g) || []).forEach(function(w) {
+                        const s = document.createElement('span');
+                        s.className = 'word gradient-text'; s.textContent = w;
+                        newNodes.push(s, document.createTextNode(' '));
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('word')) {
+                    newNodes.push(node.cloneNode(true), document.createTextNode(' '));
+                }
+            });
+            el.innerHTML = '';
+            newNodes.forEach(function(n) { el.appendChild(n); });
+        }
+        document.querySelectorAll('.text-reveal').forEach(wrapRevealWords);
         document.querySelectorAll('.fade-in-up,.text-reveal').forEach(function(el){observer.observe(el)});
     </script>
 </body>
