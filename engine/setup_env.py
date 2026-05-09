@@ -156,39 +156,48 @@ def create_venv(venv_path: str, python_path: str = None):
 
 
 def install_pytorch(venv_path: str):
-    """Install PyTorch with appropriate backend for the platform."""
+    """Install PyTorch with appropriate backend for the platform.
+
+    Pinned to 2.7.* — torchaudio 2.8 dropped its built-in audio backends and
+    delegates decoding to torchcodec, which requires system FFmpeg dylibs we
+    do not ship. pyannote.audio 3.3.2 then crashes with
+    "TorchCodec is required for load_with_torchcodec".
+    """
     report("installing_torch", 0.15, "Installing PyTorch...")
 
     pip_path = os.path.join(venv_path, "bin", "pip")
+    torch_spec = "torch==2.7.*"
+    torchaudio_spec = "torchaudio==2.7.*"
 
-    # Check if already installed
+    # Check installed version; force-reinstall if outside 2.7.x range
     result = subprocess.run(
         [pip_path, "show", "torch"],
         capture_output=True, text=True,
     )
+    needs_install = True
     if result.returncode == 0:
-        report("installing_torch", 0.3, "PyTorch already installed.")
-        return
+        version_line = next(
+            (line for line in result.stdout.splitlines() if line.startswith("Version:")),
+            "",
+        )
+        installed = version_line.split(":", 1)[1].strip() if ":" in version_line else ""
+        if installed.startswith("2.7."):
+            report("installing_torch", 0.3, f"PyTorch {installed} already installed.")
+            return
+        report("installing_torch", 0.18,
+               f"Replacing PyTorch {installed} with 2.7.* (compatibility)...")
 
-    if is_apple_silicon():
-        # MPS backend is included in default PyTorch for macOS arm64
-        subprocess.run(
-            [pip_path, "install", "torch", "torchaudio"],
-            check=True,
-            capture_output=True,
-            text=True,
-            timeout=1800,
-        )
-    else:
-        # Intel Mac - CPU only
-        subprocess.run(
-            [pip_path, "install", "torch", "torchaudio",
-             "--index-url", "https://download.pytorch.org/whl/cpu"],
-            check=True,
-            capture_output=True,
-            text=True,
-            timeout=1800,
-        )
+    install_args = [pip_path, "install", "--upgrade", torch_spec, torchaudio_spec]
+    if not is_apple_silicon():
+        install_args += ["--index-url", "https://download.pytorch.org/whl/cpu"]
+
+    subprocess.run(
+        install_args,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=1800,
+    )
 
     report("installing_torch", 0.3, "PyTorch installed.")
 
@@ -200,11 +209,13 @@ def install_requirements(venv_path: str, requirements_path: str):
     pip_path = os.path.join(venv_path, "bin", "pip")
 
     # GigaAM's setup.py uses pkg_resources — needs --no-build-isolation
-    # to use our pinned setuptools<81 instead of pip's isolated build env
-    # Use zip URL instead of git+https to avoid git dependency
+    # to use our pinned setuptools<81 instead of pip's isolated build env.
+    # Pinned to commit 6e4b027c (2026-04-15) — main moved transcribe() from
+    # str to TranscriptionResult; future API drift would break us silently.
+    GIGAAM_COMMIT = "6e4b027c6fb554e09e8b9059b757a175295ab879"
     subprocess.run(
         [pip_path, "install", "--no-build-isolation",
-         "gigaam @ https://github.com/salute-developers/GigaAM/archive/refs/heads/main.zip"],
+         f"gigaam @ https://github.com/salute-developers/GigaAM/archive/{GIGAAM_COMMIT}.zip"],
         check=True,
         capture_output=True,
         text=True,

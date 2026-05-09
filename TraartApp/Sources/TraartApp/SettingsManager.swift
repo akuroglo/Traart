@@ -43,10 +43,10 @@ final class SettingsManager {
             Keys.watchedFolders: encoded ?? Data(),
             Keys.saveNextToFile: true,
             Keys.autoTranscribe: false,
-            Keys.enableDiarization: true,
+            Keys.enableDiarization: false,
             Keys.expectedSpeakers: 0,  // 0 = auto-detect
-            Keys.monitorEntireDisk: false,
-            Keys.launchAtLogin: false,
+            Keys.monitorEntireDisk: true,
+            Keys.launchAtLogin: true,
             Keys.outputFormat: "md",
             Keys.qualityPreset: 2,
             Keys.chunkDuration: 20,

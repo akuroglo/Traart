@@ -78,9 +78,9 @@ cat > "$CONTENTS_DIR/Info.plist" << 'PLIST'
     <key>CFBundleIdentifier</key>
     <string>com.traart.app</string>
     <key>CFBundleVersion</key>
-    <string>1.1.0</string>
+    <string>1.1.3</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.1</string>
+    <string>1.1.3</string>
     <key>CFBundleExecutable</key>
     <string>TraartApp</string>
     <key>CFBundlePackageType</key>
@@ -147,8 +147,15 @@ DEVELOPER_ID=$(security find-identity -v -p codesigning 2>/dev/null | grep "Deve
 
 if [ -n "$DEVELOPER_ID" ]; then
     echo "Code signing with Developer ID: $DEVELOPER_ID"
-    codesign --force --options runtime --sign "$DEVELOPER_ID" "$APP_BUNDLE" 2>&1
-    echo "Signed with Developer ID (hardened runtime enabled)"
+    ENTITLEMENTS="$PROJECT_DIR/TraartApp/Traart.entitlements"
+    if [ -f "$ENTITLEMENTS" ]; then
+        codesign --force --options runtime --entitlements "$ENTITLEMENTS" \
+                 --sign "$DEVELOPER_ID" "$APP_BUNDLE" 2>&1
+        echo "Signed with Developer ID + entitlements (hardened runtime, audio-input)"
+    else
+        codesign --force --options runtime --sign "$DEVELOPER_ID" "$APP_BUNDLE" 2>&1
+        echo "WARNING: entitlements file missing — microphone access will be blocked"
+    fi
 
     # Notarization
     echo ""

@@ -212,7 +212,10 @@ def transcribe_chunk(model, audio_tensor: torch.Tensor, sr: int) -> str:
 
     try:
         torchaudio.save(temp_path, audio_tensor.unsqueeze(0), sr)
-        text = model.transcribe(temp_path)
+        result = model.transcribe(temp_path)
+        # GigaAM main returns TranscriptionResult(text=..., words=...);
+        # older versions returned a plain string.
+        text = result.text if hasattr(result, "text") else result
         return text.strip()
     except Exception as e:
         duration = len(audio_tensor) / sr

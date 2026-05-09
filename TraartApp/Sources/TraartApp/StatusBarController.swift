@@ -278,6 +278,8 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
         let aboutBtn = NSButton(title: "О программе", target: self, action: #selector(showAbout(_:)))
         aboutBtn.isBordered = false
+        aboutBtn.focusRingType = .none
+        aboutBtn.refusesFirstResponder = true
         aboutBtn.font = NSFont.menuFont(ofSize: 13)
         aboutBtn.alignment = .left
         aboutBtn.contentTintColor = .labelColor
@@ -286,6 +288,8 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
         let shareBtn = NSButton(title: "Рассказать другу", target: self, action: #selector(copyShareText(_:)))
         shareBtn.isBordered = false
+        shareBtn.focusRingType = .none
+        shareBtn.refusesFirstResponder = true
         shareBtn.font = NSFont.menuFont(ofSize: 13)
         shareBtn.alignment = .right
         shareBtn.imagePosition = .imageTrailing
@@ -1437,7 +1441,6 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         alert.addButton(withTitle: "traart.ru")
         alert.addButton(withTitle: "✈️ Telegram")
         alert.addButton(withTitle: "🔗 LinkedIn")
-        alert.addButton(withTitle: "Поделиться логами…")
 
         NSApp.activate(ignoringOtherApps: true)
         let response = alert.runModal()
@@ -1449,8 +1452,6 @@ final class StatusBarController: NSObject, NSMenuDelegate {
             NSWorkspace.shared.open(URL(string: "https://t.me/AIgobrr")!)
         case NSApplication.ModalResponse(rawValue: 1003):
             NSWorkspace.shared.open(URL(string: "https://www.linkedin.com/in/aleksandr-kuroglo-45048434/")!)
-        case NSApplication.ModalResponse(rawValue: 1004):
-            shareLogs(NSMenuItem())
         default:
             break
         }

@@ -27,6 +27,8 @@ final class TranscriptionProgressView: NSView {
 
     private var fillWidth: NSLayoutConstraint?
     private var currentProgress: Double = 0
+    private var lastFileName: String = ""
+    private var lastValidETA: String?
 
     // MARK: - Init
 
@@ -172,13 +174,24 @@ final class TranscriptionProgressView: NSView {
         step: TranscriptionJob.TranscriptionStep?,
         etaString: String?
     ) {
+        // New job — reset sticky ETA so the placeholder can show again.
+        if fileName != lastFileName {
+            lastFileName = fileName
+            lastValidETA = nil
+        }
+
         currentProgress = progress
         let pct = Int(progress * 100)
         let name = step?.displayName ?? "Подготовка"
         stepLabel.stringValue = "\(name) · \(pct)%"
 
         if let eta = etaString {
+            lastValidETA = eta
             etaLabel.stringValue = eta
+            etaLabel.textColor = .secondaryLabelColor
+        } else if let last = lastValidETA {
+            // Sticky: keep last estimate when a progress event arrives without ETA.
+            etaLabel.stringValue = last
             etaLabel.textColor = .secondaryLabelColor
         } else {
             etaLabel.stringValue = "Оценка времени..."
