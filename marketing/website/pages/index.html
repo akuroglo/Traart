@@ -329,7 +329,7 @@
             <div class="text-center mb-10 fade-in-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Альтернатива <span class="gradient-text">онлайн-транскрибаторам</span></h2>
                 <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-secondary)">
-                    Ищете «транскрибацию аудио в текст онлайн бесплатно»? Это работает иначе: Traart — это бесплатная транскрибация без онлайн-сервиса, прямо на вашем Mac. Без лимитов по минутам, без регистрации, без отправки записей в облако.
+                    Ищете «транскрибацию аудио в текст онлайн бесплатно»? Traart решает ту же задачу иначе — прямо на вашем Mac, без облака.
                 </p>
             </div>
 
@@ -372,16 +372,45 @@
                 </table>
             </div>
 
-            <p class="text-center text-sm mt-6 max-w-2xl mx-auto fade-in-up" style="color: var(--text-secondary)">
-                Если ищете «транскрибатор онлайн бесплатно» из-за лимитов на минуты в <a href="vs-otter.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">Otter</a>, <a href="vs-turboscribe.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">TurboScribe</a> или Speech2Text — Traart решает эту проблему другим путём: ставите один раз, расшифровываете сколько угодно, ничего не платите.
-            </p>
-
-            <div class="rounded-2xl p-6 mt-8 fade-in-up" style="background: var(--bg); border: 1px solid var(--card-border)">
-                <h3 class="font-semibold mb-3">Когда стоит выбрать Traart вместо онлайн-сервиса</h3>
-                <p class="text-sm" style="color: var(--text-secondary)">
-                    Расшифровка аудио онлайн (Speech2Text, Yandex SpeechKit, <a href="vs-saluteSpeech.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">SaluteSpeech</a> от Сбера, Google STT) удобна для разовой задачи на 5 минут. Но как только нужно регулярно распознать аудио в текст — десятки часов в месяц, чувствительные записи переговоров или интервью — облачные сервисы становятся дорогими и небезопасными. Traart выполняет расшифровку аудио в текст онлайн-формата, но без отправки файлов в облако: модель работает прямо у вас на Mac. Цена не зависит от объёма, а данные не покидают устройство — это особенно важно для коучей, юристов, журналистов и продактов, кто работает с конфиденциальным контентом.
-                </p>
+            <!-- Когда что выбрать: 2-колоночное сравнение use-case -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 fade-in-up">
+                <div class="rounded-2xl p-6" style="background: var(--bg); border: 1px solid var(--card-border)">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted)">Онлайн-сервис подойдёт</span>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary)">
+                        <li class="flex gap-2"><span style="color: var(--text-muted)">·</span><span>разовая встреча на 5–10 минут</span></li>
+                        <li class="flex gap-2"><span style="color: var(--text-muted)">·</span><span>фрагмент подкаста или ролика</span></li>
+                        <li class="flex gap-2"><span style="color: var(--text-muted)">·</span><span>публичный контент, не под NDA</span></li>
+                        <li class="flex gap-2"><span style="color: var(--text-muted)">·</span><span>устраивает фритир до пары часов в месяц</span></li>
+                    </ul>
+                    <p class="text-xs mt-4 pt-4" style="color: var(--text-muted); border-top: 1px solid var(--card-border)">
+                        <a href="vs-saluteSpeech.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-underline-offset: 2px">SaluteSpeech</a>, Yandex SpeechKit, Speech2Text, Google STT
+                    </p>
+                </div>
+                <div class="rounded-2xl p-6" style="background: var(--bg); border: 1px solid var(--accent); box-shadow: 0 0 0 4px oklch(0.55 0.15 145 / 0.08)">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--accent)">Traart лучше когда</span>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary)">
+                        <li class="flex gap-2"><span style="color: var(--accent)">→</span><span>десятки часов аудио в месяц</span></li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">→</span><span>переговоры, интервью, созвоны под NDA</span></li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">→</span><span>чувствительные данные клиентов и пациентов</span></li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">→</span><span>нужен предсказуемый $0 без счёта за минуты</span></li>
+                    </ul>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-4" style="border-top: 1px solid var(--card-border)">
+                        <a href="use-case-coaches.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.25rem 0.625rem;font-size:0.75rem">Коучи</a>
+                        <a href="use-cases/lawyers.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.25rem 0.625rem;font-size:0.75rem">Юристы</a>
+                        <a href="use-cases/journalists.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.25rem 0.625rem;font-size:0.75rem">Журналисты</a>
+                        <a href="use-cases/medical.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.25rem 0.625rem;font-size:0.75rem">Медики</a>
+                        <a href="use-case-pm.html" class="badge" style="text-decoration:none;color:var(--text-secondary);background:var(--bg-secondary);border:1px solid var(--card-border);padding:0.25rem 0.625rem;font-size:0.75rem">Продакты</a>
+                    </div>
+                </div>
             </div>
+
+            <p class="text-center text-xs mt-6 max-w-2xl mx-auto fade-in-up" style="color: var(--text-muted)">
+                Лимиты бьют по тем, кто упёрся во фритир <a href="vs-otter.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-underline-offset: 2px">Otter</a> или <a href="vs-turboscribe.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-underline-offset: 2px">TurboScribe</a> — Traart ставится один раз и расшифровывает сколько угодно.
+            </p>
         </div>
     </section>
 
