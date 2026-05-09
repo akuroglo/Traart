@@ -62,13 +62,43 @@ hdiutil create \
 echo "Cleaning up..."
 rm -rf "$TMP_DMG_DIR"
 
-# Verify
-if [ -f "$DMG_PATH" ]; then
-    echo ""
-    echo "=== DMG Created Successfully ==="
-    echo "Path: $DMG_PATH"
-    du -sh "$DMG_PATH" | awk '{print "Size: " $1}'
-else
+# Verify DMG was created
+if [ ! -f "$DMG_PATH" ]; then
     echo "ERROR: DMG creation failed."
     exit 1
 fi
+
+# Sign + notarize + staple the DMG itself.
+# Without this, Safari's quarantine bit triggers an "Apple could not verify"
+# warning on the DMG even though the .app inside is already notarized.
+DEVELOPER_ID=$(security find-identity -v -p codesigning 2>/dev/null \
+    | grep "Developer ID Application" | head -1 \
+    | sed 's/.*"\(.*\)".*/\1/')
+
+if [ -n "$DEVELOPER_ID" ]; then
+    echo ""
+    echo "Signing DMG with Developer ID..."
+    codesign --force --sign "$DEVELOPER_ID" "$DMG_PATH" 2>&1
+
+    NOTARY_PROFILE="${NOTARY_PROFILE:-traart-notary}"
+    if xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1; then
+        echo "Notarizing DMG (5–15 min)..."
+        xcrun notarytool submit "$DMG_PATH" \
+            --keychain-profile "$NOTARY_PROFILE" \
+            --wait 2>&1
+
+        echo "Stapling notarization ticket to DMG..."
+        xcrun stapler staple "$DMG_PATH" 2>&1
+        echo "DMG notarized + stapled"
+    else
+        echo "WARNING: notary profile '$NOTARY_PROFILE' not found — DMG signed but NOT notarized."
+        echo "Set up with: xcrun notarytool store-credentials $NOTARY_PROFILE --apple-id … --team-id …"
+    fi
+else
+    echo "WARNING: no Developer ID Application cert in keychain — DMG left unsigned."
+fi
+
+echo ""
+echo "=== DMG Created Successfully ==="
+echo "Path: $DMG_PATH"
+du -sh "$DMG_PATH" | awk '{print "Size: " $1}'
