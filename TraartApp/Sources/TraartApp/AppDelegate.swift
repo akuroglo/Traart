@@ -272,8 +272,14 @@ extension AppDelegate: TranscriptionManagerDelegate {
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(text, forType: .string)
             }
-            // Clean up temp file
-            try? FileManager.default.removeItem(at: job.sourceFile)
+            // Only remove the temp wav once no other job still depends on it
+            // (dual transcription enqueues plain + diarized for the same file).
+            let path = job.sourceFile.path
+            let stillUsed = (manager.currentJob?.sourceFile.path == path)
+                || manager.queue.contains(where: { $0.sourceFile.path == path })
+            if !stillUsed {
+                try? FileManager.default.removeItem(at: job.sourceFile)
+            }
         }
 
         if manager.queue.isEmpty {

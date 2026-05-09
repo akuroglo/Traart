@@ -75,6 +75,12 @@ final class TranscriptionManager {
             self.currentProcess = nil
 
             if var job = self.currentJob {
+                // Drop pending siblings (same sourceFile) — e.g. the dual
+                // diarized pass when the plain pass is cancelled — so the
+                // user doesn't have to press Cancel twice.
+                let cancelledPath = job.sourceFile.path
+                self.queue.removeAll { $0.sourceFile.path == cancelledPath }
+
                 job.status = .cancelled
                 job.endTime = Date()
                 self.addToCompleted(job)

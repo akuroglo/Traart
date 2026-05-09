@@ -78,9 +78,9 @@ cat > "$CONTENTS_DIR/Info.plist" << 'PLIST'
     <key>CFBundleIdentifier</key>
     <string>com.traart.app</string>
     <key>CFBundleVersion</key>
-    <string>1.1.3</string>
+    <string>1.1.4</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.1.3</string>
+    <string>1.1.4</string>
     <key>CFBundleExecutable</key>
     <string>TraartApp</string>
     <key>CFBundlePackageType</key>

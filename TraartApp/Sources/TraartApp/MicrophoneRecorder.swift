@@ -2,7 +2,7 @@ import AVFoundation
 
 final class MicrophoneRecorder: NSObject, AVAudioRecorderDelegate {
     private var audioRecorder: AVAudioRecorder?
-    private var durationTimer: Timer?
+    private var durationTimer: DispatchSourceTimer?
     private(set) var isRecording = false
     private(set) var duration: TimeInterval = 0
 
@@ -24,11 +24,14 @@ final class MicrophoneRecorder: NSObject, AVAudioRecorderDelegate {
     func stopRecording() -> URL? {
         guard isRecording, let recorder = audioRecorder else { return nil }
         let url = recorder.url
+        // Read currentTime from the recorder itself — `duration` is updated
+        // via main.async and may lag behind when the main thread is busy.
+        let finalDuration = recorder.currentTime
         recorder.stop()
         cleanup()
 
         // Discard recordings shorter than 1 second
-        if duration < 1.0 {
+        if finalDuration < 1.0 {
             try? FileManager.default.removeItem(at: url)
             return nil
         }
@@ -65,18 +68,29 @@ final class MicrophoneRecorder: NSObject, AVAudioRecorderDelegate {
             audioRecorder = recorder
             isRecording = true
             duration = 0
-            durationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                self.duration += 1
-                self.onDurationUpdate?(self.duration)
+
+            // Background timer reading recorder.currentTime so the menu
+            // counter doesn't stall when the main runloop is saturated
+            // (e.g. by parallel transcription progress events).
+            let timer = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+            timer.schedule(deadline: .now() + 1.0, repeating: 1.0)
+            timer.setEventHandler { [weak self] in
+                guard let self = self, let rec = self.audioRecorder else { return }
+                let t = rec.currentTime
+                DispatchQueue.main.async {
+                    self.duration = t
+                    self.onDurationUpdate?(t)
+                }
             }
+            timer.resume()
+            durationTimer = timer
         } catch {
             NSLog("Traart: MicrophoneRecorder failed to start: \(error.localizedDescription)")
         }
     }
 
     private func cleanup() {
-        durationTimer?.invalidate()
+        durationTimer?.cancel()
         durationTimer = nil
         audioRecorder = nil
         isRecording = false
