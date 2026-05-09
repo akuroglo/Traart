@@ -628,31 +628,31 @@
 <td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Web/App</td>
 </tr>
 <tr>
-<td class="p-3" style="border-bottom: 1px solid var(--card-border)">Fireflies.ai</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Н/Д*</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">$10/мес/чел</td>
+<td class="p-3" style="border-bottom: 1px solid var(--card-border)"><a href="vs-saluteSpeech.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">SaluteSpeech</a> (Сбер)</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">~8-9%* (та же GigaAM)</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">от 0.20 руб/сек</td>
 <td class="p-3 text-center" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Нет</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Да</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Web</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Да (API)</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">API</td>
 </tr>
 <tr>
-<td class="p-3" style="border-bottom: 1px solid var(--card-border)">Speech2Text.ru</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Н/Д*</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Бесплатно (лимит)</td>
+<td class="p-3" style="border-bottom: 1px solid var(--card-border)"><a href="vs-vosk.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">VOSK</a></td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">~14-18%</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">$0 (open source)</td>
+<td class="p-3 text-center" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">Да</td>
 <td class="p-3 text-center" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Нет</td>
-<td class="p-3 text-center" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Нет</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Web</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">CLI/SDK</td>
 </tr>
 <tr>
-<td class="p-3" style="border-bottom: 1px solid var(--card-border)">Teamlogs.ru</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Н/Д*</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">от 990 руб/мес</td>
+<td class="p-3" style="border-bottom: 1px solid var(--card-border)">Whisper-large-v3 (raw)</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">~25%</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">$0 (open source)</td>
+<td class="p-3 text-center" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">Да</td>
 <td class="p-3 text-center" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Нет</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Да</td>
-<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">Web</td>
+<td class="p-3 text-center" style="border-bottom: 1px solid var(--card-border)">CLI/Python</td>
 </tr>
 <tr>
-<td class="p-3">Any2Text.ru</td>
+<td class="p-3">Speech2Text.ru</td>
 <td class="p-3 text-center">Н/Д*</td>
 <td class="p-3 text-center">Бесплатно (лимит)</td>
 <td class="p-3 text-center" style="color: var(--accent-rose)">Нет</td>
@@ -790,6 +790,14 @@
 <span>·</span>
 <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank">LinkedIn</a>
 </div>
+</div>
+</section>
+<!-- LSI_STACK_NOTE -->
+<section aria-label="Технологический стек" style="background: var(--bg-secondary); padding: 1.75rem 0; border-top: 1px solid var(--card-border);">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<p class="text-xs text-center" style="color: var(--text-muted); line-height: 1.6;">
+Под капотом — собственный STT-движок (speech-to-text) на базе ASR-модели <strong style="color: var(--text-secondary)">GigaAM v3</strong> (архитектура RNNT, WER 8.3% на русском) и диаризации <strong style="color: var(--text-secondary)">pyannote 3.1</strong>. Локальная обработка voice-to-text на Apple Silicon — альтернатива облачному распознаванию речи (Whisper, Yandex SpeechKit, Google STT) без отправки данных.
+</p>
 </div>
 </section>
 <!-- Footer -->
