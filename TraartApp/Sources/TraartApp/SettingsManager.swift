@@ -29,6 +29,7 @@ final class SettingsManager {
         static let monitoredFileTypes = "monitoredFileTypes"
         static let analyticsEnabled = "analyticsEnabled"
         static let dualTranscription = "dualTranscription"
+        static let includeTimestamps = "includeTimestamps"
     }
 
     private init() {
@@ -42,8 +43,9 @@ final class SettingsManager {
         defaults.register(defaults: [
             Keys.watchedFolders: encoded ?? Data(),
             Keys.saveNextToFile: true,
-            Keys.autoTranscribe: false,
+            Keys.autoTranscribe: true,
             Keys.enableDiarization: false,
+            Keys.includeTimestamps: false,
             Keys.expectedSpeakers: 0,  // 0 = auto-detect
             Keys.monitorEntireDisk: true,
             Keys.launchAtLogin: true,
@@ -297,6 +299,19 @@ final class SettingsManager {
         set {
             queue.async(flags: .barrier) { [weak self] in
                 self?.defaults.set(newValue, forKey: Keys.dualTranscription)
+                self?.postChangeNotification()
+            }
+        }
+    }
+
+    /// Add per-segment timestamps to MD/TXT output. With diarization,
+    /// timestamps are always shown — this setting is only relevant when
+    /// diarization is off.
+    var includeTimestamps: Bool {
+        get { queue.sync { defaults.bool(forKey: Keys.includeTimestamps) } }
+        set {
+            queue.async(flags: .barrier) { [weak self] in
+                self?.defaults.set(newValue, forKey: Keys.includeTimestamps)
                 self?.postChangeNotification()
             }
         }

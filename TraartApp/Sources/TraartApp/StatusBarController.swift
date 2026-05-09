@@ -24,6 +24,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     private var qualityLabelItem: NSMenuItem?
     private var dualTranscriptionItem: NSMenuItem?
     private var diarizationItem: NSMenuItem?
+    private var includeTimestampsItem: NSMenuItem?
     private var speakersSubmenu: NSMenu?
     private var monitorDiskItem: NSMenuItem?
     private var watchedFoldersItem: NSMenuItem?
@@ -432,6 +433,20 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         self.diarizationItem = diarItem
         submenu.addItem(diarItem)
 
+        // Per-segment timestamps in MD/TXT output. Forced on by diarization
+        // (without timestamps you can't follow speaker turns).
+        let tsTitle = settings.enableDiarization
+            ? "Таймстампы в файле (включены при диаризации)"
+            : "Таймстампы в файле"
+        let tsItem = makeToggleItem(
+            title: tsTitle,
+            isOn: settings.enableDiarization || settings.includeTimestamps,
+            action: #selector(toggleIncludeTimestamps(_:))
+        )
+        toggleButton(in: tsItem)?.isEnabled = !settings.enableDiarization
+        self.includeTimestampsItem = tsItem
+        submenu.addItem(tsItem)
+
         // Speakers count submenu
         let currentSpeakers = settings.expectedSpeakers
         let speakersLabel = currentSpeakers == 0 ? "Авто" : "\(currentSpeakers)"
@@ -768,6 +783,14 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         // Update toggle buttons inside custom views
         toggleButton(in: autoTranscribeItem)?.state = settings.autoTranscribe ? .on : .off
         toggleButton(in: diarizationItem)?.state = settings.enableDiarization ? .on : .off
+        if let tsBtn = toggleButton(in: includeTimestampsItem) {
+            let diarOn = settings.enableDiarization
+            tsBtn.isEnabled = !diarOn
+            tsBtn.title = diarOn
+                ? "Таймстампы в файле (включены при диаризации)"
+                : "Таймстампы в файле"
+            tsBtn.state = (diarOn || settings.includeTimestamps) ? .on : .off
+        }
         toggleButton(in: monitorDiskItem)?.state = settings.monitorEntireDisk ? .on : .off
         toggleButton(in: launchAtLoginItem)?.state = settings.launchAtLogin ? .on : .off
         toggleButton(in: analyticsItem)?.state = settings.analyticsEnabled ? .on : .off
@@ -1203,6 +1226,23 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         SettingsManager.shared.enableDiarization.toggle()
         let isOn = SettingsManager.shared.enableDiarization
         AnalyticsManager.shared.trackSettingChanged(setting: "diarization", value: String(isOn))
+        if let btn = sender as? NSButton {
+            btn.state = isOn ? .on : .off
+        }
+        // Reflect forced-on state on the timestamps toggle.
+        if let tsBtn = toggleButton(in: includeTimestampsItem) {
+            tsBtn.isEnabled = !isOn
+            tsBtn.title = isOn
+                ? "Таймстампы в файле (включены при диаризации)"
+                : "Таймстампы в файле"
+            tsBtn.state = (isOn || SettingsManager.shared.includeTimestamps) ? .on : .off
+        }
+    }
+
+    @objc private func toggleIncludeTimestamps(_ sender: Any) {
+        SettingsManager.shared.includeTimestamps.toggle()
+        let isOn = SettingsManager.shared.includeTimestamps
+        AnalyticsManager.shared.trackSettingChanged(setting: "includeTimestamps", value: String(isOn))
         if let btn = sender as? NSButton {
             btn.state = isOn ? .on : .off
         }

@@ -555,8 +555,13 @@ def format_output_md(
     speakers: int,
     full_text: str,
     segments: List[Dict],
+    timestamps: bool = False,
 ) -> str:
-    """Format output as Markdown."""
+    """Format output as Markdown.
+
+    Per-segment [mm:ss] are shown when diarization is on (always — needed to
+    follow speaker turns) or when the user explicitly enabled timestamps.
+    """
     source_name = Path(source).stem
     lines = []
     lines.append(f"# Транскрипция: {source_name}")
@@ -572,12 +577,13 @@ def format_output_md(
     lines.append("---")
     lines.append("")
 
+    show_timestamps = diarization or timestamps
+
     if diarization and segments and any(s.get("speaker") for s in segments):
         current_speaker = None
         for seg in segments:
             speaker = seg.get("speaker", "")
             start_m, start_s = divmod(int(seg["start"]), 60)
-            end_m, end_s = divmod(int(seg["end"]), 60)
             time_str = f"{start_m:02d}:{start_s:02d}"
 
             if speaker and speaker != current_speaker:
@@ -587,7 +593,7 @@ def format_output_md(
 
             lines.append(f"*[{time_str}]* {seg['text']}")
             lines.append("")
-    elif segments and len(segments) > 1:
+    elif show_timestamps and segments and len(segments) > 1:
         for seg in segments:
             start_m, start_s = divmod(int(seg["start"]), 60)
             time_str = f"{start_m:02d}:{start_s:02d}"
@@ -606,8 +612,13 @@ def format_output_txt(
     diarization: bool,
     full_text: str,
     segments: List[Dict],
+    timestamps: bool = False,
 ) -> str:
-    """Format output as plain text."""
+    """Format output as plain text.
+
+    Per-segment timestamps are shown when diarization is on or when the user
+    explicitly enabled timestamps.
+    """
     lines = []
     lines.append(f"Source: {source}")
     lines.append(f"Duration: {duration / 60:.1f} min")
@@ -625,6 +636,13 @@ def format_output_txt(
             else:
                 lines.append(f"{time_str}")
             lines.append(f"  {seg['text']}")
+            lines.append("")
+    elif timestamps and segments and len(segments) > 1:
+        for seg in segments:
+            start_m, start_s = divmod(int(seg["start"]), 60)
+            end_m, end_s = divmod(int(seg["end"]), 60)
+            time_str = f"[{start_m:02d}:{start_s:02d} - {end_m:02d}:{end_s:02d}]"
+            lines.append(f"{time_str} {seg['text']}")
             lines.append("")
     else:
         lines.append(full_text)
@@ -699,6 +717,7 @@ def main():
     parser.add_argument("--speakers", type=int, default=0, help="Expected number of speakers (0 = auto-detect)")
     parser.add_argument("--models-dir", type=str, default=None, help="Directory with pre-downloaded models")
     parser.add_argument("--format", type=str, default="md", choices=["md", "json", "txt", "srt", "vtt"], help="Output format")
+    parser.add_argument("--timestamps", action="store_true", help="Include per-segment [mm:ss] timestamps in md/txt output (always on with --diarize)")
     parser.add_argument("--chunk-duration", type=int, default=20, help="Chunk duration in seconds (10-60)")
     parser.add_argument("--chunk-overlap", type=int, default=4, help="Chunk overlap in seconds (0-10)")
     parser.add_argument("--merge-gap", type=float, default=0.8, help="Max gap to merge same-speaker segments (0.2-5.0)")
@@ -814,6 +833,7 @@ def main():
                 speakers=num_speakers,
                 full_text=full_text,
                 segments=segments,
+                timestamps=args.timestamps,
             )
         elif args.format == "srt":
             output = format_output_srt(
@@ -832,6 +852,7 @@ def main():
                 diarization=args.diarize,
                 full_text=full_text,
                 segments=segments,
+                timestamps=args.timestamps,
             )
 
         os.makedirs(os.path.dirname(output_path), exist_ok=True)

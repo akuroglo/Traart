@@ -171,6 +171,10 @@ final class TranscriptionManager {
         arguments.append("--format")
         arguments.append(settings.outputFormat)
 
+        if settings.includeTimestamps {
+            arguments.append("--timestamps")
+        }
+
         // Quality parameters
         arguments.append("--chunk-duration")
         arguments.append(String(settings.chunkDuration))
