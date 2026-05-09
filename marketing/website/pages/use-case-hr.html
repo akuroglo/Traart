@@ -212,6 +212,9 @@
         left: calc(50% + 540px); right: auto;
         width: 232px; max-height: calc(100vh - 140px);
         z-index: 30; pointer-events: none; }
+    /* v6-force-hide-floating */
+    .toc-floating { display: none !important; }
+
     .toc-floating-card { pointer-events: auto;
         background: linear-gradient(135deg, rgba(78, 205, 196, 0.05), rgba(108, 92, 231, 0.05), rgba(232, 121, 168, 0.05));
         border: 1px solid var(--card-border); border-radius: 1rem; overflow: hidden;
@@ -236,11 +239,7 @@
     /* Show floating sidebar at wide widths only */
     /* Show floating sidebar only when viewport is wide enough that it won't
        overlap content (content max-w is up to 1024px = max-w-5xl on vs-* pages). */
-    @media (min-width: 1440px) {
-        .toc-floating { display: block; }
-        .toc-inline-section { display: none; }
-        .toc-sticky-btn { display: none !important; }
-    }
+    /* v6: floating sidebar disabled — inline ToC + sticky button on all widths */
 
     /* ===== tocbot list styling (works for both inline and floating containers) ===== */
     .toc-target .toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc-counter; }
@@ -402,8 +401,8 @@
                     hasInnerContainers: false,
                     scrollSmooth: true,
                     scrollSmoothDuration: 420,
-                    scrollSmoothOffset: -120,
-                    headingsOffset: 120,
+                    scrollSmoothOffset: -80,
+                    headingsOffset: 80,
                     activeLinkClass: 'is-active-link',
                     listClass: 'toc-list',
                     listItemClass: 'toc-list-item',
@@ -423,6 +422,36 @@
             }, 50);
             setTimeout(() => clearInterval(wait), 5000);
         }
+
+        
+        // ----- TOC_V6_OBSERVER: section-aware active link -----
+        (function() {
+            const sections = Array.from(document.querySelectorAll('section[aria-labelledby], article[aria-labelledby]'));
+            if (!sections.length) return;
+            function setActive(id) {
+                document.querySelectorAll('.toc-link').forEach(a => {
+                    const href = a.getAttribute('href') || '';
+                    a.classList.toggle('is-active-link', href === '#' + id);
+                });
+            }
+            const visible = new Map();
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) visible.set(e.target, e.intersectionRatio);
+                    else visible.delete(e.target);
+                });
+                let topMost = null, topY = Infinity;
+                visible.forEach((_, el) => {
+                    const t = el.getBoundingClientRect().top;
+                    if (t < topY) { topY = t; topMost = el; }
+                });
+                if (topMost) {
+                    const id = topMost.getAttribute('aria-labelledby');
+                    if (id) setActive(id);
+                }
+            }, { rootMargin: '-100px 0px -55% 0px', threshold: [0, 0.05, 0.5, 1] });
+            sections.forEach(s => obs.observe(s));
+        })();
 
         // ----- Reading progress bar -----
         const progressBar = document.createElement('div');
@@ -457,8 +486,8 @@
                 hasInnerContainers: false,
                 scrollSmooth: true,
                 scrollSmoothDuration: 420,
-                scrollSmoothOffset: -120,
-                headingsOffset: 120,
+                scrollSmoothOffset: -80,
+                headingsOffset: 80,
                 activeLinkClass: 'is-active-link',
                 listClass: 'toc-list',
                 listItemClass: 'toc-list-item',
