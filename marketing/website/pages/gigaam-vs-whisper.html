@@ -1,26 +1,27 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GigaAM vs Whisper — WER на русском (8.3% vs ~16%)</title>
-    <meta name="description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
-    <meta name="keywords" content="GigaAM vs Whisper, whisper транскрибация русский, GigaAM v3 бенчмарки, транскрипция русский язык, whisper русский WER, GigaAM RNNT">
-    <meta property="og:title" content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)">
-    <meta property="og:description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://traart.ru/gigaam-vs-whisper">
-    <meta property="og:image" content="https://traart.ru/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:site_name" content="Traart">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)">
-    <meta name="twitter:description" content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025.">
-    <meta name="twitter:image" content="https://traart.ru/og-image.png">
-    <link rel="canonical" href="https://traart.ru/gigaam-vs-whisper">
-    <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GigaAM vs Whisper — WER на русском (8.3% vs ~16%)</title>
+<meta content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025." name="description"/>
+<meta content="GigaAM vs Whisper, whisper транскрибация русский, GigaAM v3 бенчмарки, транскрипция русский язык, whisper русский WER, GigaAM RNNT" name="keywords"/>
+<meta content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)" property="og:title"/>
+<meta content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://traart.ru/gigaam-vs-whisper" property="og:url"/>
+<meta content="https://traart.ru/og-image.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="ru_RU" property="og:locale"/>
+<meta content="Traart" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="GigaAM vs Whisper — WER на русском (8.3% vs ~16%)" name="twitter:title"/>
+<meta content="GigaAM v3 vs Whisper-large-v3: WER 8.3% vs ~16% на русском. Бенчмарки на 4 датасетах, сравнение архитектур и скорости. INTERSPEECH 2025." name="twitter:description"/>
+<meta content="https://traart.ru/og-image.png" name="twitter:image"/>
+<link href="https://traart.ru/gigaam-vs-whisper" rel="canonical"/>
+<script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -33,7 +34,7 @@
         "publisher": { "@id": "https://traart.ru/#org" }
     }
     </script>
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -44,14 +45,14 @@
         ]
     }
     </script>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="styles.css?v=2">
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="styles.css?v=2" rel="stylesheet"/>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
@@ -61,130 +62,120 @@
 
         ym(106908653, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/106908653" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+<noscript><div><img alt="" src="https://mc.yandex.ru/watch/106908653" style="position:absolute; left:-9999px;"/></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav class="nav-floating" id="nav">
-        <div class="nav-pill">
-            <a href="index.html" class="flex items-center gap-2">
-                <svg class="w-5 h-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
-                <span class="text-base font-bold" style="color: var(--text)">Traart</span>
-            </a>
-
-            <div class="hidden md:flex items-center gap-1">
-                <a href="index.html" class="nav-link">Главная</a>
-                <a href="how-it-works.html" class="nav-link">Как работает</a>
-                <div class="nav-dropdown">
-                    <a href="comparison.html" class="nav-link nav-link-active">Сравнение <svg class="w-3 h-3 inline-block ml-0.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
-                    <div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="vs-saluteSpeech.html">vs SaluteSpeech</a><a href="vs-vosk.html">vs VOSK</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div>
-                </div>
-                <a href="pricing.html" class="nav-link">Цены</a>
-                <a href="faq.html" class="nav-link">FAQ</a>
-            </div>
-
-            <div class="hidden md:flex items-center gap-2">
-                <button id="theme-toggle" class="nav-icon-btn">
-                    <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                </button>
-                <a href="download.html" class="nav-cta">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+<!-- Navigation -->
+<nav class="nav-floating" id="nav">
+<div class="nav-pill">
+<a class="flex items-center gap-2" href="index.html">
+<svg class="w-5 h-5" fill="none" viewbox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><defs><lineargradient id="sg" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"></stop><stop offset="50%" stop-color="#6C5CE7"></stop><stop offset="100%" stop-color="#E879A8"></stop></lineargradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"></path></svg>
+<span class="text-base font-bold" style="color: var(--text)">Traart</span>
+</a>
+<div class="hidden md:flex items-center gap-1">
+<a class="nav-link" href="index.html">Главная</a>
+<a class="nav-link" href="how-it-works.html">Как работает</a>
+<div class="nav-dropdown">
+<a class="nav-link nav-link-active" href="comparison.html">Сравнение <svg class="w-3 h-3 inline-block ml-0.5 opacity-50" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></a>
+<div class="nav-dropdown-menu"><div class="nav-dropdown-content"><a href="comparison.html">Общее сравнение</a><a href="vs-macwhisper.html">vs MacWhisper</a><a href="vs-turboscribe.html">vs TurboScribe</a><a href="vs-otter.html">vs Otter.ai</a><a href="vs-saluteSpeech.html">vs SaluteSpeech</a><a href="vs-vosk.html">vs VOSK</a><a href="gigaam-vs-whisper.html">GigaAM vs Whisper</a><a href="cloud-vs-offline.html">Облако vs Оффлайн</a></div></div>
+</div>
+<a class="nav-link" href="pricing.html">Цены</a>
+<a class="nav-link" href="faq.html">FAQ</a>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<button class="nav-icon-btn" id="theme-toggle">
+<svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<a class="nav-cta" href="download.html">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     Скачать
                 </a>
-            </div>
-
-            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden nav-mobile-menu">
-            <div class="px-4 py-3 space-y-1">
-                <a href="index.html" class="nav-mobile-link">Главная</a>
-                <a href="how-it-works.html" class="nav-mobile-link">Как работает</a>
-                <a href="comparison.html" class="nav-mobile-link nav-link-active">Сравнение</a>
-                <a href="pricing.html" class="nav-mobile-link">Цены</a>
-                <a href="faq.html" class="nav-mobile-link">FAQ</a>
-                <a href="download.html" class="nav-mobile-link" style="color: var(--primary)">Скачать</a>
-                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left">Сменить тему</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
-        <div class="hero-gradient"></div>
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="grid-bg"></div>
-        <div class="noise-overlay"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="max-w-3xl">
-                <nav class="flex items-center gap-2 text-sm mb-6 fade-in-up" style="color: var(--text-muted)">
-                    <a href="index.html" class="transition-colors hover:underline" style="color: var(--text-muted)" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Главная</a>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    <span style="color: var(--text-secondary)">GigaAM vs Whisper</span>
-                </nav>
-                <div class="badge fade-in-up mb-6">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+</div>
+<button class="md:hidden nav-icon-btn" id="mobile-menu-btn">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<div class="hidden md:hidden nav-mobile-menu" id="mobile-menu">
+<div class="px-4 py-3 space-y-1">
+<a class="nav-mobile-link" href="index.html">Главная</a>
+<a class="nav-mobile-link" href="how-it-works.html">Как работает</a>
+<a class="nav-mobile-link nav-link-active" href="comparison.html">Сравнение</a>
+<a class="nav-mobile-link" href="pricing.html">Цены</a>
+<a class="nav-mobile-link" href="faq.html">FAQ</a>
+<a class="nav-mobile-link" href="download.html" style="color: var(--primary)">Скачать</a>
+<button class="nav-mobile-link w-full text-left" id="theme-toggle-mobile">Сменить тему</button>
+</div>
+</div>
+</nav>
+<!-- Hero -->
+<section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
+<div class="hero-gradient"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="grid-bg"></div>
+<div class="noise-overlay"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+<div class="max-w-3xl">
+<nav class="flex items-center gap-2 text-sm mb-6 fade-in-up" style="color: var(--text-muted)">
+<a class="transition-colors hover:underline" href="index.html" onmouseout="this.style.color='var(--text-muted)'" onmouseover="this.style.color='var(--text)'" style="color: var(--text-muted)">Главная</a>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span style="color: var(--text-secondary)">GigaAM vs Whisper</span>
+</nav>
+<div class="badge fade-in-up mb-6">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     Техническое сравнение
                 </div>
-                <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
+<h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
                     GigaAM vs
                     <span class="gradient-text">Whisper</span>
                     -- в 2x точнее
                 </h1>
-                <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
+<p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
                     Какая модель лучше для русской речи? Детальное сравнение GigaAM и Whisper: бенчмарки WER на 4 датасетах, архитектура, размер и скорость транскрибации.
                 </p>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-    <!-- Reading-time + Floating Table of Contents (v4 — tocbot + custom glass) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.min.js" defer></script>
-
-    <!-- Inline ToC card — visible on tablet/mobile, hidden on desktop (floating sidebar takes over) -->
-    <section class="py-8 md:py-10 toc-inline-section" style="background: var(--bg)">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="toc-card">
-                <div class="toc-card-shine"></div>
-                <div class="toc-card-inner">
-                    <div class="toc-header">
-                        <div class="toc-header-title">
-                            <div class="toc-header-icon">
-                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h7"/></svg>
-                            </div>
-                            <span>В этой статье</span>
-                        </div>
-                        <span class="toc-pill" id="reading-time">~ мин</span>
-                    </div>
-                    <div id="toc-mobile" class="toc-target"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Floating right sidebar — visible only on wide desktops -->
-    <aside id="toc-floating" class="toc-floating" aria-label="Содержание страницы">
-        <div class="toc-floating-card">
-            <div class="toc-floating-card-shine"></div>
-            <div class="toc-floating-header">
-                <div class="toc-floating-icon">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M4 6h16M4 12h16M4 18h7"/></svg>
-                </div>
-                <span class="toc-floating-title">Содержание</span>
-                <span class="toc-floating-time" id="reading-time-floating">~ мин</span>
-            </div>
-            <div id="toc-desktop" class="toc-target toc-target-floating"></div>
-        </div>
-    </aside>
-
-    <style>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- Reading-time + Floating Table of Contents (v4 — tocbot + custom glass) -->
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.32.2/tocbot.min.js"></script>
+<!-- Inline ToC card — visible on tablet/mobile, hidden on desktop (floating sidebar takes over) -->
+<section class="py-8 md:py-10 toc-inline-section" style="background: var(--bg)">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="toc-card">
+<div class="toc-card-shine"></div>
+<div class="toc-card-inner">
+<div class="toc-header">
+<div class="toc-header-title">
+<div class="toc-header-icon">
+<svg fill="none" height="18" stroke="currentColor" viewbox="0 0 24 24" width="18"><path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg>
+</div>
+<span>В этой статье</span>
+</div>
+<span class="toc-pill" id="reading-time">~ мин</span>
+</div>
+<div class="toc-target" id="toc-mobile"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating right sidebar — visible only on wide desktops -->
+<aside aria-label="Содержание страницы" class="toc-floating" id="toc-floating">
+<div class="toc-floating-card">
+<div class="toc-floating-card-shine"></div>
+<div class="toc-floating-header">
+<div class="toc-floating-icon">
+<svg fill="none" height="14" stroke="currentColor" viewbox="0 0 24 24" width="14"><path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path></svg>
+</div>
+<span class="toc-floating-title">Содержание</span>
+<span class="toc-floating-time" id="reading-time-floating">~ мин</span>
+</div>
+<div class="toc-target toc-target-floating" id="toc-desktop"></div>
+</div>
+</aside>
+<style>
     /* ===== Reading progress bar (always-on, mobile + desktop) ===== */
     .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
         background: linear-gradient(90deg, #4ECDC4 0%, #6C5CE7 50%, #E879A8 100%);
@@ -215,7 +206,7 @@
 
     /* ===== Floating right sidebar (desktop) ===== */
     .toc-floating { display: none; position: fixed; top: 96px;
-        right: max(24px, calc((100vw - 1024px) / 2 - 260px));
+        left: calc(50% + 540px); right: auto;
         width: 232px; max-height: calc(100vh - 140px);
         z-index: 30; pointer-events: none; }
     .toc-floating-card { pointer-events: auto;
@@ -337,18 +328,16 @@
         { transition: none !important; }
     }
     </style>
-
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs>
-            <linearGradient id="sticky-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#4ECDC4"/>
-                <stop offset="50%" stop-color="#6C5CE7"/>
-                <stop offset="100%" stop-color="#E879A8"/>
-            </linearGradient>
-        </defs>
-    </svg>
-
-    <script>
+<svg aria-hidden="true" height="0" style="position:absolute" width="0">
+<defs>
+<lineargradient id="sticky-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4ECDC4"></stop>
+<stop offset="50%" stop-color="#6C5CE7"></stop>
+<stop offset="100%" stop-color="#E879A8"></stop>
+</lineargradient>
+</defs>
+</svg>
+<script>
     function initTocAndChrome() {
         // ----- Reading time -----
         const exclude = new Set(['NAV', 'FOOTER', 'SCRIPT', 'STYLE', 'NOSCRIPT', 'ASIDE']);
@@ -364,10 +353,19 @@
         const words = (text.match(/\S+/g) || []).length;
         const minutes = Math.max(1, Math.round(words / 200));
         const clockSvg = '<svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:inline-block;vertical-align:-1px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
-        ['reading-time', 'reading-time-floating'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.innerHTML = clockSvg + ' ' + minutes + ' мин';
-        });
+        const totalMinutes = minutes;
+        function paintReadingTime() {
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
+            const cur = Math.max(1, Math.min(totalMinutes, Math.ceil(pct * totalMinutes)));
+            const label = clockSvg + ' ' + cur + ' / ' + totalMinutes + ' мин';
+            ['reading-time', 'reading-time-floating'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = label;
+            });
+        }
+        paintReadingTime();
+        window.addEventListener('scroll', () => requestAnimationFrame(paintReadingTime), { passive: true });
 
         // ----- Slugify and assign IDs to all H2 first (tocbot uses href targets) -----
         function slugify(s) {
@@ -401,8 +399,8 @@
                     hasInnerContainers: false,
                     scrollSmooth: true,
                     scrollSmoothDuration: 420,
-                    scrollSmoothOffset: -80,
-                    headingsOffset: 80,
+                    scrollSmoothOffset: -120,
+                    headingsOffset: 120,
                     activeLinkClass: 'is-active-link',
                     listClass: 'toc-list',
                     listItemClass: 'toc-list-item',
@@ -456,8 +454,8 @@
                 hasInnerContainers: false,
                 scrollSmooth: true,
                 scrollSmoothDuration: 420,
-                scrollSmoothOffset: -80,
-                headingsOffset: 80,
+                scrollSmoothOffset: -120,
+                headingsOffset: 120,
                 activeLinkClass: 'is-active-link',
                 listClass: 'toc-list',
                 listItemClass: 'toc-list-item',
@@ -515,491 +513,469 @@
     }
     </script>
 <!-- TL;DR -->
-    <section class="py-16 md:py-20" style="background: var(--bg)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-                <div class="text-center fade-in-up">
-                    <p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">2x</p>
-                    <p class="text-sm font-medium" style="color: var(--text-secondary)">точнее на русском</p>
-                    <p class="text-xs mt-1" style="color: var(--text-muted)">WER 8.3% vs ~16%</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">6.8x</p>
-                    <p class="text-sm font-medium" style="color: var(--text-secondary)">компактнее</p>
-                    <p class="text-xs mt-1" style="color: var(--text-muted)">220M vs 1.5B параметров</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">7.9x</p>
-                    <p class="text-sm font-medium" style="color: var(--text-secondary)">точнее на Golos Crowd</p>
-                    <p class="text-xs mt-1" style="color: var(--text-muted)">2.4% vs 19.0%</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">50%</p>
-                    <p class="text-sm font-medium" style="color: var(--text-secondary)">ниже WER чем Whisper</p>
-                    <p class="text-xs mt-1" style="color: var(--text-muted)">arXiv:2506.01192</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Architecture Comparison -->
-    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Сравнение архитектур</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
-                <div class="gradient-border-card p-8 fade-in-up" style="border-color: var(--primary)">
-                    <h3 class="text-xl font-bold mb-6" style="color: var(--primary)">GigaAM v3 RNNT</h3>
-                    <ul class="space-y-4 text-sm" style="color: var(--text-secondary)">
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Архитектура</span>
-                            <span>Conformer-based RNNT (Recurrent Neural Network Transducer)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Параметры</span>
-                            <span>~220M</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Разработчик</span>
-                            <span>SaluteDevices (Sber)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Публикация</span>
-                            <span>INTERSPEECH 2025 (arXiv:2506.01192)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Лицензия</span>
-                            <span>MIT (полностью open-source)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Языки</span>
-                            <span>Русский (специализированная)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Обучение</span>
-                            <span>Масштабные корпуса русской речи</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="glass-card p-8 fade-in-up">
-                    <h3 class="text-xl font-bold mb-6" style="color: var(--text-muted)">Whisper-large-v3</h3>
-                    <ul class="space-y-4 text-sm" style="color: var(--text-secondary)">
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Архитектура</span>
-                            <span>Encoder-Decoder Transformer (seq2seq)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Параметры</span>
-                            <span>~1.55B</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Разработчик</span>
-                            <span>OpenAI</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Публикация</span>
-                            <span>2023 (arXiv:2212.04356)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Лицензия</span>
-                            <span>MIT (open-source)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Языки</span>
-                            <span>~100 языков (мультиязычная)</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="font-semibold min-w-[120px]" style="color: var(--text)">Обучение</span>
-                            <span>680 000 часов аудио, все языки</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- WER Benchmarks -->
-    <section class="py-20 md:py-28" style="background: var(--bg)">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight fade-in-up">Бенчмарки WER на русском языке</h2>
-            <p class="text-lg mb-12 fade-in-up" style="color: var(--text-secondary)">Word Error Rate (WER) -- чем ниже, тем лучше. Данные из arXiv:2506.01192</p>
-
-            <!-- Visual WER bars -->
-            <div class="space-y-8 mb-16 stagger-children">
-                <!-- Golos Farfield -->
-                <div class="fade-in-up">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm font-semibold">Golos Farfield</span>
-                        <span class="text-xs" style="color: var(--text-muted)">Речь на расстоянии от микрофона</span>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 19.5%; background: var(--primary)">
-                                    <span class="text-xs font-bold text-white">3.9%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 82%; background: var(--accent-rose)">
-                                    <span class="text-xs font-bold text-white">16.4%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 4.2x точнее</p>
-                </div>
-
-                <!-- Golos Crowd -->
-                <div class="fade-in-up">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm font-semibold">Golos Crowd</span>
-                        <span class="text-xs" style="color: var(--text-muted)">Краудсорсинговые записи</span>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 12%; background: var(--primary)">
-                                    <span class="text-xs font-bold text-white">2.4%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 95%; background: var(--accent-rose)">
-                                    <span class="text-xs font-bold text-white">19.0%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 7.9x точнее</p>
-                </div>
-
-                <!-- Russian LibriSpeech -->
-                <div class="fade-in-up">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm font-semibold">Russian LibriSpeech</span>
-                        <span class="text-xs" style="color: var(--text-muted)">Чтение вслух</span>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 22%; background: var(--primary)">
-                                    <span class="text-xs font-bold text-white">4.4%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 47%; background: var(--accent-rose)">
-                                    <span class="text-xs font-bold text-white">9.4%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 2.1x точнее</p>
-                </div>
-
-                <!-- Common Voice 19 -->
-                <div class="fade-in-up">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm font-semibold">Common Voice 19</span>
-                        <span class="text-xs" style="color: var(--text-muted)">Разнообразные записи добровольцев</span>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 5%; min-width: 45px; background: var(--primary)">
-                                    <span class="text-xs font-bold text-white">0.9%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
-                            <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
-                                <div class="h-full rounded-full flex items-center justify-end px-2" style="width: 27.5%; background: var(--accent-rose)">
-                                    <span class="text-xs font-bold text-white">5.5%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 6.1x точнее</p>
-                </div>
-            </div>
-
-            <!-- Summary Table -->
-            <div class="overflow-x-auto fade-in-up">
-                <table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0">
-                    <thead>
-                        <tr>
-                            <th class="text-left p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Датасет</th>
-                            <th class="text-center p-4 font-semibold" style="color: var(--primary); border-bottom: 2px solid var(--card-border)">GigaAM v3</th>
-                            <th class="text-center p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Whisper v3</th>
-                            <th class="text-center p-4 font-semibold" style="color: var(--accent-green); border-bottom: 2px solid var(--card-border)">Разница</th>
-                        </tr>
-                    </thead>
-                    <tbody style="color: var(--text-secondary)">
-                        <tr>
-                            <td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Golos Farfield</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">3.9%</td>
-                            <td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">16.4%</td>
-                            <td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">4.2x</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Golos Crowd</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">2.4%</td>
-                            <td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">19.0%</td>
-                            <td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">7.9x</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Russian LibriSpeech</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">4.4%</td>
-                            <td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">9.4%</td>
-                            <td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">2.1x</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium">Common Voice 19</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--primary)">0.9%</td>
-                            <td class="p-4 text-center">5.5%</td>
-                            <td class="p-4 text-center font-semibold" style="color: var(--accent-green)">6.1x</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr style="border-top: 2px solid var(--card-border)">
-                            <td class="p-4 font-bold" style="border-top: 2px solid var(--card-border)">Среднее</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--primary); border-top: 2px solid var(--card-border)">8.3%*</td>
-                            <td class="p-4 text-center font-bold" style="border-top: 2px solid var(--card-border)">~12.6%**</td>
-                            <td class="p-4 text-center font-bold" style="color: var(--accent-green); border-top: 2px solid var(--card-border)">~4.3x</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <p class="text-xs mt-4" style="color: var(--text-muted)">** Среднее по 4 показанным датасетам. Источник: arXiv:2506.01192, INTERSPEECH 2025.</p>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Why GigaAM is better for Russian -->
-    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Почему GigaAM точнее на русском</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <h3 class="font-semibold mb-3">Специализация vs универсальность</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Whisper -- мультиязычная модель на ~100 языков. GigaAM специализирована на русском. Это как сравнить энциклопедию и монографию: глубина знаний по конкретной теме у монографии всегда выше.</p>
-                </div>
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <h3 class="font-semibold mb-3">Conformer vs Transformer</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Conformer-архитектура GigaAM эффективнее обрабатывает аудиосигнал, сочетая свёрточные (CNN) и внимание (attention) слои. Это даёт лучшее понимание акустических паттернов русской речи.</p>
-                </div>
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <h3 class="font-semibold mb-3">Эффективность параметров</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">220M параметров GigaAM vs 1.55B у Whisper -- при этом GigaAM точнее. Меньше параметров = быстрее инференс и меньше потребление памяти на вашем Mac.</p>
-                </div>
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <h3 class="font-semibold mb-3">Данные обучения</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM обучена на масштабных корпусах именно русской речи, включая разговорную, научную и профессиональную терминологию. Whisper обучена на 680 000 часов всех языков.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- When to use Whisper -->
-    <section class="py-20 md:py-28" style="background: var(--bg)">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Когда Whisper лучше</h2>
-            <div class="glass-card p-8 fade-in-up">
-                <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary)">Whisper -- выдающаяся модель с широким применением. Вот случаи, когда она предпочтительнее:</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="font-semibold mb-2">Мультиязычная транскрибация</h3>
-                        <p class="text-sm" style="color: var(--text-secondary)">Если вам нужно транскрибировать на английском, испанском, китайском или другом языке -- Whisper отличный выбор. GigaAM работает только с русским.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold mb-2">Перевод speech-to-text</h3>
-                        <p class="text-sm" style="color: var(--text-secondary)">Whisper может переводить с речи на одном языке в текст на другом. GigaAM такой функции не имеет.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Traart uses GigaAM -->
-    <section class="py-20 md:py-28" style="background: var(--bg-secondary)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up">Traart использует GigaAM v3</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
-                        <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">SOTA-качество</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">WER 8.3% -- лучший результат среди open-source моделей для русского. Сопоставимо с платным Yandex SpeechKit.</p>
-                </div>
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
-                        <svg style="color: var(--accent-green)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">100% оффлайн</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM v3 работает полностью локально на вашем Mac. Ни один байт аудио не покидает компьютер.</p>
-                </div>
-                <div class="gradient-border-card p-7 fade-in-up">
-                    <div class="icon-wrap mb-5" style="background: var(--accent-purple-bg)">
-                        <svg style="color: var(--accent-purple)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">+ pyannote</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Бесплатная <a href="diarization.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">диаризация</a> спикеров, автомониторинг папок, 9+ аудио/видео форматов, Markdown-экспорт с таймкодами.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- See Also -->
-    <section class="py-16 md:py-20" style="background: var(--bg)">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold mb-8 tracking-tight fade-in-up">Смотрите также</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
-                <a href="comparison.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
-                    <h3 class="font-semibold mb-2" style="color: var(--text)">Сравнение продуктов</h3>
-                    <p class="text-sm" style="color: var(--text-secondary)">Traart vs MacWhisper, Yandex, Google и другие</p>
-                </a>
-                <a href="how-it-works.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
-                    <h3 class="font-semibold mb-2" style="color: var(--text)">Как работает Traart</h3>
-                    <p class="text-sm" style="color: var(--text-secondary)">Архитектура, pipeline, технические детали</p>
-                </a>
-                <a href="pricing.html" class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" style="text-decoration: none">
-                    <h3 class="font-semibold mb-2" style="color: var(--text)">Цены</h3>
-                    <p class="text-sm" style="color: var(--text-secondary)">Почему Traart бесплатен навсегда</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- CTA -->
-    <section class="py-20 md:py-28 relative overflow-hidden" style="background: var(--bg-secondary)">
-        <div class="hero-gradient"></div>
-        <div class="noise-overlay"></div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-            <div class="fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Попробуйте GigaAM v3 в действии</h2>
-                <p class="text-lg mb-10" style="color: var(--text-secondary)">Скачайте Traart -- бесплатный macOS-клиент для GigaAM v3 с диаризацией и автомониторингом</p>
-                <a href="download.html" class="btn-glow btn-primary-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+<section class="py-16 md:py-20" style="background: var(--bg)">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+<div class="text-center fade-in-up">
+<p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">2x</p>
+<p class="text-sm font-medium" style="color: var(--text-secondary)">точнее на русском</p>
+<p class="text-xs mt-1" style="color: var(--text-muted)">WER 8.3% vs ~16%</p>
+</div>
+<div class="text-center fade-in-up">
+<p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">6.8x</p>
+<p class="text-sm font-medium" style="color: var(--text-secondary)">компактнее</p>
+<p class="text-xs mt-1" style="color: var(--text-muted)">220M vs 1.5B параметров</p>
+</div>
+<div class="text-center fade-in-up">
+<p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">7.9x</p>
+<p class="text-sm font-medium" style="color: var(--text-secondary)">точнее на Golos Crowd</p>
+<p class="text-xs mt-1" style="color: var(--text-muted)">2.4% vs 19.0%</p>
+</div>
+<div class="text-center fade-in-up">
+<p class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary)">50%</p>
+<p class="text-sm font-medium" style="color: var(--text-secondary)">ниже WER чем Whisper</p>
+<p class="text-xs mt-1" style="color: var(--text-muted)">arXiv:2506.01192</p>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- Architecture Comparison -->
+<section aria-labelledby="sec-0-сравнение-архитектур" class="py-20 md:py-28" style="background: var(--bg-secondary)">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up" id="sec-0-сравнение-архитектур">Сравнение архитектур</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+<div class="gradient-border-card p-8 fade-in-up" style="border-color: var(--primary)">
+<h3 class="text-xl font-bold mb-6" style="color: var(--primary)">GigaAM v3 RNNT</h3>
+<ul class="space-y-4 text-sm" style="color: var(--text-secondary)">
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Архитектура</span>
+<span>Conformer-based RNNT (Recurrent Neural Network Transducer)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Параметры</span>
+<span>~220M</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Разработчик</span>
+<span>SaluteDevices (Sber)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Публикация</span>
+<span>INTERSPEECH 2025 (arXiv:2506.01192)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Лицензия</span>
+<span>MIT (полностью open-source)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Языки</span>
+<span>Русский (специализированная)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Обучение</span>
+<span>Масштабные корпуса русской речи</span>
+</li>
+</ul>
+</div>
+<div class="glass-card p-8 fade-in-up">
+<h3 class="text-xl font-bold mb-6" style="color: var(--text-muted)">Whisper-large-v3</h3>
+<ul class="space-y-4 text-sm" style="color: var(--text-secondary)">
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Архитектура</span>
+<span>Encoder-Decoder Transformer (seq2seq)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Параметры</span>
+<span>~1.55B</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Разработчик</span>
+<span>OpenAI</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Публикация</span>
+<span>2023 (arXiv:2212.04356)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Лицензия</span>
+<span>MIT (open-source)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Языки</span>
+<span>~100 языков (мультиязычная)</span>
+</li>
+<li class="flex gap-3">
+<span class="font-semibold min-w-[120px]" style="color: var(--text)">Обучение</span>
+<span>680 000 часов аудио, все языки</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- WER Benchmarks -->
+<section aria-labelledby="sec-1-бенчмарки-wer-на-русском-языке" class="py-20 md:py-28" style="background: var(--bg)">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight fade-in-up" id="sec-1-бенчмарки-wer-на-русском-языке">Бенчмарки WER на русском языке</h2>
+<p class="text-lg mb-12 fade-in-up" style="color: var(--text-secondary)">Word Error Rate (WER) -- чем ниже, тем лучше. Данные из arXiv:2506.01192</p>
+<!-- Visual WER bars -->
+<div class="space-y-8 mb-16 stagger-children">
+<!-- Golos Farfield -->
+<div class="fade-in-up">
+<div class="flex justify-between mb-2">
+<span class="text-sm font-semibold">Golos Farfield</span>
+<span class="text-xs" style="color: var(--text-muted)">Речь на расстоянии от микрофона</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 19.5%; background: var(--primary)">
+<span class="text-xs font-bold text-white">3.9%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 82%; background: var(--accent-rose)">
+<span class="text-xs font-bold text-white">16.4%</span>
+</div>
+</div>
+</div>
+</div>
+<p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 4.2x точнее</p>
+</div>
+<!-- Golos Crowd -->
+<div class="fade-in-up">
+<div class="flex justify-between mb-2">
+<span class="text-sm font-semibold">Golos Crowd</span>
+<span class="text-xs" style="color: var(--text-muted)">Краудсорсинговые записи</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 12%; background: var(--primary)">
+<span class="text-xs font-bold text-white">2.4%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 95%; background: var(--accent-rose)">
+<span class="text-xs font-bold text-white">19.0%</span>
+</div>
+</div>
+</div>
+</div>
+<p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 7.9x точнее</p>
+</div>
+<!-- Russian LibriSpeech -->
+<div class="fade-in-up">
+<div class="flex justify-between mb-2">
+<span class="text-sm font-semibold">Russian LibriSpeech</span>
+<span class="text-xs" style="color: var(--text-muted)">Чтение вслух</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 22%; background: var(--primary)">
+<span class="text-xs font-bold text-white">4.4%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 47%; background: var(--accent-rose)">
+<span class="text-xs font-bold text-white">9.4%</span>
+</div>
+</div>
+</div>
+</div>
+<p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 2.1x точнее</p>
+</div>
+<!-- Common Voice 19 -->
+<div class="fade-in-up">
+<div class="flex justify-between mb-2">
+<span class="text-sm font-semibold">Common Voice 19</span>
+<span class="text-xs" style="color: var(--text-muted)">Разнообразные записи добровольцев</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--primary)">GigaAM v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 5%; min-width: 45px; background: var(--primary)">
+<span class="text-xs font-bold text-white">0.9%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium w-24" style="color: var(--text-muted)">Whisper v3</span>
+<div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--card-bg)">
+<div class="h-full rounded-full flex items-center justify-end px-2" style="width: 27.5%; background: var(--accent-rose)">
+<span class="text-xs font-bold text-white">5.5%</span>
+</div>
+</div>
+</div>
+</div>
+<p class="text-xs mt-1 text-right font-medium" style="color: var(--accent-green)">GigaAM в 6.1x точнее</p>
+</div>
+</div>
+<!-- Summary Table -->
+<div class="overflow-x-auto fade-in-up">
+<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0">
+<thead>
+<tr>
+<th class="text-left p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Датасет</th>
+<th class="text-center p-4 font-semibold" style="color: var(--primary); border-bottom: 2px solid var(--card-border)">GigaAM v3</th>
+<th class="text-center p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Whisper v3</th>
+<th class="text-center p-4 font-semibold" style="color: var(--accent-green); border-bottom: 2px solid var(--card-border)">Разница</th>
+</tr>
+</thead>
+<tbody style="color: var(--text-secondary)">
+<tr>
+<td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Golos Farfield</td>
+<td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">3.9%</td>
+<td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">16.4%</td>
+<td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">4.2x</td>
+</tr>
+<tr>
+<td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Golos Crowd</td>
+<td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">2.4%</td>
+<td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">19.0%</td>
+<td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">7.9x</td>
+</tr>
+<tr>
+<td class="p-4 font-medium" style="border-bottom: 1px solid var(--card-border)">Russian LibriSpeech</td>
+<td class="p-4 text-center font-bold" style="color: var(--primary); border-bottom: 1px solid var(--card-border)">4.4%</td>
+<td class="p-4 text-center" style="border-bottom: 1px solid var(--card-border)">9.4%</td>
+<td class="p-4 text-center font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">2.1x</td>
+</tr>
+<tr>
+<td class="p-4 font-medium">Common Voice 19</td>
+<td class="p-4 text-center font-bold" style="color: var(--primary)">0.9%</td>
+<td class="p-4 text-center">5.5%</td>
+<td class="p-4 text-center font-semibold" style="color: var(--accent-green)">6.1x</td>
+</tr>
+</tbody>
+<tfoot>
+<tr style="border-top: 2px solid var(--card-border)">
+<td class="p-4 font-bold" style="border-top: 2px solid var(--card-border)">Среднее</td>
+<td class="p-4 text-center font-bold" style="color: var(--primary); border-top: 2px solid var(--card-border)">8.3%*</td>
+<td class="p-4 text-center font-bold" style="border-top: 2px solid var(--card-border)">~12.6%**</td>
+<td class="p-4 text-center font-bold" style="color: var(--accent-green); border-top: 2px solid var(--card-border)">~4.3x</td>
+</tr>
+</tfoot>
+</table>
+<p class="text-xs mt-4" style="color: var(--text-muted)">** Среднее по 4 показанным датасетам. Источник: arXiv:2506.01192, INTERSPEECH 2025.</p>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- Why GigaAM is better for Russian -->
+<section aria-labelledby="sec-2-почему-gigaam-точнее-на-русском" class="py-20 md:py-28" style="background: var(--bg-secondary)">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up" id="sec-2-почему-gigaam-точнее-на-русском">Почему GigaAM точнее на русском</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+<div class="gradient-border-card p-7 fade-in-up">
+<h3 class="font-semibold mb-3">Специализация vs универсальность</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Whisper -- мультиязычная модель на ~100 языков. GigaAM специализирована на русском. Это как сравнить энциклопедию и монографию: глубина знаний по конкретной теме у монографии всегда выше.</p>
+</div>
+<div class="gradient-border-card p-7 fade-in-up">
+<h3 class="font-semibold mb-3">Conformer vs Transformer</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Conformer-архитектура GigaAM эффективнее обрабатывает аудиосигнал, сочетая свёрточные (CNN) и внимание (attention) слои. Это даёт лучшее понимание акустических паттернов русской речи.</p>
+</div>
+<div class="gradient-border-card p-7 fade-in-up">
+<h3 class="font-semibold mb-3">Эффективность параметров</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">220M параметров GigaAM vs 1.55B у Whisper -- при этом GigaAM точнее. Меньше параметров = быстрее инференс и меньше потребление памяти на вашем Mac.</p>
+</div>
+<div class="gradient-border-card p-7 fade-in-up">
+<h3 class="font-semibold mb-3">Данные обучения</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM обучена на масштабных корпусах именно русской речи, включая разговорную, научную и профессиональную терминологию. Whisper обучена на 680 000 часов всех языков.</p>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- When to use Whisper -->
+<section aria-labelledby="sec-3-когда-whisper-лучше" class="py-20 md:py-28" style="background: var(--bg)">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up" id="sec-3-когда-whisper-лучше">Когда Whisper лучше</h2>
+<div class="glass-card p-8 fade-in-up">
+<p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary)">Whisper -- выдающаяся модель с широким применением. Вот случаи, когда она предпочтительнее:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<h3 class="font-semibold mb-2">Мультиязычная транскрибация</h3>
+<p class="text-sm" style="color: var(--text-secondary)">Если вам нужно транскрибировать на английском, испанском, китайском или другом языке -- Whisper отличный выбор. GigaAM работает только с русским.</p>
+</div>
+<div>
+<h3 class="font-semibold mb-2">Перевод speech-to-text</h3>
+<p class="text-sm" style="color: var(--text-secondary)">Whisper может переводить с речи на одном языке в текст на другом. GigaAM такой функции не имеет.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- Traart uses GigaAM -->
+<section aria-labelledby="sec-4-traart-использует-gigaam-v3" class="py-20 md:py-28" style="background: var(--bg-secondary)">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up" id="sec-4-traart-использует-gigaam-v3">Traart использует GigaAM v3</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+<div class="gradient-border-card p-7 fade-in-up">
+<div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
+<svg fill="none" stroke="currentColor" style="color: var(--accent-green)" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-semibold mb-2">SOTA-качество</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">WER 8.3% -- лучший результат среди open-source моделей для русского. Сопоставимо с платным Yandex SpeechKit.</p>
+</div>
+<div class="gradient-border-card p-7 fade-in-up">
+<div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
+<svg fill="none" stroke="currentColor" style="color: var(--accent-green)" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-semibold mb-2">100% оффлайн</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM v3 работает полностью локально на вашем Mac. Ни один байт аудио не покидает компьютер.</p>
+</div>
+<div class="gradient-border-card p-7 fade-in-up">
+<div class="icon-wrap mb-5" style="background: var(--accent-purple-bg)">
+<svg fill="none" stroke="currentColor" style="color: var(--accent-purple)" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-semibold mb-2">+ pyannote</h3>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Бесплатная <a href="diarization.html" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">диаризация</a> спикеров, автомониторинг папок, 9+ аудио/видео форматов, Markdown-экспорт с таймкодами.</p>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- See Also -->
+<section aria-labelledby="sec-5-смотрите-также" class="py-16 md:py-20" style="background: var(--bg)">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-2xl font-bold mb-8 tracking-tight fade-in-up" id="sec-5-смотрите-также">Смотрите также</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+<a class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" href="comparison.html" style="text-decoration: none">
+<h3 class="font-semibold mb-2" style="color: var(--text)">Сравнение продуктов</h3>
+<p class="text-sm" style="color: var(--text-secondary)">Traart vs MacWhisper, Yandex, Google и другие</p>
+</a>
+<a class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" href="how-it-works.html" style="text-decoration: none">
+<h3 class="font-semibold mb-2" style="color: var(--text)">Как работает Traart</h3>
+<p class="text-sm" style="color: var(--text-secondary)">Архитектура, pipeline, технические детали</p>
+</a>
+<a class="glass-card p-6 fade-in-up block transition-transform hover:scale-[1.02]" href="pricing.html" style="text-decoration: none">
+<h3 class="font-semibold mb-2" style="color: var(--text)">Цены</h3>
+<p class="text-sm" style="color: var(--text-secondary)">Почему Traart бесплатен навсегда</p>
+</a>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- CTA -->
+<section aria-labelledby="sec-6-попробуйте-gigaam-v3-в-действии" class="py-20 md:py-28 relative overflow-hidden" style="background: var(--bg-secondary)">
+<div class="hero-gradient"></div>
+<div class="noise-overlay"></div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+<div class="fade-in-up">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" id="sec-6-попробуйте-gigaam-v3-в-действии">Попробуйте GigaAM v3 в действии</h2>
+<p class="text-lg mb-10" style="color: var(--text-secondary)">Скачайте Traart -- бесплатный macOS-клиент для GigaAM v3 с диаризацией и автомониторингом</p>
+<a class="btn-glow btn-primary-lg" href="download.html">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     Скачать бесплатно
                 </a>
-            </div>
-        </div>
-    </section>
-    <!-- E-E-A-T: автор — для поисковиков и для пользователей -->
-    <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
+</div>
+</div>
+</section>
+<!-- E-E-A-T: автор — для поисковиков и для пользователей -->
+<section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
                 Автор Traart — <a href="author.html" rel="author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи. <a href="author.html" style="color: var(--text-muted); text-decoration: none">Подробнее →</a>
-            </p>
-            <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
-                <a href="https://github.com/akuroglo/Traart" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">GitHub</a>
-                <span>·</span>
-                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none">Telegram</a>
-                <span>·</span>
-                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener author" style="color: var(--text-muted); text-decoration: none">LinkedIn</a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Footer -->
-    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--card-bg)">
-                    <svg class="w-4 h-4" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
-                </div>
-                <span class="text-base font-bold">Traart</span>
-                <span style="color:var(--text-muted);font-size:0.75rem">SOTA транскрибатор для русской речи</span>
-            </div>
-            <div class="footer-links" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 2rem;font-size:0.8125rem;line-height:1.75">
-                <div>
-                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Продукт</p>
-                    <ul style="list-style:none;padding:0;margin:0">
-                        <li><a href="download.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Скачать</a></li>
-                        <li><a href="how-it-works.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Как работает</a></li>
-                        <li><a href="pricing.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Цены</a></li>
-                        <li><a href="diarization.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Диаризация</a></li>
-                        <li><a href="zoom-transcription.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Zoom</a></li>
-                        <li><a href="voice-messages.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Голосовые</a></li>
-                        <li><a href="blog.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Блог</a></li>
-                        <li><a href="faq.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Кейсы</p>
-                    <ul style="list-style:none;padding:0;margin:0">
-                        <li><a href="use-case-vibecoders.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Вайбкодеры</a></li>
-                        <li><a href="use-case-product-managers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Продакт-менеджеры</a></li>
-                        <li><a href="use-case-marketers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Маркетологи</a></li>
-                        <li><a href="use-case-developers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Разработчики</a></li>
-                        <li><a href="use-case-hr.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">HR</a></li>
-                        <li><a href="use-case-coaches.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Коучи</a></li>
-                        <li><a href="use-case-researchers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Исследователи</a></li>
-                        <li><a href="use-case-realtors.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Риелторы</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Ещё кейсы</p>
-                    <ul style="list-style:none;padding:0;margin:0">
-                        <li><a href="use-cases/lawyers.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Юристы</a></li>
-                        <li><a href="use-cases/medical.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Медики</a></li>
-                        <li><a href="use-cases/students.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Студенты</a></li>
-                        <li><a href="use-cases/journalists.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Журналисты</a></li>
-                        <li><a href="use-cases/podcasters.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Подкастеры</a></li>
-                        <li><a href="use-cases/content-creators.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Контент-мейкеры</a></li>
-                        <li><a href="use-cases/business.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Бизнес</a></li>
-                        <li><a href="use-cases/lectures.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лекции</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Сравнения</p>
-                    <ul style="list-style:none;padding:0;margin:0">
-                        <li><a href="comparison.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Общее сравнение</a></li>
-                        <li><a href="vs-otter.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs Otter.ai</a></li>
-                        <li><a href="vs-macwhisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs MacWhisper</a></li>
-                        <li><a href="vs-turboscribe.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs TurboScribe</a></li>
-                        <li><a href="vs-saluteSpeech.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs SaluteSpeech</a></li>
-                        <li><a href="vs-vosk.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">vs VOSK</a></li>
-                        <li><a href="gigaam-vs-whisper.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">GigaAM vs Whisper</a></li>
-                        <li><a href="cloud-vs-offline.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Облако vs Оффлайн</a></li>
-                        <li><a href="best-transcription-russian.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Лучший транскрибатор</a></li>
-                        <li><a href="privacy.html" style="color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-secondary)'">Приватность</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--card-border);text-align:center">
-                <p style="font-size:0.75rem;color:var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
+</p>
+<div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
+<a href="https://github.com/akuroglo/Traart" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">GitHub</a>
+<span>·</span>
+<a href="https://t.me/AIgobrr" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">Telegram</a>
+<span>·</span>
+<a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank">LinkedIn</a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
+<div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--card-bg)">
+<svg class="w-4 h-4" fill="none" viewbox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><defs><lineargradient id="sg" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"></stop><stop offset="50%" stop-color="#6C5CE7"></stop><stop offset="100%" stop-color="#E879A8"></stop></lineargradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"></path></svg>
+</div>
+<span class="text-base font-bold">Traart</span>
+<span style="color:var(--text-muted);font-size:0.75rem">SOTA транскрибатор для русской речи</span>
+</div>
+<div class="footer-links" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 2rem;font-size:0.8125rem;line-height:1.75">
+<div>
+<p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Продукт</p>
+<ul style="list-style:none;padding:0;margin:0">
+<li><a href="download.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Скачать</a></li>
+<li><a href="how-it-works.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Как работает</a></li>
+<li><a href="pricing.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Цены</a></li>
+<li><a href="diarization.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Диаризация</a></li>
+<li><a href="zoom-transcription.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Zoom</a></li>
+<li><a href="voice-messages.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Голосовые</a></li>
+<li><a href="blog.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Блог</a></li>
+<li><a href="faq.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">FAQ</a></li>
+</ul>
+</div>
+<div>
+<p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Кейсы</p>
+<ul style="list-style:none;padding:0;margin:0">
+<li><a href="use-case-vibecoders.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Вайбкодеры</a></li>
+<li><a href="use-case-product-managers.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Продакт-менеджеры</a></li>
+<li><a href="use-case-marketers.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Маркетологи</a></li>
+<li><a href="use-case-developers.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Разработчики</a></li>
+<li><a href="use-case-hr.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">HR</a></li>
+<li><a href="use-case-coaches.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Коучи</a></li>
+<li><a href="use-case-researchers.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Исследователи</a></li>
+<li><a href="use-case-realtors.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Риелторы</a></li>
+</ul>
+</div>
+<div>
+<p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Ещё кейсы</p>
+<ul style="list-style:none;padding:0;margin:0">
+<li><a href="use-cases/lawyers.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Юристы</a></li>
+<li><a href="use-cases/medical.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Медики</a></li>
+<li><a href="use-cases/students.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Студенты</a></li>
+<li><a href="use-cases/journalists.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Журналисты</a></li>
+<li><a href="use-cases/podcasters.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Подкастеры</a></li>
+<li><a href="use-cases/content-creators.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Контент-мейкеры</a></li>
+<li><a href="use-cases/business.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Бизнес</a></li>
+<li><a href="use-cases/lectures.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Лекции</a></li>
+</ul>
+</div>
+<div>
+<p style="font-weight:600;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem">Сравнения</p>
+<ul style="list-style:none;padding:0;margin:0">
+<li><a href="comparison.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Общее сравнение</a></li>
+<li><a href="vs-otter.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">vs Otter.ai</a></li>
+<li><a href="vs-macwhisper.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">vs MacWhisper</a></li>
+<li><a href="vs-turboscribe.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">vs TurboScribe</a></li>
+<li><a href="vs-saluteSpeech.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">vs SaluteSpeech</a></li>
+<li><a href="vs-vosk.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">vs VOSK</a></li>
+<li><a href="gigaam-vs-whisper.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">GigaAM vs Whisper</a></li>
+<li><a href="cloud-vs-offline.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Облако vs Оффлайн</a></li>
+<li><a href="best-transcription-russian.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Лучший транскрибатор</a></li>
+<li><a href="privacy.html" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Приватность</a></li>
+</ul>
+</div>
+</div>
+<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--card-border);text-align:center">
+<p style="font-size:0.75rem;color:var(--text-muted)">Traart. Транскрибация русской речи с SOTA-качеством.</p>
+</div>
+</div>
+</footer>
+<script>
         function initTheme() { if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); } }
         initTheme();
         function toggleTheme() { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); }
