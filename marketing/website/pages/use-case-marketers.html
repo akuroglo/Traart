@@ -52,7 +52,7 @@
             { "@type": "Question", "name": "Безопасно ли расшифровывать CustDev-интервью с персональными данными?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Traart работает полностью оффлайн — данные респондентов никогда не покидают ваш Mac. Это важно для соблюдения NDA и этических стандартов исследований." } },
             { "@type": "Question", "name": "Как Traart справляется с фокус-группами?", "acceptedAnswer": { "@type": "Answer", "text": "Встроенная диаризация разделяет спикеров по голосовому профилю. На фокус-группе из 6-8 участников каждая реплика атрибутирована конкретному респонденту с таймкодом." } },
             { "@type": "Question", "name": "Можно использовать расшифровки для создания контента?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Экспортируйте в Markdown или TXT — готовый текст для статей, кейсов и постов. Цитаты клиентов с точными формулировками." } },
-            { "@type": "Question", "name": "Насколько точно Traart распознает маркетинговую терминологию?", "acceptedAnswer": { "@type": "Answer", "text": "GigaAM v3 (WER 8.3%) обучена на русской речи и хорошо справляется с профессиональной лексикой. Для англоязычных терминов качество также высокое." } }
+            { "@type": "Question", "name": "Насколько точно Traart распознает маркетинговую терминологию?", "acceptedAnswer": { "@type": "Answer", "text": "GigaAM v3 (WER 8.4%) обучена на русской речи и хорошо справляется с профессиональной лексикой. Для англоязычных терминов качество также высокое." } }
         ]
     }
     </script>
@@ -598,7 +598,7 @@
 <svg fill="none" stroke="currentColor" style="color: var(--accent-green)" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </div>
 <h3 class="text-lg font-semibold mb-2">~92% точность на русском</h3>
-<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">WER 8.3% означает, что смысл речи сохраняется на 95%+. Достаточно для анализа инсайтов без переслушивания.</p>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">WER 8.4% означает, что смысл речи сохраняется на 95%+. Достаточно для анализа инсайтов без переслушивания.</p>
 </div>
 <div class="gradient-border-card p-7 fade-in-up">
 <div class="icon-wrap mb-5" style="background: var(--accent-green-bg)">
@@ -680,7 +680,7 @@
 </tr>
 <tr>
 <td class="font-medium" style="color: var(--text)">Русский язык</td>
-<td class="text-center highlight"><span class="font-semibold" style="color: var(--accent-green)">WER 8.3%</span></td>
+<td class="text-center highlight"><span class="font-semibold" style="color: var(--accent-green)">WER 8.4%</span></td>
 <td class="text-center" style="color: var(--text-secondary)">Средне</td>
 <td class="text-center" style="color: var(--text-secondary)">Хорошо (human)</td>
 <td class="text-center" style="color: var(--accent-rose)">Англ. фокус</td>
@@ -718,7 +718,7 @@
 </div>
 <div class="glass-card p-7 fade-in-up">
 <h3 class="font-semibold mb-3" style="color: var(--text)">Насколько точно Traart распознает маркетинговую терминологию?</h3>
-<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM v3 (WER 8.3%) обучена на русской речи и хорошо справляется с профессиональной лексикой. Для англоязычных терминов (ROI, ARPU, conversion rate) качество также высокое.</p>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">GigaAM v3 (WER 8.4%) обучена на русской речи и хорошо справляется с профессиональной лексикой. Для англоязычных терминов (ROI, ARPU, conversion rate) качество также высокое.</p>
 </div>
 </div>
 </div>
@@ -779,7 +779,7 @@
 <section aria-label="Технологический стек" style="background: var(--bg-secondary); padding: 1.75rem 0; border-top: 1px solid var(--card-border);">
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 <p class="text-xs text-center" style="color: var(--text-muted); line-height: 1.6;">
-Под капотом — собственный STT-движок (speech-to-text) на базе ASR-модели <strong style="color: var(--text-secondary)">GigaAM v3</strong> (архитектура RNNT, WER 8.3% на русском) и диаризации <strong style="color: var(--text-secondary)">pyannote 3.1</strong>. Локальная обработка voice-to-text на Apple Silicon — альтернатива облачному распознаванию речи (Whisper, Yandex SpeechKit, Google STT) без отправки данных.
+Под капотом — собственный STT-движок (speech-to-text) на базе ASR-модели <strong style="color: var(--text-secondary)">GigaAM v3</strong> (архитектура RNNT, WER 8.4% на русском) и диаризации <strong style="color: var(--text-secondary)">pyannote 3.1</strong>. Локальная обработка voice-to-text на Apple Silicon — альтернатива облачному распознаванию речи (Whisper, Yandex SpeechKit, Google STT) без отправки данных.
 </p>
 </div>
 </section>
