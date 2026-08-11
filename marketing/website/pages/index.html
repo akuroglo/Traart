@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fcfcfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d12" media="(prefers-color-scheme: dark)">
     <title>Бесплатный транскрибатор macOS — голос в текст оффлайн | Traart</title>
     <meta name="description" content="Traart — бесплатный транскрибатор для macOS. Голос в текст оффлайн на GigaAM v3 (WER 8.3%). Диаризация спикеров. Без облака, без подписки.">
     <meta name="keywords" content="транскрибатор бесплатно, расшифровка аудио в текст, транскрибация бесплатно, оффлайн транскрибация, голос в текст, распознавание речи macOS, диаризация">
@@ -123,6 +126,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="styles.css?v=2">
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -139,9 +143,11 @@
     <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
 
     <!-- Navigation -->
-    <nav class="nav-floating" id="nav">
+    <header>
+<nav class="nav-floating" id="nav">
         <div class="nav-pill">
             <a href="/" class="flex items-center gap-2">
                 <svg class="w-5 h-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
@@ -160,7 +166,7 @@
             </div>
 
             <div class="hidden md:flex items-center gap-2">
-                <button id="theme-toggle" class="nav-icon-btn">
+                <button id="theme-toggle" class="nav-icon-btn" aria-label="Переключить тёмную тему">
                     <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                     <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 </button>
@@ -170,7 +176,7 @@
                 </a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn">
+            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn" aria-label="Открыть меню">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </div>
@@ -183,10 +189,13 @@
                 <a href="/pricing" class="nav-mobile-link">Цены</a>
                 <a href="/faq" class="nav-mobile-link">FAQ</a>
                 <a href="/download" class="nav-mobile-link" style="color: var(--primary)">Скачать</a>
-                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left">Сменить тему</button>
+                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left" aria-label="Переключить тёмную тему">Сменить тему</button>
             </div>
         </div>
     </nav>
+</header>
+<main id="main">
+
 
     <!-- Hero Section -->
     <section class="hero-section pt-32 pb-20 md:pt-44 md:pb-32">
@@ -250,7 +259,7 @@
             </div>
             <div class="fade-in-up">
                 <div id="demo-container" class="relative rounded-2xl overflow-hidden" style="border: 1px solid var(--card-border); cursor: pointer;">
-                    <img id="demo-poster" src="how-it-works-poster.jpg" alt="Traart демо" style="width: 100%; display: block;">
+                    <img id="demo-poster" width="1920" height="1080" src="how-it-works-poster.jpg" alt="Traart демо" style="width: 100%; display: block;">
                     <div id="demo-play" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);transition:opacity .3s">
                         <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="36" fill="rgba(0,0,0,0.5)"/><path d="M28 22l22 14-22 14V22z" fill="#fff"/></svg>
                     </div>
@@ -338,12 +347,12 @@
             </div>
 
             <div class="rounded-2xl overflow-hidden fade-in-up" style="background: var(--bg); border: 1px solid var(--card-border)">
-                <table class="w-full text-sm">
+                <table class="w-full text-sm"><caption class=\"sr-only\">Альтернатива онлайн-транскрибаторам</caption>
                     <thead>
                         <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--card-border)">
-                            <th class="px-4 py-3 text-left font-semibold">Что важно</th>
-                            <th class="px-4 py-3 text-left font-semibold">Онлайн-транскрибаторы</th>
-                            <th class="px-4 py-3 text-left font-semibold" style="color: var(--accent)">Traart (оффлайн)</th>
+                            <th scope="col" class="px-4 py-3 text-left font-semibold">Что важно</th>
+                            <th scope="col" class="px-4 py-3 text-left font-semibold">Онлайн-транскрибаторы</th>
+                            <th scope="col" class="px-4 py-3 text-left font-semibold" style="color: var(--accent)">Traart (оффлайн)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -620,15 +629,15 @@
             </div>
             <div class="overflow-x-auto fade-in-up">
                 <div class="glass-card overflow-hidden" style="min-width: 700px">
-                    <table class="comparison-table">
+                    <table class="comparison-table"><caption class=\"sr-only\">Сравнение с конкурентами</caption>
                         <thead>
                             <tr>
-                                <th class="text-left"></th>
-                                <th class="text-center highlight">Traart</th>
-                                <th class="text-center"><a href="/vs-macwhisper" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">MacWhisper</a></th>
-                                <th class="text-center">YandexSpeechKit</th>
-                                <th class="text-center">Google STT</th>
-                                <th class="text-center">TurboScribe</th>
+                                <th scope="col" class="text-left"></th>
+                                <th scope="col" class="text-center highlight">Traart</th>
+                                <th scope="col" class="text-center"><a href="/vs-macwhisper" style="color: inherit; text-decoration: underline; text-decoration-color: var(--card-border); text-decoration-thickness: 1px; text-underline-offset: 2px">MacWhisper</a></th>
+                                <th scope="col" class="text-center">YandexSpeechKit</th>
+                                <th scope="col" class="text-center">Google STT</th>
+                                <th scope="col" class="text-center">TurboScribe</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -879,13 +888,13 @@
             <p class="text-lg font-semibold" style="color: var(--text); margin-bottom: 0.125rem">Александр Курогло</p>
             <p class="text-sm" style="color: var(--text-muted); margin-bottom: 1rem">автор проекта</p>
             <div class="flex items-center justify-center gap-5">
-                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                <a href="https://t.me/AIgobrr" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" aria-label="Телеграм-канал автора">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                 </a>
-                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                <a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" aria-label="Профиль автора в LinkedIn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
-                <a href="https://github.com/akuroglo" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                <a href="https://github.com/akuroglo" target="_blank" rel="noopener noreferrer" class="transition-colors" style="color: var(--text-muted); text-decoration: none" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" aria-label="Профиль автора на GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                 </a>
             </div>
@@ -893,7 +902,8 @@
     </section>
 
     <!-- Footer -->
-    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
+    </main>
+<footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
                 <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--card-bg)">
@@ -1077,5 +1087,22 @@
             counterObserver.observe(el);
         });
     </script>
+<div class="cookie-note" id="cookie-note" role="note" aria-label="Уведомление об использовании куки">
+<span>Сайт использует куки и Яндекс.Метрику, чтобы понимать, какие страницы полезны. Аудио и расшифровки никуда не отправляются — <a href="/privacy">политика приватности</a>.</span>
+<button type="button" id="cookie-ok">Понятно</button>
+</div>
+<script>
+(function () {
+    var KEY = 'traart-cookie-note';
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+    var note = document.getElementById('cookie-note');
+    if (!note) return;
+    note.classList.add('is-visible');
+    document.getElementById('cookie-ok').addEventListener('click', function () {
+        note.classList.remove('is-visible');
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    });
+})();
+</script>
 </body>
 </html>

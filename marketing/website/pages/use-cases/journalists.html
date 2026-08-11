@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fcfcfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d12" media="(prefers-color-scheme: dark)">
     <title>Расшифровка интервью для журналистов — бесплатная конфиденциальная транскрибация</title>
     <meta name="description" content="Расшифровка интервью и пресс-конференций для журналистов бесплатно. Конфиденциальная транскрибация оффлайн — источники защищены. WER 8.3%, диаризация спикеров.">
     <meta name="keywords" content="расшифровка интервью, транскрибация для журналистов, расшифровка пресс-конференций, конфиденциальная транскрибация, Traart журналисты">
@@ -53,6 +56,7 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="../styles.css?v=2">
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -69,9 +73,11 @@
     <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
 
     <!-- Navigation -->
-    <nav class="nav-floating" id="nav">
+    <header>
+<nav class="nav-floating" id="nav">
         <div class="nav-pill">
             <a href="/" class="flex items-center gap-2">
                 <svg class="w-5 h-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ECDC4"/><stop offset="50%" stop-color="#6C5CE7"/><stop offset="100%" stop-color="#E879A8"/></linearGradient></defs><path d="M 9 2 Q 10.26 7.74 16 9 Q 10.26 10.26 9 16 Q 7.74 10.26 2 9 Q 7.74 7.74 9 2 Z" fill="url(#sg)"/></svg>
@@ -90,7 +96,7 @@
             </div>
 
             <div class="hidden md:flex items-center gap-2">
-                <button id="theme-toggle" class="nav-icon-btn">
+                <button id="theme-toggle" class="nav-icon-btn" aria-label="Переключить тёмную тему">
                     <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                     <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 </button>
@@ -100,7 +106,7 @@
                 </a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn">
+            <button id="mobile-menu-btn" class="md:hidden nav-icon-btn" aria-label="Открыть меню">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </div>
@@ -113,10 +119,13 @@
                 <a href="/pricing" class="nav-mobile-link">Цены</a>
                 <a href="/faq" class="nav-mobile-link">FAQ</a>
                 <a href="/download" class="nav-mobile-link" style="color: var(--primary)">Скачать</a>
-                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left">Сменить тему</button>
+                <button id="theme-toggle-mobile" class="nav-mobile-link w-full text-left" aria-label="Переключить тёмную тему">Сменить тему</button>
             </div>
         </div>
     </nav>
+</header>
+<main id="main">
+
 
     <!-- Hero -->
     <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
@@ -324,7 +333,8 @@
     </section>
 
     <!-- Footer -->
-    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
+    </main>
+<footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
                 <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--card-bg)">
@@ -404,5 +414,22 @@
         const observer = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
     </script>
+<div class="cookie-note" id="cookie-note" role="note" aria-label="Уведомление об использовании куки">
+<span>Сайт использует куки и Яндекс.Метрику, чтобы понимать, какие страницы полезны. Аудио и расшифровки никуда не отправляются — <a href="/privacy">политика приватности</a>.</span>
+<button type="button" id="cookie-ok">Понятно</button>
+</div>
+<script>
+(function () {
+    var KEY = 'traart-cookie-note';
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+    var note = document.getElementById('cookie-note');
+    if (!note) return;
+    note.classList.add('is-visible');
+    document.getElementById('cookie-ok').addEventListener('click', function () {
+        note.classList.remove('is-visible');
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    });
+})();
+</script>
 </body>
 </html>

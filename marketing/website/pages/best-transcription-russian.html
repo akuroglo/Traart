@@ -91,6 +91,7 @@
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link rel="manifest" href="/manifest.json">
 <link href="styles.css?v=2" rel="stylesheet"/>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -105,9 +106,31 @@
     </script>
 <noscript><div><img alt="" src="https://mc.yandex.ru/watch/106908653" style="position:absolute; left:-9999px;"/></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "https://traart.ru/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Сравнение программ для транскрибации русской речи 2026",
+      "item": "https://traart.ru/best-transcription-russian"
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
 <!-- Navigation -->
+<header>
 <nav class="nav-floating" id="nav">
 <div class="nav-pill">
 <a class="flex items-center gap-2" href="/">
@@ -125,7 +148,7 @@
 <a class="nav-link" href="/faq">FAQ</a>
 </div>
 <div class="hidden md:flex items-center gap-2">
-<button class="nav-icon-btn" id="theme-toggle">
+<button class="nav-icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему">
 <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </button>
@@ -134,7 +157,7 @@
                     Скачать
                 </a>
 </div>
-<button class="md:hidden nav-icon-btn" id="mobile-menu-btn">
+<button class="md:hidden nav-icon-btn" id="mobile-menu-btn" aria-label="Открыть меню">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </button>
 </div>
@@ -146,10 +169,13 @@
 <a class="nav-mobile-link" href="/pricing">Цены</a>
 <a class="nav-mobile-link" href="/faq">FAQ</a>
 <a class="nav-mobile-link" href="/download" style="color: var(--primary)">Скачать</a>
-<button class="nav-mobile-link w-full text-left" id="theme-toggle-mobile">Сменить тему</button>
+<button class="nav-mobile-link w-full text-left" id="theme-toggle-mobile" aria-label="Переключить тёмную тему">Сменить тему</button>
 </div>
 </div>
 </nav>
+</header>
+<main id="main">
+
 <!-- Hero -->
 <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
 <div class="hero-gradient"></div>
@@ -625,15 +651,15 @@
 <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight fade-in-up" id="sec-1-сводная-сравнительная-таблица-программ-для-транскрибации">Сводная сравнительная таблица программ для транскрибации</h2>
 <p class="text-base mb-10 fade-in-up max-w-4xl" style="color: var(--text-secondary)">Все цифры — на май 2026. WER указан там, где разработчик публикует реальный бенчмарк на русскоязычных датасетах; «Н/П» означает, что сервис не публикует бенчмарки на русском, и оценить точность можно только косвенно. Ссылки на источники — в сноске под таблицей.</p>
 <div class="overflow-x-auto fade-in-up">
-<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0">
+<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0"><caption class=\"sr-only\">Сводная сравнительная таблица программ для транскрибации</caption>
 <thead>
 <tr>
-<th class="text-left p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Программа для транскрибации</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">WER на русском</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Цена 2026</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Оффлайн</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Диаризация</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Платформа</th>
+<th scope="col" class="text-left p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Программа для транскрибации</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">WER на русском</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Цена 2026</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Оффлайн</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Диаризация</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Платформа</th>
 </tr>
 </thead>
 <tbody style="color: var(--text-secondary)">
@@ -868,13 +894,13 @@ WER (Word Error Rate) — процент ошибок в словах, чем н
 <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight fade-in-up" id="sec-3-wer-на-русскоязычных-датасетах-что-говорят-бенчмарки">WER на русскоязычных датасетах: что говорят бенчмарки</h2>
 <p class="text-base mb-8 fade-in-up max-w-4xl" style="color: var(--text-secondary)">Большинство облачных сервисов (Otter.ai, Sonix, TurboScribe, Yandex SpeechKit, Speech2Text.ru) не публикуют WER на стандартных датасетах для русского языка. Маркетинговое «99% точности» не равно научному WER 1% — это разные вещи. Ниже — реальные цифры из публикации <a href="https://arxiv.org/abs/2506.01192" style="color:inherit;text-decoration:underline">GigaAM (InterSpeech 2025)</a> и карточки модели <a href="https://huggingface.co/ai-sage/GigaAM-v3" style="color:inherit;text-decoration:underline">ai-sage/GigaAM-v3</a>. Ниже — лучше, в процентах:</p>
 <div class="overflow-x-auto fade-in-up">
-<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0">
+<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0"><caption class=\"sr-only\">WER на русскоязычных датасетах: что говорят бенчмарки</caption>
 <thead>
 <tr>
-<th class="text-left p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Датасет</th>
-<th class="text-center p-3 font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">GigaAM v3 (Traart, SaluteSpeech)</th>
-<th class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">T-One + LM</th>
-<th class="text-center p-3 font-semibold" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Whisper-large-v3 (raw, MacWhisper, TurboScribe)</th>
+<th scope="col" class="text-left p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">Датасет</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--accent-green); border-bottom: 1px solid var(--card-border)">GigaAM v3 (Traart, SaluteSpeech)</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--text-muted); border-bottom: 1px solid var(--card-border)">T-One + LM</th>
+<th scope="col" class="text-center p-3 font-semibold" style="color: var(--accent-rose); border-bottom: 1px solid var(--card-border)">Whisper-large-v3 (raw, MacWhisper, TurboScribe)</th>
 </tr>
 </thead>
 <tbody style="color: var(--text-secondary)">
@@ -1049,9 +1075,9 @@ details.glass-card[open] summary::after { content: '−'; }
 <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
 <a href="https://github.com/akuroglo/Traart" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">GitHub</a>
 <span>·</span>
-<a href="https://t.me/AIgobrr" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">Telegram</a>
+<a href="https://t.me/AIgobrr" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank" aria-label="Телеграм-канал автора">Telegram</a>
 <span>·</span>
-<a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank">LinkedIn</a>
+<a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank" aria-label="Профиль автора в LinkedIn">LinkedIn</a>
 </div>
 </div>
 </section>
@@ -1064,6 +1090,7 @@ details.glass-card[open] summary::after { content: '−'; }
 </div>
 </section>
 <!-- Footer -->
+</main>
 <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
@@ -1177,5 +1204,22 @@ details.glass-card[open] summary::after { content: '−'; }
 
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
     </script>
+<div class="cookie-note" id="cookie-note" role="note" aria-label="Уведомление об использовании куки">
+<span>Сайт использует куки и Яндекс.Метрику, чтобы понимать, какие страницы полезны. Аудио и расшифровки никуда не отправляются — <a href="/privacy">политика приватности</a>.</span>
+<button type="button" id="cookie-ok">Понятно</button>
+</div>
+<script>
+(function () {
+    var KEY = 'traart-cookie-note';
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+    var note = document.getElementById('cookie-note');
+    if (!note) return;
+    note.classList.add('is-visible');
+    document.getElementById('cookie-ok').addEventListener('click', function () {
+        note.classList.remove('is-visible');
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    });
+})();
+</script>
 </body>
 </html>

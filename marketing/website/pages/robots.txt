@@ -2,6 +2,37 @@ User-agent: *
 Allow: /
 Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term /
 
+# AI-краулеры и ассистенты — доступ разрешён явно
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: YandexAdditional
+Allow: /
+
 Host: https://traart.ru
 
 Sitemap: https://traart.ru/sitemap.xml

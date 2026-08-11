@@ -1,0 +1,50 @@
+# Traart
+
+> Бесплатный транскрибатор для macOS. Переводит речь в текст полностью офлайн:
+> аудио не покидает компьютер. Распознавание на GigaAM v3 (RNNT) для русского
+> и mlx-whisper для английского, диаризация спикеров через pyannote.
+> Открытый исходный код, лицензия MIT, без подписки и регистрации.
+
+Требования: macOS 13+, Apple Silicon (M1 и новее). Скачивание: https://traart.ru/download
+
+## Продукт
+
+- [Главная](https://traart.ru/): что умеет Traart, требования, установка
+- [Как это работает](https://traart.ru/how-it-works): путь от файла до текста, модели, скорость
+- [Диаризация спикеров](https://traart.ru/diarization): разделение реплик по говорящим
+- [Скачать](https://traart.ru/download): установка и первый запуск
+- [Стоимость](https://traart.ru/pricing): бесплатно, без ограничений
+- [Вопросы и ответы](https://traart.ru/faq)
+- [Приватность](https://traart.ru/privacy): почему офлайн и что не отправляется никуда
+
+## Сравнения
+
+- [Общее сравнение инструментов](https://traart.ru/comparison)
+- [GigaAM против Whisper](https://traart.ru/gigaam-vs-whisper): точность на русской речи
+- [Облако против офлайна](https://traart.ru/cloud-vs-offline)
+- [Traart и MacWhisper](https://traart.ru/vs-macwhisper)
+- [Traart и TurboScribe](https://traart.ru/vs-turboscribe)
+- [Traart и Otter.ai](https://traart.ru/vs-otter)
+- [Traart и SaluteSpeech](https://traart.ru/vs-saluteSpeech)
+- [Traart и VOSK](https://traart.ru/vs-vosk)
+- [Лучшая транскрибация русской речи](https://traart.ru/best-transcription-russian): разбор вариантов
+
+## Сценарии
+
+- [Подкасты](https://traart.ru/use-cases/podcasters)
+- [Журналистика](https://traart.ru/use-cases/journalists)
+- [Юристы](https://traart.ru/use-cases/lawyers)
+- [Медицина](https://traart.ru/use-cases/medical)
+- [Лекции и учёба](https://traart.ru/use-cases/lectures)
+- [Студенты](https://traart.ru/use-cases/students)
+- [Бизнес и совещания](https://traart.ru/use-cases/business)
+- [Авторы контента](https://traart.ru/use-cases/content-creators)
+- [Расшифровка Zoom](https://traart.ru/zoom-transcription)
+- [Голосовые сообщения](https://traart.ru/voice-messages)
+- [Голос в текст](https://traart.ru/voice-to-text)
+
+## Ещё
+
+- [Блог](https://traart.ru/blog)
+- [Об авторе](https://traart.ru/author)
+- [Исходный код на GitHub](https://github.com/akuroglo/Traart)

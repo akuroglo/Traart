@@ -50,6 +50,7 @@
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link rel="manifest" href="/manifest.json">
 <link href="styles.css?v=2" rel="stylesheet"/>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -66,7 +67,9 @@
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
 <!-- Navigation -->
+<header>
 <nav class="nav-floating" id="nav">
 <div class="nav-pill">
 <a class="flex items-center gap-2" href="/">
@@ -84,7 +87,7 @@
 <a class="nav-link" href="/faq">FAQ</a>
 </div>
 <div class="hidden md:flex items-center gap-2">
-<button class="nav-icon-btn" id="theme-toggle">
+<button class="nav-icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему">
 <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </button>
@@ -93,7 +96,7 @@
                     Скачать
                 </a>
 </div>
-<button class="md:hidden nav-icon-btn" id="mobile-menu-btn">
+<button class="md:hidden nav-icon-btn" id="mobile-menu-btn" aria-label="Открыть меню">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </button>
 </div>
@@ -105,10 +108,13 @@
 <a class="nav-mobile-link" href="/pricing">Цены</a>
 <a class="nav-mobile-link" href="/faq">FAQ</a>
 <a class="nav-mobile-link" href="/download" style="color: var(--primary)">Скачать</a>
-<button class="nav-mobile-link w-full text-left" id="theme-toggle-mobile">Сменить тему</button>
+<button class="nav-mobile-link w-full text-left" id="theme-toggle-mobile" aria-label="Переключить тёмную тему">Сменить тему</button>
 </div>
 </div>
 </nav>
+</header>
+<main id="main">
+
 <!-- Hero -->
 <section class="hero-section pt-32 pb-16 md:pt-40 md:pb-24">
 <div class="hero-gradient"></div>
@@ -758,13 +764,13 @@
 </div>
 <!-- Summary Table -->
 <div class="overflow-x-auto fade-in-up">
-<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0">
+<table class="w-full text-sm" style="border-collapse: separate; border-spacing: 0"><caption class=\"sr-only\">Бенчмарки WER на русском языке</caption>
 <thead>
 <tr>
-<th class="text-left p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Датасет</th>
-<th class="text-center p-4 font-semibold" style="color: var(--primary); border-bottom: 2px solid var(--card-border)">GigaAM v3</th>
-<th class="text-center p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Whisper v3</th>
-<th class="text-center p-4 font-semibold" style="color: var(--accent-green); border-bottom: 2px solid var(--card-border)">Разница</th>
+<th scope="col" class="text-left p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Датасет</th>
+<th scope="col" class="text-center p-4 font-semibold" style="color: var(--primary); border-bottom: 2px solid var(--card-border)">GigaAM v3</th>
+<th scope="col" class="text-center p-4 font-semibold" style="color: var(--text-muted); border-bottom: 2px solid var(--card-border)">Whisper v3</th>
+<th scope="col" class="text-center p-4 font-semibold" style="color: var(--accent-green); border-bottom: 2px solid var(--card-border)">Разница</th>
 </tr>
 </thead>
 <tbody style="color: var(--text-secondary)">
@@ -927,13 +933,14 @@
 <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
 <a href="https://github.com/akuroglo/Traart" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">GitHub</a>
 <span>·</span>
-<a href="https://t.me/AIgobrr" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">Telegram</a>
+<a href="https://t.me/AIgobrr" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank" aria-label="Телеграм-канал автора">Telegram</a>
 <span>·</span>
-<a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank">LinkedIn</a>
+<a href="https://www.linkedin.com/in/aleksandr-kuroglo-45048434/" rel="noopener author" style="color: var(--text-muted); text-decoration: none" target="_blank" aria-label="Профиль автора в LinkedIn">LinkedIn</a>
 </div>
 </div>
 </section>
 <!-- Footer -->
+</main>
 <footer style="background: var(--bg-secondary); border-top: 1px solid var(--card-border); margin-top: 4rem;">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.5rem">
@@ -1047,5 +1054,22 @@
 
         document.querySelectorAll('.fade-in-up, .text-reveal').forEach(function(el) { observer.observe(el); });
     </script>
+<div class="cookie-note" id="cookie-note" role="note" aria-label="Уведомление об использовании куки">
+<span>Сайт использует куки и Яндекс.Метрику, чтобы понимать, какие страницы полезны. Аудио и расшифровки никуда не отправляются — <a href="/privacy">политика приватности</a>.</span>
+<button type="button" id="cookie-ok">Понятно</button>
+</div>
+<script>
+(function () {
+    var KEY = 'traart-cookie-note';
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+    var note = document.getElementById('cookie-note');
+    if (!note) return;
+    note.classList.add('is-visible');
+    document.getElementById('cookie-ok').addEventListener('click', function () {
+        note.classList.remove('is-visible');
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    });
+})();
+</script>
 </body>
 </html>
