@@ -98,6 +98,7 @@
   ]
 }
 </script>
+<noscript><style>.fade-in-up{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -171,7 +172,7 @@
                     <span class="gradient-text">спикеров</span>
 </h1>
 <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
-                    Транскрибация с разделением спикеров (диаризация) бесплатно и оффлайн. Traart определяет кто что сказал с помощью нейросети pyannote -- WER 8.3% для русского языка.
+                    Транскрибация с разделением спикеров (диаризация) бесплатно и оффлайн. Traart определяет кто что сказал с помощью нейросети pyannote — WER 8.3% для русского языка.
                 </p>
 </div>
 </div>
@@ -583,7 +584,7 @@
 <section aria-labelledby="sec-0-что-такое-диаризация-спикеров" class="py-20 md:py-28" style="background: var(--bg)">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight fade-in-up" id="sec-0-что-такое-диаризация-спикеров">Что такое диаризация спикеров</h2>
-<p class="text-lg mb-12 fade-in-up" style="color: var(--text-secondary)">Диаризация -- это технология автоматического определения, кто из участников разговора произнёс каждую реплику. Вместо сплошного текста вы получаете структурированный протокол с указанием спикеров.</p>
+<p class="text-lg mb-12 fade-in-up" style="color: var(--text-secondary)">Диаризация — это технология автоматического определения, кто из участников разговора произнёс каждую реплику. Вместо сплошного текста вы получаете структурированный протокол с указанием спикеров.</p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
 <div class="glass-card p-7 fade-in-up" style="border-color: var(--accent-rose)">
 <h3 class="text-lg font-semibold mb-4" style="color: var(--accent-rose)">Без диаризации</h3>
@@ -615,28 +616,28 @@
 <div class="step-number flex-shrink-0">1</div>
 <div>
 <h3 class="font-semibold mb-2">Сегментация аудио</h3>
-<p class="text-sm" style="color: var(--text-secondary)">Нейросеть pyannote анализирует аудиопоток и определяет границы речевых сегментов -- где начинается и заканчивается каждая реплика.</p>
+<p class="text-sm" style="color: var(--text-secondary)">Нейросеть pyannote анализирует аудиопоток и определяет границы речевых сегментов — где начинается и заканчивается каждая реплика.</p>
 </div>
 </div>
 <div class="flex gap-6 fade-in-up">
 <div class="step-number flex-shrink-0">2</div>
 <div>
 <h3 class="font-semibold mb-2">Кластеризация голосов</h3>
-<p class="text-sm" style="color: var(--text-secondary)">Каждый сегмент получает голосовой отпечаток (embedding). Модель группирует сегменты с похожими голосами -- так определяется количество спикеров и их реплики.</p>
+<p class="text-sm" style="color: var(--text-secondary)">Каждый сегмент получает голосовой отпечаток (embedding). Модель группирует сегменты с похожими голосами — так определяется количество спикеров и их реплики.</p>
 </div>
 </div>
 <div class="flex gap-6 fade-in-up">
 <div class="step-number flex-shrink-0">3</div>
 <div>
 <h3 class="font-semibold mb-2">Распознавание речи GigaAM v3</h3>
-<p class="text-sm" style="color: var(--text-secondary)">Каждый речевой сегмент транскрибируется SOTA-моделью GigaAM v3 с WER 8.3% для русского языка. Результат -- текст с разметкой спикеров.</p>
+<p class="text-sm" style="color: var(--text-secondary)">Каждый речевой сегмент транскрибируется SOTA-моделью GigaAM v3 с WER 8.3% для русского языка. Результат — текст с разметкой спикеров.</p>
 </div>
 </div>
 <div class="flex gap-6 fade-in-up">
 <div class="step-number flex-shrink-0">4</div>
 <div>
 <h3 class="font-semibold mb-2">Результат: структурированный протокол</h3>
-<p class="text-sm" style="color: var(--text-secondary)">Вы получаете текст с пометками [Спикер 1], [Спикер 2] и таймкодами. Всё обрабатывается локально на вашем Mac -- ни байта данных не уходит в облако.</p>
+<p class="text-sm" style="color: var(--text-secondary)">Вы получаете текст с пометками [Спикер 1], [Спикер 2] и таймкодами. Всё обрабатывается локально на вашем Mac — ни байта данных не уходит в облако.</p>
 </div>
 </div>
 </div>
@@ -730,15 +731,15 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
 <div class="glass-card p-7 fade-in-up">
 <h3 class="text-lg font-semibold mb-3">pyannote 3.1</h3>
-<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Traart использует pyannote 3.1 -- открытую нейросеть для диаризации спикеров от CNRS (Франция). Модель работает с любым количеством спикеров и не требует предварительного обучения на голосах.</p>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Traart использует pyannote 3.1 — открытую нейросеть для диаризации спикеров от CNRS (Франция). Модель работает с любым количеством спикеров и не требует предварительного обучения на голосах.</p>
 </div>
 <div class="glass-card p-7 fade-in-up">
 <h3 class="text-lg font-semibold mb-3">Apple Silicon</h3>
-<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Диаризация оптимизирована для процессоров M1/M2/M3/M4. Часовая запись обрабатывается за 3-5 минут на Apple Silicon. На Intel -- за 8-12 минут.</p>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Диаризация оптимизирована для процессоров M1/M2/M3/M4. Часовая запись обрабатывается за 3-5 минут на Apple Silicon. На Intel — за 8-12 минут.</p>
 </div>
 <div class="glass-card p-7 fade-in-up">
 <h3 class="text-lg font-semibold mb-3">Автоматическое определение числа спикеров</h3>
-<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Не нужно указывать количество участников заранее. pyannote автоматически определяет, сколько голосов в записи -- от 2 до 20+.</p>
+<p class="text-sm leading-relaxed" style="color: var(--text-secondary)">Не нужно указывать количество участников заранее. pyannote автоматически определяет, сколько голосов в записи — от 2 до 20+.</p>
 </div>
 <div class="glass-card p-7 fade-in-up">
 <h3 class="text-lg font-semibold mb-3">Обработка перекрытий</h3>
@@ -775,7 +776,7 @@
 <div class="noise-overlay"></div>
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
 <div class="fade-in-up">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" id="sec-6-транскрибация-с-диаризацией----бесплатно">Транскрибация с диаризацией -- бесплатно</h2>
+<h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" id="sec-6-транскрибация-с-диаризацией----бесплатно">Транскрибация с диаризацией — бесплатно</h2>
 <p class="text-lg mb-10" style="color: var(--text-secondary)">Определение спикеров, таймкоды и SOTA-качество расшифровки. Оффлайн на вашем Mac.</p>
 <a class="btn-glow btn-primary-lg" href="/download">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
@@ -788,7 +789,7 @@
 <section class="py-8" style="background: var(--bg); border-top: 1px solid var(--card-border)">
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 <p class="text-sm" style="color: var(--text-muted); margin-bottom: 0.5rem">
-                Автор Traart — <a href="/author" rel="author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Куроглo</a>, разработчик и автор open-source-проектов в области распознавания русской речи. <a href="/author" style="color: var(--text-muted); text-decoration: none">Подробнее →</a>
+                Автор Traart — <a href="/author" rel="author" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted)">Александр Курогло</a>, разработчик и автор open-source-проектов в области распознавания русской речи. <a href="/author" style="color: var(--text-muted); text-decoration: none">Подробнее →</a>
 </p>
 <div class="flex items-center justify-center gap-4 text-xs" style="color: var(--text-muted)">
 <a href="https://github.com/akuroglo/Traart" rel="noopener" style="color: var(--text-muted); text-decoration: none" target="_blank">GitHub</a>
@@ -825,7 +826,7 @@
 <li><a href="/download" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Скачать</a></li>
 <li><a href="/how-it-works" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Как работает</a></li>
 <li><a href="/pricing" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Цены</a></li>
-<li><a href="/diarization" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Диаризация</a></li>
+<li><a href="/diarization" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Диаризация</a></li><li><a href="/voice-to-text" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Голос в текст</a></li>
 <li><a href="/zoom-transcription" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Zoom</a></li>
 <li><a href="/voice-messages" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Голосовые</a></li>
 <li><a href="/blog" onmouseout="this.style.color='var(--text-secondary)'" onmouseover="this.style.color='var(--text)'" style="color:var(--text-secondary);text-decoration:none">Блог</a></li>
