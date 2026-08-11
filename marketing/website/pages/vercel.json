@@ -24,7 +24,7 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://cdnjs.cloudflare.com https://yastatic.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://mc.yandex.ru; font-src 'self' data:; connect-src 'self' https://mc.yandex.ru; frame-src https://mc.yandex.ru; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://yastatic.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.com.tr https://mc.webvisor.org https://mc.webvisor.com https://yastatic.net; font-src 'self' data:; connect-src 'self' https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.com.tr https://mc.webvisor.org https://mc.webvisor.com https://yastatic.net; frame-src https://mc.yandex.ru https://mc.yandex.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
         },
         {
           "key": "Permissions-Policy",
