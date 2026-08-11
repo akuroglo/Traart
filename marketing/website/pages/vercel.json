@@ -3,6 +3,12 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.traart.ru" }],
+      "destination": "https://traart.ru/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.traart.ru" }],
       "destination": "https://traart.ru/:path*",
