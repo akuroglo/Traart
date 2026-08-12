@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Как работает распознавание речи в Traart — GigaAM v3</title>
+    <meta name="description" content="Транскрибация — это перевод речи из аудио или видео в текст. Разбираем, как устроено распознавание речи в Traart: модель GigaAM v3, разделение говорящих, обработка на Apple Silicon.">
 <meta content="Распознавание речи в Traart: модель GigaAM v3 от Сбера, диаризация pyannote, локально на Apple Silicon с MPS. Транскрибация с таймкодами." name="description"/>
 <meta content="GigaAM v3, pyannote, диаризация, Apple Silicon, MPS, транскрибация, ASR" name="keywords"/>
 <meta content="summary_large_image" name="twitter:card"/>
@@ -145,12 +146,11 @@
 <span style="color: var(--text-secondary)">Как работает</span>
 </nav>
 <h1 class="text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.1]">
-                    Как работает
-                    <span class="gradient-text">распознавание</span>
-                    речи
+                    Транскрибация: что это
+                    <span class="gradient-text">и как работает</span>
                 </h1>
 <p class="fade-in-up text-lg md:text-xl" style="color: var(--text-secondary)">
-                    Как работает распознавание речи в Traart: GigaAM v3 с WER 8.4%, нейросетевая диаризация спикеров и оптимизация для Apple Silicon.
+                    Транскрибация — это перевод звучащей речи в письменный текст. То же самое называют расшифровкой аудио, распознаванием речи или по-английски speech-to-text и ASR. Ниже разбираю, что происходит внутри Traart между моментом, когда вы бросили файл в окно, и готовой расшифровкой: какая модель слушает запись, как она отделяет голоса участников и почему всё это считается на вашем компьютере.
                 </p>
 </div>
 </div>
@@ -559,6 +559,21 @@
     }
     </script>
 <!-- Pipeline Overview -->
+<section class="py-14 md:py-20" style="background: var(--bg)">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Как это называется по-разному</h2>
+<p class="mb-5" style="color: var(--text-secondary)">Одно и то же действие в разных местах зовут по-своему, и разница между словами меньше, чем кажется.</p>
+<ul class="space-y-3" style="color: var(--text-secondary)">
+<li><strong>Транскрибация</strong> — перевод записи в текст дословно, со всеми оговорками. Слово пришло из лингвистики и прижилось у тех, кто работает с интервью и совещаниями.</li>
+<li><strong>Расшифровка аудио</strong> — то же самое обычными словами. Никакого шифра тут нет, термин просто прижился.</li>
+<li><strong>Распознавание речи</strong> — название технологии, которая слушает звук и выдаёт слова. По-английски speech recognition, а в коде и статьях чаще пишут ASR.</li>
+<li><strong>Speech-to-text</strong> и <strong>STT</strong> — те же слова на английском. В поиске часто набирают «speech to text russian», когда ищут движок, который справляется с русской речью, а не только с английской.</li>
+<li><strong>Диаризация</strong> — отдельная задача: не что сказали, а кто именно из участников говорил в этот момент.</li>
+</ul>
+<p class="mt-6" style="color: var(--text-secondary)">Отдельно стоит запрос «распознавание речи онлайн в текст»: обычно так ищут веб-сервис, куда файл загружают через браузер. Traart решает ту же задачу без загрузки — модель уже лежит на вашем компьютере, поэтому запись никуда не отправляется и очереди нет.</p>
+</div>
+</section>
+<hr class="section-divider"/>
 <section aria-labelledby="sec-0-конвейер-обработки" class="py-20 md:py-28" style="background: var(--bg)">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16 fade-in-up">
@@ -712,6 +727,7 @@
 <div class="text-center mb-16 fade-in-up">
 <div class="badge badge-green mb-6">Приватность</div>
 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" id="sec-3-полностью-локальная-обработка">Полностью <span class="gradient-text-green">локальная обработка</span></h2>
+<p class="mb-5 max-w-3xl" style="color: var(--text-secondary)">Серверную часть я не стал делать намеренно. Она означала бы счёт за вычисления, очередь в часы нагрузки и отдельный разговор с юристами клиента о том, где хранятся их записи. Модель на ноутбуке снимает все три вопроса разом — так работает и обычная <a href="/" style="color: var(--primary); text-decoration: none; border-bottom: 1px dotted var(--card-border)">транскрибация аудио в текст</a>, и <a href="/voice-to-text" style="color: var(--primary); text-decoration: none; border-bottom: 1px dotted var(--card-border)">перевод голоса в текст</a>.</p>
 <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-secondary)">Ваши данные никогда не покидают ваш компьютер</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
