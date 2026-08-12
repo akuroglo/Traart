@@ -23,6 +23,86 @@
       ],
       "destination": "https://traart.ru/:path*",
       "permanent": true
+    },
+    {
+      "source": "/use-case-coaches",
+      "destination": "/use-cases#coaching",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-developers",
+      "destination": "/use-cases#dev",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-hr",
+      "destination": "/use-cases#hr",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-marketers",
+      "destination": "/use-cases#marketing",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-product-managers",
+      "destination": "/use-cases#product",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-realtors",
+      "destination": "/use-cases#realty",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-researchers",
+      "destination": "/use-cases#research",
+      "permanent": true
+    },
+    {
+      "source": "/use-case-vibecoders",
+      "destination": "/use-cases#ai-coding",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/business",
+      "destination": "/use-cases#business",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/journalists",
+      "destination": "/use-cases#journalists",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/lawyers",
+      "destination": "/use-cases#legal",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/lectures",
+      "destination": "/use-cases#lectures",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/medical",
+      "destination": "/use-cases#medical",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/podcasters",
+      "destination": "/use-cases#podcast",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/students",
+      "destination": "/use-cases#students",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/content-creators",
+      "destination": "/video",
+      "permanent": true
     }
   ],
   "headers": [
