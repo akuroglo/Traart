@@ -584,6 +584,7 @@
 <section aria-labelledby="sec-0-когда-нет-времени-слушать-голосовые" class="py-20 md:py-28" style="background: var(--bg)">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight fade-in-up" id="sec-0-когда-нет-времени-слушать-голосовые">Когда нет времени слушать голосовые</h2>
+<p class="mb-5 max-w-3xl" style="color: var(--text-secondary)">Голосовые я разбираю чаще всего сам: проще прочитать расшифровку за двадцать секунд, чем слушать четыре минуты чужого монолога на скорости 2x.</p>
 <p class="text-lg mb-12 fade-in-up" style="color: var(--text-secondary)">5-минутное голосовое сообщение читается как текст за 30 секунд. Traart переводит голосовое в текст автоматически.</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
 <div class="glass-card p-7 fade-in-up">
@@ -676,6 +677,24 @@
 </section>
 <hr class="section-divider"/>
 <!-- Why offline -->
+<section class="py-16 md:py-24" style="background: var(--bg)">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Чем это отличается от бота в мессенджере</h2>
+<p class="mb-5" style="color: var(--text-secondary)">
+    Обычно ищут бот для транскрибации аудио в текст: пересылаешь ему голосовое в телеграм — получаешь расшифровку. Работает, пока речь про пару сообщений в неделю.
+</p>
+<ul class="space-y-3 mb-5" style="color: var(--text-secondary)">
+<li>Голосовое уходит на сервер владельца бота. Кто он и что делает с записями, проверить нельзя.</li>
+<li>Бесплатный лимит кончается на десятке сообщений, дальше подписка.</li>
+<li>Длинные кружки и пересланные записи бот часто режет или отклоняет.</li>
+<li>Русская речь у большинства ботов распознаётся моделью Whisper, а она ошибается втрое чаще GigaAM.</li>
+</ul>
+<p style="color: var(--text-secondary)">
+    Traart разбирает то же самое на вашем компьютере: сохраните голосовое из телеграм или МАКСа в файл и перетащите в окно. Расшифровка аудио в текст идёт локально, никуда не отправляется и не считает сообщения.
+</p>
+</div>
+</section>
+<hr class="section-divider"/>
 <section aria-labelledby="sec-3-почему-расшифровка-голосовых-оффлайн-лучше" class="py-20 md:py-28" style="background: var(--bg-secondary)">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <h2 class="text-3xl md:text-4xl font-bold mb-12 tracking-tight fade-in-up" id="sec-3-почему-расшифровка-голосовых-оффлайн-лучше">Почему расшифровка голосовых оффлайн лучше</h2>
