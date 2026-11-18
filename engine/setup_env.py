@@ -287,50 +287,63 @@ def download_file(url: str, dest_path: str, expected_hash: str = None) -> bool:
 
 
 GIGAAM_CDN_URL = "https://cdn.chatwm.opensmodel.sberdevices.ru/GigaAM"
+# Immutable release assets, mirrored from the original GigaAM files. Keep the
+# upstream CDN as a fallback, with TLS verification enabled for both sources.
+GIGAAM_DOWNLOAD_URLS = (
+    "https://github.com/akuroglo/Traart/releases/download/models-gigaam-v3-f60c62fe",
+    GIGAAM_CDN_URL,
+)
+# SHA-256 pins cover both weights and tokenizer (including existing caches).
 GIGAAM_FILES = {
-    f"{GIGAAM_MODEL_NAME}.ckpt": "2730de7545ac43ad256485a462b0a27a",
-    f"{GIGAAM_MODEL_NAME}_tokenizer.model": None,  # no hash check for tokenizer
+    f"{GIGAAM_MODEL_NAME}.ckpt": "f60c62fe45902d967000770a12f260de7c5ac4d4b8e5e852f1df8c548e3958b5",
+    f"{GIGAAM_MODEL_NAME}_tokenizer.model": "828c12c991019eef952a960661f25a92d6ad279591e2ea466b4aeddf1d20a18a",
 }
 
 
-def _md5_file(path: str) -> str:
-    """Compute MD5 hash of a file (matches gigaam's hash_path)."""
-    h = hashlib.md5()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def _curl_download(url: str, dest: str, max_retries: int = 10) -> bool:
-    """Download a file using curl with resume support.
-
-    Returns True on success. Retries with resume on failure.
-    Uses --speed-limit to detect stalled connections and --retry for
-    transient HTTP errors. curl -C - resumes partial downloads.
-    """
+def _curl_download(url: str, dest: str, max_retries: int = 3) -> bool:
+    """Resume transient failures; fail fast on certificate/permanent HTTP errors."""
     curl = shutil.which("curl") or "/usr/bin/curl"
     for attempt in range(1, max_retries + 1):
-        result = subprocess.run(
-            [
-                curl, "-fSL",
-                "-C", "-",                # resume partial downloads
-                "--connect-timeout", "30", # fail fast on DNS/connect issues
-                "--speed-limit", "10000",  # abort if < 10 KB/s ...
-                "--speed-time", "30",      # ... for 30 seconds
-                "--retry", "3",            # curl-level retry for HTTP errors
-                "--retry-delay", "5",
-                "-o", dest, url,
-            ],
-            capture_output=True,
-            text=True,
-            timeout=3600,  # 1 hour hard limit
-        )
+        try:
+            result = subprocess.run(
+                [
+                    curl, "-fsSL",
+                    "-C", "-",
+                    "--connect-timeout", "30",
+                    "--speed-limit", "10000",
+                    "--speed-time", "30",
+                    "--write-out", "%{http_code}",
+                    "-o", dest, url,
+                ],
+                capture_output=True,
+                text=True,
+                timeout=3600,
+            )
+        except subprocess.TimeoutExpired:
+            report_error(f"Download timed out after 3600s: {url}")
+            return False
         if result.returncode == 0:
             return True
+
+        http_status = result.stdout.strip()
+        report_error(
+            f"Download failed: {url} (curl exit {result.returncode}, "
+            f"HTTP {http_status or 'unknown'}): {result.stderr.strip()}"
+        )
+        # Retrying the same expired certificate cannot help. Preserve the
+        # actual curl error in setup.log and let the caller try the next host.
+        if result.returncode in (51, 58, 60, 77, 83):
+            return False
+        if result.returncode == 33 or http_status == "416":
+            # This server cannot resume, or the partial file is oversized.
+            if os.path.exists(dest):
+                os.remove(dest)
+            continue
+        if http_status.startswith("4") and http_status not in ("408", "429"):
+            return False
         if attempt < max_retries:
             import time
-            delay = min(5 * attempt, 30)
+            delay = 5 * attempt
             report("downloading_gigaam", 0.55 + 0.015 * attempt,
                    f"Ошибка загрузки, попытка {attempt + 1}/{max_retries} (через {delay}с)...")
             time.sleep(delay)
@@ -338,33 +351,54 @@ def _curl_download(url: str, dest: str, max_retries: int = 10) -> bool:
 
 
 def download_gigaam_models(models_dir: str, venv_path: str):
-    """Pre-download GigaAM v3 model checkpoint and tokenizer via curl."""
+    """Download verified GigaAM files, with a mirror and atomic cache updates."""
     report("downloading_gigaam", 0.55, "Downloading GigaAM model...")
 
     gigaam_dir = os.path.join(models_dir, "gigaam")
     os.makedirs(gigaam_dir, exist_ok=True)
 
-    for filename, expected_md5 in GIGAAM_FILES.items():
+    for filename, expected_sha256 in GIGAAM_FILES.items():
         dest = os.path.join(gigaam_dir, filename)
-        url = f"{GIGAAM_CDN_URL}/{filename}"
 
-        # Skip if file exists and hash matches
         if os.path.exists(dest):
-            if expected_md5 is None or _md5_file(dest) == expected_md5:
+            if _sha256_file(dest) == expected_sha256:
                 continue
-            # Hash mismatch — corrupt/partial file, will resume via curl
+            # A corrupt cache is not a resumable prefix, especially for the
+            # tokenizer (older installers accepted even empty tokenizer files).
+            os.remove(dest)
             report("downloading_gigaam", 0.56, f"Повторная загрузка {filename}...")
 
-        if not _curl_download(url, dest):
-            report_error(f"Failed to download {filename} after retries")
-            raise RuntimeError(f"GigaAM download failed: {filename}")
-
-        if expected_md5:
-            actual = _md5_file(dest)
-            if actual != expected_md5:
-                os.remove(dest)
-                report_error(f"MD5 mismatch for {filename}: expected {expected_md5}, got {actual}")
-                raise RuntimeError(f"GigaAM checksum failed for {filename}")
+        for source_index, base_url in enumerate(GIGAAM_DOWNLOAD_URLS):
+            url = f"{base_url}/{filename}"
+            # Never concatenate partial data from different sources. Keep a
+            # stable name so an interrupted setup can resume on the next run.
+            partial = f"{dest}.{source_index}.download"
+            report("downloading_gigaam", 0.56,
+                   f"Загрузка {filename}: источник {source_index + 1}/{len(GIGAAM_DOWNLOAD_URLS)}")
+            resuming = os.path.exists(partial) and os.path.getsize(partial) > 0
+            for fresh_attempt in range(2 if resuming else 1):
+                if not _curl_download(url, partial):
+                    break
+                actual = _sha256_file(partial)
+                if actual == expected_sha256:
+                    os.replace(partial, dest)
+                    break
+                report_error(
+                    f"SHA-256 mismatch for {url}: expected {expected_sha256}, got {actual}"
+                )
+                os.remove(partial)
+                # A stale partial file may be corrupt; retry from scratch once.
+            if os.path.exists(dest):
+                break
+            if os.path.exists(partial):
+                os.remove(partial)
+        else:
+            message = (
+                f"Не удалось скачать {filename} ни из одного источника. "
+                "Подробная причина записана в setup.log."
+            )
+            report_error(message)
+            raise RuntimeError(message)
 
     report("downloading_gigaam", 0.7, "GigaAM model downloaded.")
 
